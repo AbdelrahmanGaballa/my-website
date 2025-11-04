@@ -3,7 +3,6 @@ import logo from "./assets/logo.png";
 
 import React, { useState } from "react";
 
-
 /** App.tsx — Colorful landing page (React + Tailwind v4) */
 
 export default function App() {
