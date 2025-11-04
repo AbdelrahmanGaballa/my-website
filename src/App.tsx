@@ -7,7 +7,7 @@ import React, { useState } from "react";
 /** App.tsx — Colorful landing page (React + Tailwind v4) */
 
 export default function App() {
-  const brandName = "DFU-VA";
+  
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState<"home" | "features" | "pricing" | "contact">("home");
 
@@ -21,7 +21,7 @@ export default function App() {
       <div className="flex items-center gap-3">
         {/* your logo + brand */}
         <img src={logo} alt="DFU-VA logo"
-             className="h-14 w-16 rounded-lg object-contain bg-white/90 p-1 shadow-md" />
+             className="h-14 w-14 rounded-lg object-contain bg-white/90 p-1 shadow-md" />
         <span className="font-bold text-xl tracking-tight text-white drop-shadow">DFU-VA</span>
       </div>
 
