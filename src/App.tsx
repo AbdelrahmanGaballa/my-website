@@ -445,111 +445,142 @@ function FAQ() {
 
 function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<{ [k: string]: string }>({});
+  const WEBHOOK = import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined;
 
   function validate() {
     const e: { [k: string]: string } = {};
     if (!form.name.trim()) e.name = "Name is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Valid email required";
     if (form.message.trim().length < 10) e.message = "Please write at least 10 characters";
+    if (!WEBHOOK) e.webhook = "Missing VITE_CONTACT_WEBHOOK (set it in Vercel env)";
     setErrors(e);
     return Object.keys(e).length === 0;
   }
 
-  function handleSubmit(ev: React.FormEvent) {
+  async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
     if (!validate()) return;
-    setSubmitted(true);
+
+    setLoading(true);
+
+    try {
+      // Payload that your Apps Script expects
+      const payload = {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        message: form.message.trim(),
+        source: "DFU-VA Website",
+      };
+
+      const res = await fetch(WEBHOOK!, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        // If your Apps Script doesn’t include CORS headers,
+        // uncomment the next line to bypass CORS (response will be opaque).
+        // mode: "no-cors",
+      });
+
+      // Treat opaque response as success when using no-cors
+      if (res.ok || res.type === "opaque") {
+        setSubmitted(true);
+      } else {
+        const txt = await res.text().catch(() => "");
+        throw new Error(`Submit failed: ${res.status} ${txt}`);
+      }
+    } catch (err: any) {
+      console.error(err);
+      setErrors({ submit: err?.message ?? "Failed to submit. Please try again." });
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (submitted) {
     return (
-      <section className="py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-amber-900 text-white" id="contact">
+      <section className="py-24" id="contact">
         <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-amber-300/20 text-amber-300 ring-1 ring-amber-300/30">
+          <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100 text-emerald-700">
             <Check />
           </div>
-          <h2 className="mt-4 text-2xl font-bold">Thanks! We'll be in touch.</h2>
-          <p className="mt-2 text-amber-100/80">Your message has been received.</p>
+          <h2 className="mt-4 text-2xl font-bold">Thanks! We’ll be in touch.</h2>
+          <p className="mt-2 text-gray-600">Your message has been received.</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-amber-900 text-white" id="contact">
-      {/* soft gold glow */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_0%,rgba(255,200,100,0.12),transparent_60%)]"></div>
+    <section className="py-20" id="contact">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold tracking-tight">Contact us</h2>
+        <p className="mt-2 text-gray-700">
+          Have questions? Send a message and we’ll reply soon.
+        </p>
 
-      <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold tracking-tight text-amber-300">Contact us</h2>
-        <p className="mt-2 text-amber-100/80">Have questions? Send a message and we'll reply soon.</p>
+        {errors.webhook && (
+          <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-red-700 text-sm">
+            {errors.webhook}
+          </div>
+        )}
+        {errors.submit && !errors.webhook && (
+          <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-red-700 text-sm">
+            {errors.submit}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-          {/* Name */}
           <div>
-            <label className="block text-sm font-medium text-amber-100/90">Name</label>
+            <label className="block text-sm font-medium">Name</label>
             <input
-              className={
-                `mt-1 w-full rounded-xl px-3 py-2 outline-none transition
-                 bg-white/5 text-white placeholder:text-amber-100/50
-                 ${errors.name
-                   ? "border border-red-400/60 focus:ring-2 focus:ring-red-300/30"
-                   : "border border-white/10 focus:ring-2 focus:ring-amber-300/30 focus:border-amber-300/50"}`
-              }
+              className={`mt-1 w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ${
+                errors.name ? "border-red-300 ring-red-100" : "border-amber-300/60 focus:ring-amber-200"
+              }`}
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               placeholder="Your full name"
             />
-            {errors.name && <p className="mt-1 text-sm text-red-300">{errors.name}</p>}
+            {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
           </div>
 
-          {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-amber-100/90">Email</label>
+            <label className="block text-sm font-medium">Email</label>
             <input
-              className={
-                `mt-1 w-full rounded-xl px-3 py-2 outline-none transition
-                 bg-white/5 text-white placeholder:text-amber-100/50
-                 ${errors.email
-                   ? "border border-red-400/60 focus:ring-2 focus:ring-red-300/30"
-                   : "border border-white/10 focus:ring-2 focus:ring-amber-300/30 focus:border-amber-300/50"}`
-              }
+              className={`mt-1 w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ${
+                errors.email ? "border-red-300 ring-red-100" : "border-amber-300/60 focus:ring-amber-200"
+              }`}
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               placeholder="you@example.com"
             />
-            {errors.email && <p className="mt-1 text-sm text-red-300">{errors.email}</p>}
+            {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
           </div>
 
-          {/* Message */}
           <div>
-            <label className="block text-sm font-medium text-amber-100/90">Message</label>
+            <label className="block text-sm font-medium">Message</label>
             <textarea
-              className={
-                `mt-1 w-full rounded-xl px-3 py-2 outline-none transition
-                 bg-white/5 text-white placeholder:text-amber-100/50
-                 ${errors.message
-                   ? "border border-red-400/60 focus:ring-2 focus:ring-red-300/30"
-                   : "border border-white/10 focus:ring-2 focus:ring-amber-300/30 focus:border-amber-300/50"}`
-              }
+              className={`mt-1 w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ${
+                errors.message ? "border-red-300 ring-red-100" : "border-amber-300/60 focus:ring-amber-200"
+              }`}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               placeholder="How can we help?"
               rows={5}
             />
-            {errors.message && <p className="mt-1 text-sm text-red-300">{errors.message}</p>}
+            {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
           </div>
 
-          {/* CTA */}
           <button
             type="submit"
+            disabled={loading || !!errors.webhook}
             className="relative overflow-hidden rounded-xl px-6 py-3 text-sm font-semibold
                        text-slate-900 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-400
-                       shadow-lg hover:opacity-95 transition-all duration-300"
+                       shadow-lg hover:opacity-95 transition-all duration-300 disabled:opacity-60"
           >
-            <span className="relative z-10">Send message</span>
+            <span className="relative z-10">{loading ? "Sending..." : "Send message"}</span>
             <span
               className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2
                          bg-white/30 blur-sm skew-x-12
