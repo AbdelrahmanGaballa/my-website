@@ -1,47 +1,67 @@
-// api/contact.ts — Vercel Serverless function (Node runtime)
+// Let TypeScript know process exists (provided by Vercel at runtime)
+declare const process: { env?: Record<string, string | undefined> };
+
+export const config = {
+  runtime: "edge", // Vercel Edge Runtime
+};
+
+function jsonResponse(body: unknown, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      "content-type": "application/json",
+      "access-control-allow-origin": "*",
+      "access-control-allow-methods": "POST, OPTIONS",
+      "access-control-allow-headers": "content-type",
+    },
+  });
+}
+
 export default async function handler(req: Request): Promise<Response> {
+  if (req.method === "OPTIONS") {
+    return jsonResponse({ ok: true }, 200);
+  }
+
   if (req.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), {
-      status: 405,
-      headers: { "Content-Type": "application/json" },
-    });
+    return jsonResponse({ error: "Method Not Allowed" }, 405);
   }
 
   try {
-    const body = await req.json();
-
-    // Read the Apps Script URL from an env var on Vercel (NOT VITE_)
-    const scriptUrl = process.env.CONTACT_WEBHOOK;
-    if (!scriptUrl) {
-      return new Response(JSON.stringify({ error: "CONTACT_WEBHOOK is missing on Vercel" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
+    const body = await req.json().catch(() => ({}));
+    const { name, email, message, source } = body || {};
+    if (!name || !email || !message) {
+      return jsonResponse({ error: "Missing required fields" }, 400);
     }
 
-    // Server → Google Apps Script (no browser CORS now)
-    const upstream = await fetch(scriptUrl, {
+    // Read from Vercel env
+    const webhook =
+      process.env?.GOOGLE_SHEET_WEBHOOK ||
+      ""; // (optional) put your Apps Script URL here for a quick test
+
+    if (!webhook) {
+      return jsonResponse(
+        { error: "Server missing GOOGLE_SHEET_WEBHOOK" },
+        500
+      );
+    }
+
+    const forward = await fetch(webhook, {
       method: "POST",
-      headers: { "Content-Type": "application/json" }, // Apps Script can parse JSON
-      body: JSON.stringify(body),
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ name, email, message, source }),
     });
 
-    // Try to pass through the JSON result from Apps Script
-    const text = await upstream.text();
-    const json = safeJSON(text);
+    if (!forward.ok) {
+      const txt = await forward.text().catch(() => "");
+      return jsonResponse(
+        { error: `Apps Script error: ${forward.status} ${txt}` },
+        502
+      );
+    }
 
-    return new Response(JSON.stringify(json ?? { status: "ok" }), {
-      status: upstream.status,
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (err: any) {
-    return new Response(JSON.stringify({ error: err?.message ?? "Server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return jsonResponse({ ok: true }, 200);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return jsonResponse({ error: msg }, 500);
   }
-}
-
-function safeJSON(s: string) {
-  try { return JSON.parse(s); } catch { return null; }
 }
