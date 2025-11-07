@@ -448,14 +448,17 @@ function Contact() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<{ [k: string]: string }>({});
+
+  // 🔗 Webhook URL from Vercel (.env) — or hardcode temporarily to test
   const WEBHOOK = import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined;
 
+  // basic validation
   function validate() {
     const e: { [k: string]: string } = {};
     if (!form.name.trim()) e.name = "Name is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Valid email required";
     if (form.message.trim().length < 10) e.message = "Please write at least 10 characters";
-    if (!WEBHOOK) e.webhook = "Missing VITE_CONTACT_WEBHOOK (set it in Vercel env)";
+    if (!WEBHOOK) e.webhook = "Missing VITE_CONTACT_WEBHOOK (add it in Vercel → Settings → Environment Variables).";
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -465,9 +468,7 @@ function Contact() {
     if (!validate()) return;
 
     setLoading(true);
-
     try {
-      // Payload that your Apps Script expects
       const payload = {
         name: form.name.trim(),
         email: form.email.trim(),
@@ -477,15 +478,17 @@ function Contact() {
 
       const res = await fetch(WEBHOOK!, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        // ✅ Use text/plain to avoid CORS preflight (works with Apps Script)
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload),
-        // If your Apps Script doesn’t include CORS headers,
-        // uncomment the next line to bypass CORS (response will be opaque).
+        // If your Apps Script still doesn’t send CORS headers, you can fallback:
         // mode: "no-cors",
       });
 
-      // Treat opaque response as success when using no-cors
+      // If using no-cors, res.type will be "opaque" — treat as success
       if (res.ok || res.type === "opaque") {
+        // If CORS is enabled on your script, you can also read the JSON:
+        // const data = await res.json();
         setSubmitted(true);
       } else {
         const txt = await res.text().catch(() => "");
@@ -517,9 +520,7 @@ function Contact() {
     <section className="py-20" id="contact">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold tracking-tight">Contact us</h2>
-        <p className="mt-2 text-gray-700">
-          Have questions? Send a message and we’ll reply soon.
-        </p>
+        <p className="mt-2 text-gray-700">Have questions? Send a message and we’ll reply soon.</p>
 
         {errors.webhook && (
           <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-red-700 text-sm">
