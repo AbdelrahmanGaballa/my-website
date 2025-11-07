@@ -476,14 +476,18 @@ function Contact() {
         source: "DFU-VA Website",
       };
 
-      const res = await fetch(WEBHOOK!, {
-        method: "POST",
-        // ✅ Use text/plain to avoid CORS preflight (works with Apps Script)
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload),
-        // If your Apps Script still doesn’t send CORS headers, you can fallback:
-        // mode: "no-cors",
-      });
+      const res = await fetch("/api/contact", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" }, // normal JSON now
+  body: JSON.stringify(payload),
+});
+
+if (!res.ok) {
+  const txt = await res.text().catch(() => "");
+  throw new Error(`Submit failed: ${res.status} ${txt}`);
+}
+setSubmitted(true);
+
 
       // If using no-cors, res.type will be "opaque" — treat as success
       if (res.ok || res.type === "opaque") {
