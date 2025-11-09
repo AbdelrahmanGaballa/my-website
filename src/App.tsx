@@ -362,8 +362,7 @@ function Steps() {
     </section>
   );
 }
-
-function Pricing() {
+function Pricing({ onContact }: { onContact?: () => void }) {
   const plans = [
     {
       name: "Starter",
@@ -428,6 +427,7 @@ function Pricing() {
                   Most Popular
                 </div>
               )}
+
               <div>
                 <h3 className="text-xl font-bold text-red-700">{plan.name}</h3>
                 <p className="mt-2 text-4xl font-extrabold text-gray-900">
@@ -437,10 +437,7 @@ function Pricing() {
 
               <ul className="mt-6 space-y-3">
                 {plan.features.map((f) => (
-                  <li
-                    key={f}
-                    className="flex items-center text-gray-700"
-                  >
+                  <li key={f} className="flex items-center text-gray-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -461,14 +458,15 @@ function Pricing() {
               </ul>
 
               <button
+                onClick={onContact}
                 className={`mt-8 w-full rounded-xl py-3 font-semibold transition
-                ${
-                  plan.popular
-                    ? "bg-red-600 text-white hover:bg-red-700"
-                    : "border border-red-600 text-red-600 hover:bg-red-50"
-                }`}
+                  ${
+                    plan.popular
+                      ? "bg-red-600 text-white hover:bg-red-700"
+                      : "border border-red-600 text-red-600 hover:bg-red-50"
+                  }`}
               >
-                Get Started
+                Talk to Our Team
               </button>
             </div>
           ))}
