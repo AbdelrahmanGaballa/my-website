@@ -10,6 +10,11 @@ export default function App() {
   const [active, setActive] =
     useState<"home" | "features" | "pricing" | "contact">("home");
 
+    function goTo(section: "home" | "features" | "pricing" | "contact") {
+    setActive(section);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col">
       {/* Header */}
@@ -22,35 +27,25 @@ export default function App() {
           <div className="flex h-16 items-center justify-between">
             {/* Brand */}
             <div className="flex items-center gap-3">
-              <img src={logo} alt="DFU-VA logo" className="h-12 w-auto" />
-              <span className="font-bold text-xl tracking-tight text-white drop-shadow">
-                DFU-VA
-              </span>
+  <img
+  src={logo}
+  alt="DFU-VA logo"
+  className="h-12 w-auto invert brightness-0"
+  style={{ filter: "brightness(0) invert(1)" }}
+/>
+
+
+              
             </div>
 
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-6 text-sm">
-              <NavItem
-                label="Home"
-                isActive={active === "home"}
-                onClick={() => setActive("home")}
-              />
-              <NavItem
-                label="Features"
-                isActive={active === "features"}
-                onClick={() => setActive("features")}
-              />
-              <NavItem
-                label="Pricing"
-                isActive={active === "pricing"}
-                onClick={() => setActive("pricing")}
-              />
-              <NavItem
-                label="Contact"
-                isActive={active === "contact"}
-                onClick={() => setActive("contact")}
-              />
-            </nav>
+  <NavItem label="Home"     isActive={active === "home"}     onClick={() => goTo("home")} />
+  <NavItem label="Features" isActive={active === "features"} onClick={() => goTo("features")} />
+  <NavItem label="Pricing"  isActive={active === "pricing"}  onClick={() => goTo("pricing")} />
+  <NavItem label="Contact"  isActive={active === "contact"}  onClick={() => goTo("contact")} />
+</nav>
+
 
             {/* Mobile toggle */}
             <div className="md:hidden">
@@ -74,168 +69,107 @@ export default function App() {
 
         {/* Mobile nav */}
         {menuOpen && (
-          <div className="md:hidden border-t border-white/10 bg-white/5">
-            <div className="px-4 py-2 space-y-1">
-              <MobileLink
-                label="Home"
-                onClick={() => {
-                  setActive("home");
-                  setMenuOpen(false);
-                }}
-              />
-              <MobileLink
-                label="Features"
-                onClick={() => {
-                  setActive("features");
-                  setMenuOpen(false);
-                }}
-              />
-              <MobileLink
-                label="Pricing"
-                onClick={() => {
-                  setActive("pricing");
-                  setMenuOpen(false);
-                }}
-              />
-              <MobileLink
-                label="Contact"
-                onClick={() => {
-                  setActive("contact");
-                  setMenuOpen(false);
-                }}
-              />
-            </div>
-          </div>
-        )}
+  <div className="md:hidden border-t border-white/10 bg-white/5">
+    <div className="px-4 py-2 space-y-1">
+      <MobileLink label="Home"     onClick={() => { goTo("home"); setMenuOpen(false); }} />
+      <MobileLink label="Features" onClick={() => { goTo("features"); setMenuOpen(false); }} />
+      <MobileLink label="Pricing"  onClick={() => { goTo("pricing"); setMenuOpen(false); }} />
+      <MobileLink label="Contact"  onClick={() => { goTo("contact"); setMenuOpen(false); }} />
+    </div>
+  </div>
+)}
+
       </header>
 
       {/* Main */}
       <main className="flex-1 relative bg-white">
-        {active === "home" && (
-          <>
-            {/* subtle blobs */}
-            <div className="pointer-events-none select-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-red-100/40 blur-3xl" />
-            <div className="pointer-events-none select-none absolute top-1/3 -left-24 h-72 w-72 rounded-full bg-red-50/60 blur-3xl" />
+       {active === "home" && (
+  <>
+    <Hero onGetStarted={() => goTo("features")} />
+    <StatsStrip />
+    <Features />
+    <Steps />
+    <Pricing onContact={() => goTo("contact")} />
+    <FAQ />
+  </>
+)}
 
-            <Hero onGetStarted={() => setActive("features")} />
-            <StatsStrip />
-            <Features />
-            <Steps />
-            <Pricing onContact={() => setActive("contact")} />
-            <FAQ />
-          </>
-        )}
+{active === "features" && <Features />}
+{active === "pricing" && <Pricing onContact={() => goTo("contact")} />}
+{active === "contact" && <Contact />}
 
-        {active === "features" && <Features />}
-        {active === "pricing" && (
-          <Pricing onContact={() => setActive("contact")} />
-        )}
-        {active === "contact" && <Contact />}
       </main>
 
       {/* Footer */}
-      <footer className="mt-16 border-t border-red-100 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 grid gap-8 md:grid-cols-4 text-sm">
-          {/* Brand */}
-          <div>
-            <div className="flex items-center gap-2">
-              <img
-                src={logo}
-                alt="DFU-VA"
-                className="h-8 w-8 rounded-lg bg-white border border-red-500 p-1"
-              />
-              <span className="font-semibold text-red-700 tracking-wide">
-                DFU-VA
-              </span>
-            </div>
-            <p className="mt-3 text-gray-600">
-              Empowering real-estate investors with sharp, reliable virtual
-              assistants and consistent lead generation.
-            </p>
+        <footer className="bg-gradient-to-r from-red-950 via-red-900 to-red-800 text-red-50 border-t border-white/10">
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+    <div className="grid gap-6 md:grid-cols-[2fr,1fr,1fr,1fr] items-start">
+      {/* Brand */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <div className="h-7 w-7 rounded-full border border-red-300/50 bg-white/10 flex items-center justify-center">
+            <img
+              src={logo}
+              alt="DFU-VA"
+              className="h-4 w-4"
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
           </div>
-
-          {/* Product */}
-          <div>
-            <h4 className="font-semibold text-red-700">Product</h4>
-            <ul className="mt-3 space-y-2">
-              <li>
-                <a
-                  href="#features"
-                  className="text-gray-600 hover:text-red-600"
-                >
-                  Features
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#pricing"
-                  className="text-gray-600 hover:text-red-600"
-                >
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="text-gray-600 hover:text-red-600">
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="font-semibold text-red-700">Company</h4>
-            <ul className="mt-3 space-y-2">
-              <li>
-                <a
-                  href="#home"
-                  className="text-gray-600 hover:text-red-600"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-gray-600 hover:text-red-600"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="font-semibold text-red-700">Legal</h4>
-            <ul className="mt-3 space-y-2">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-red-600">
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-red-600">
-                  Terms
-                </a>
-              </li>
-            </ul>
-          </div>
+          <span className="text-base font-semibold tracking-wide">DFU-VA</span>
         </div>
+        <p className="text-[13px] text-red-100/85 leading-snug max-w-sm">
+          Real estate virtual assistants who qualify, follow up, and fill your
+          pipeline with motivated sellers.
+        </p>
+      </div>
 
-        <div className="border-t border-red-100">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 text-xs text-gray-500 flex items-center justify-between">
-            <span>
-              © {new Date().getFullYear()}{" "}
-              <span className="font-semibold text-red-700">DFU-VA</span>. All
-              rights reserved.
-            </span>
-            <span className="text-gray-400">
-              Real Estate Virtual Assistant Solutions
-            </span>
-          </div>
-        </div>
-      </footer>
+      {/* Product */}
+      <div>
+        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+          Product
+        </h4>
+        <ul className="space-y-0.5 text-[13px]">
+          <li><a href="#features" className="hover:text-white transition">Features</a></li>
+          <li><a href="#pricing" className="hover:text-white transition">Pricing</a></li>
+          <li><a href="#faq" className="hover:text-white transition">FAQ</a></li>
+        </ul>
+      </div>
+
+      {/* Company */}
+      <div>
+        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+          Company
+        </h4>
+        <ul className="space-y-0.5 text-[13px]">
+          <li><a href="#home" className="hover:text-white transition">About</a></li>
+          <li><a href="#contact" className="hover:text-white transition">Contact</a></li>
+        </ul>
+      </div>
+
+      {/* Legal */}
+      <div>
+        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+          Legal
+        </h4>
+        <ul className="space-y-0.5 text-[13px]">
+          <li><a href="#" className="hover:text-white transition">Privacy</a></li>
+          <li><a href="#" className="hover:text-white transition">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Bottom bar */}
+    <div className="mt-6 pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-red-200/70">
+      <span>
+        © {new Date().getFullYear()} <span className="font-semibold text-white">DFU-VA</span>. All rights reserved.
+      </span>
+      <span>Real Estate Virtual Assistant Solutions</span>
+    </div>
+  </div>
+</footer>
+
+
+
     </div>
   );
 }
@@ -334,7 +268,6 @@ function StatsStrip() {
     </section>
   );
 }
-
 function Features() {
   const features = [
     {
@@ -349,7 +282,7 @@ function Features() {
     },
     {
       title: "Cold Calling & Outreach",
-      desc: "Your dedicated VA uses proven scripts to engage leads via phone, SMS, and email.",
+      desc: "Your dedicated VA uses proven scripts to engage leads via phone, SMS, and email for maximum conversion.",
       icon: "📞",
     },
     {
@@ -362,24 +295,34 @@ function Features() {
   return (
     <section
       id="features"
-      className="py-20 bg-gradient-to-b from-red-900 via-red-800 to-red-700 text-white"
+      className="py-20 bg-[#FFF5F5]" // soft light red-tinted background
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-extrabold">Why DFU-VA Works</h2>
-        <p className="mt-3 text-red-100 max-w-2xl mx-auto">
-          Our real estate virtual assistants handle the heavy lifting — from
-          lead generation to follow-ups — so you can focus on closing deals.
+        <h2 className="text-3xl font-extrabold text-red-700">
+          Why DFU-VA Works
+        </h2>
+        <p className="mt-3 text-gray-700 max-w-2xl mx-auto">
+          Our real estate virtual assistants handle the heavy lifting — from lead
+          generation to follow-ups — so you can focus on closing deals.
         </p>
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
             <div
               key={f.title}
-              className="group rounded-2xl bg-white text-red-800 shadow-lg p-6 hover:-translate-y-1 hover:shadow-2xl transition-transform duration-300"
+              className="group rounded-2xl bg-white border border-red-50
+                         shadow-[0_10px_30px_rgba(0,0,0,0.04)]
+                         px-6 py-8 text-left flex flex-col items-start
+                         hover:border-red-200 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)]
+                         hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="text-4xl mb-4">{f.icon}</div>
-              <h3 className="text-lg font-bold">{f.title}</h3>
-              <p className="mt-2 text-sm text-gray-600">{f.desc}</p>
+              <div className="text-3xl mb-4 text-red-600">{f.icon}</div>
+              <h3 className="text-lg font-bold text-red-700">
+                {f.title}
+              </h3>
+              <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+                {f.desc}
+              </p>
             </div>
           ))}
         </div>
@@ -387,6 +330,7 @@ function Features() {
     </section>
   );
 }
+
 
 function Steps() {
   const steps = [
