@@ -1,5 +1,6 @@
 import realestate from "./assets/realestate.jpg";
-import logo from "./assets/logo.png";
+import logo from "./assets/logo.svg";
+
 
 import React, { useState } from "react";
 
@@ -11,16 +12,17 @@ export default function App() {
   const [active, setActive] = useState<"home" | "features" | "pricing" | "contact">("home");
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-fuchsia-50 to-amber-50 text-gray-900 flex flex-col">
-     <header className="sticky top-0 z-40 border-b border-white/10
-  bg-gradient-to-r from-slate-900 via-indigo-900 to-amber-700
+    <div className="min-h-screen bg-white text-gray-900 flex flex-col">
+     <header className="sticky top-0 z-40 border-b border-red-100/40
+  bg-gradient-to-r from-red-900 to-red-700
   text-white backdrop-blur">
+
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div className="flex h-16 items-center justify-between">
       <div className="flex items-center gap-3">
         {/* your logo + brand */}
-        <img src={logo} alt="DFU-VA logo"
-             className="h-14 w-14 rounded-lg object-contain bg-white/90 p-1 shadow-md" />
+        <img src={logo} alt="DFU-VA logo" className="h-12 w-auto" />
+
         <span className="font-bold text-xl tracking-tight text-white drop-shadow">DFU-VA</span>
       </div>
 
@@ -62,51 +64,90 @@ export default function App() {
 
 
       {/* Main */}
-      <main className="flex-1 relative">
-        {/* decorative blobs */}
-        <div className="pointer-events-none select-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-fuchsia-400/20 blur-3xl" />
-        <div className="pointer-events-none select-none absolute top-1/3 -left-24 h-72 w-72 rounded-full bg-amber-300/20 blur-3xl" />
+      <main className="flex-1 relative bg-white">
+  {active === "home" && (
+    <>
+      <div className="pointer-events-none select-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-red-100/40 blur-3xl" />
+      <div className="pointer-events-none select-none absolute top-1/3 -left-24 h-72 w-72 rounded-full bg-red-50/60 blur-3xl" />
+    </>
+  )}
 
-        {active === "home" && (
-          <>
-            <Hero onGetStarted={() => setActive("features")} />
-            <StatsStrip />
-            <Features />
-            <Steps />
-            <Pricing onContact={() => setActive("contact")} />
-            <FAQ />
-          </>
-        )}
+  {active === "home" && (
+    <>
+      <Hero onGetStarted={() => setActive("features")} />
+      <StatsStrip />
+      <Features />
+      <Steps />
+      <Pricing onContact={() => setActive("contact")} />
+      <FAQ />
+    </>
+  )}
 
-        {active === "features" && <Features />}
-        {active === "pricing"  && <Pricing onContact={() => setActive("contact")} />}
-        {active === "contact"  && <Contact />}
-      </main>
+  {active === "features" && <Features />}
+  {active === "pricing" && <Pricing onContact={() => setActive("contact")} />}
+  {active === "contact" && <Contact />}
+</main>
+
 
       {/* Footer */}
-      <footer className="mt-0 border-t border-white/10 bg-gradient-to-r from-slate-900 via-indigo-900 to-amber-800 text-white">
+      <footer className="mt-16 border-t border-red-100 bg-white">
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 grid gap-8 md:grid-cols-4 text-sm">
-    {/* Logo + tagline */}
+    {/* Brand */}
     <div>
       <div className="flex items-center gap-2">
-        <img src={logo} alt="DFU-VA" className="h-8 w-8 rounded-lg bg-white/90 p-1 shadow-md" />
-        <span className="font-semibold text-white">DFU-VA</span>
+        {/* If you use the SVG or PNG logo */}
+        <img
+          src={logo}
+          alt="DFU-VA"
+          className="h-8 w-8 rounded-lg bg-white border border-red-500 p-1"
+        />
+        <span className="font-semibold text-red-700 tracking-wide">
+          DFU-VA
+        </span>
       </div>
-      <p className="mt-3 text-amber-200/80">
-        Empowering real-estate pros with reliable virtual assistance and lead generation.
+      <p className="mt-3 text-gray-600">
+        Empowering real-estate investors with sharp, reliable virtual assistants
+        and consistent lead generation.
       </p>
     </div>
 
-    {/* Columns */}
-    <FooterCol title="Product" links={["Features", "Pricing", "Changelog", "Roadmap"]} />
-    <FooterCol title="Company" links={["About", "Blog", "Careers", "Contact"]} />
-    <FooterCol title="Legal" links={["Privacy", "Terms", "Cookie Policy"]} />
+    {/* Product */}
+    <div>
+      <h4 className="font-semibold text-red-700">Product</h4>
+      <ul className="mt-3 space-y-2">
+        <li><a href="#features" className="text-gray-600 hover:text-red-600">Features</a></li>
+        <li><a href="#pricing" className="text-gray-600 hover:text-red-600">Pricing</a></li>
+        <li><a href="#faq" className="text-gray-600 hover:text-red-600">FAQ</a></li>
+      </ul>
+    </div>
+
+    {/* Company */}
+    <div>
+      <h4 className="font-semibold text-red-700">Company</h4>
+      <ul className="mt-3 space-y-2">
+        <li><a href="#home" className="text-gray-600 hover:text-red-600">About</a></li>
+        <li><a href="#contact" className="text-gray-600 hover:text-red-600">Contact</a></li>
+      </ul>
+    </div>
+
+    {/* Legal */}
+    <div>
+      <h4 className="font-semibold text-red-700">Legal</h4>
+      <ul className="mt-3 space-y-2">
+        <li><a href="#" className="text-gray-600 hover:text-red-600">Privacy</a></li>
+        <li><a href="#" className="text-gray-600 hover:text-red-600">Terms</a></li>
+      </ul>
+    </div>
   </div>
 
-  <div className="text-center text-xs text-amber-100/70 py-6 border-t border-white/10">
-    © {new Date().getFullYear()} <span className="text-white font-semibold">DFU-VA</span>. All rights reserved.
+  <div className="border-t border-red-100">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 text-xs text-gray-500 flex items-center justify-between">
+      <span>© {new Date().getFullYear()} <span className="font-semibold text-red-700">DFU-VA</span>. All rights reserved.</span>
+      <span className="text-gray-400">Real Estate Virtual Assistant Solutions</span>
+    </div>
   </div>
 </footer>
+
 
     </div>
   );
@@ -117,72 +158,56 @@ export default function App() {
 function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   return (
     <section className="relative overflow-hidden">
-      {/* Elegant navy-gold backdrop */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-indigo-900 to-amber-700" />
-
-      {/* soft golden glows */}
-      <div className="pointer-events-none absolute -top-24 -right-16 h-64 w-64 rounded-full bg-amber-400/20 blur-3xl" />
-      <div className="pointer-events-none absolute top-1/2 -left-20 h-72 w-72 rounded-full bg-yellow-300/20 blur-3xl" />
+      {/* Red backdrop */}
+      <div className="absolute inset-0 bg-gradient-to-b from-red-900 via-red-800 to-red-700" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
-          {/* Copy block */}
+          {/* Left */}
           <div>
-            <p className="text-xs font-medium text-amber-900/90 bg-amber-100/90 inline-flex px-2.5 py-1 rounded-full">
-              For Wholesalers, Flippers & Deal-Hunters
+            <p className="text-xs font-semibold text-red-100 border border-red-400/40 bg-white/5 px-3 py-1 rounded-full inline-flex">
+              For Wholesalers, Flippers & Deal Hunters
             </p>
 
-            <h1
-              className="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight
-                         text-transparent bg-clip-text
-                         bg-gradient-to-r from-amber-300 via-yellow-100 to-white drop-shadow"
-            >
-              Never Run Out of Quality Seller Leads Again.
+            <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+              Never Run Out of Qualified Seller Leads.
             </h1>
 
-            <p className="mt-4 text-amber-50/95 text-lg max-w-2xl">
-              Our trained real estate virtual assistants generate and qualify high-intent leads —
-              so you close more deals with less effort.
+            <p className="mt-4 text-red-50/95 text-lg max-w-2xl">
+              DFU-VA plugs trained real estate virtual assistants into your pipeline so you talk only to serious sellers ready to move.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              {/* Primary CTA with gold shimmer */}
               <a
                 href="#contact"
-                className="relative overflow-hidden rounded-xl px-5 py-3 text-sm font-medium text-slate-900
-                           bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-400 shadow-lg hover:opacity-95 transition"
+                className="rounded-xl px-6 py-3 text-sm font-semibold
+                           bg-white text-red-700 shadow-lg hover:bg-red-50 transition"
               >
-                <span className="relative z-10">Turn on My Lead-Flow</span>
-                <span
-                  className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2
-                             bg-white/30 blur-sm skew-x-12
-                             animate-[sheen_1.8s_linear_infinite]"
-                />
+                Turn on My Lead-Flow
               </a>
 
-              {/* Secondary CTA */}
               <button
                 onClick={onGetStarted}
-                className="rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-medium
-                           text-white/90 hover:text-white hover:bg-white/20 transition"
+                className="rounded-xl border border-white/40 bg-white/5 px-5 py-3 text-sm font-medium
+                           text-white hover:bg-white/10 transition"
               >
                 See how it works →
               </button>
             </div>
 
-            <div className="mt-8 flex items-center gap-6 text-sm text-amber-50/90">
+            <div className="mt-8 flex items-center gap-6 text-sm text-red-100/90">
               <div className="flex items-center gap-2"><Check /> Multi-channel outreach</div>
               <div className="flex items-center gap-2"><Check /> Daily lead flow</div>
             </div>
           </div>
 
-          {/* Image block */}
+          {/* Right */}
           <div className="relative">
-            <div className="aspect-video w-full rounded-2xl border border-amber-300/40 bg-white/5 shadow-xl p-4 backdrop-blur-sm">
+            <div className="aspect-video w-full rounded-2xl border border-red-300/40 bg-white/5 shadow-xl p-4 backdrop-blur-sm">
               <div className="h-full w-full rounded-xl overflow-hidden border border-white/40 shadow-lg">
                 <img
                   src={realestate}
-                  alt="Real estate marketing dashboard"
+                  alt="Real estate lead dashboard"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
                 />
               </div>
@@ -198,6 +223,7 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
 }
 
 
+
 function StatsStrip() {
   const stats = [
     { k: "Qualified Leads", v: "10k+" },
@@ -207,61 +233,63 @@ function StatsStrip() {
   ];
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Thin gold gradient line on top */}
-      <div className="absolute inset-x-0 top-0 h-2 bg-amber-400/20 blur-lg" />
-
-      {/* Dark navy background */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-amber-900 py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {stats.map((s) => (
-            <div
-              key={s.k}
-              className="rounded-2xl border border-amber-200/20 bg-white/5 p-8 hover:border-amber-300/40 hover:shadow-[0_0_24px_rgba(255,200,100,0.15)] transition"
-            >
-              <div className="text-4xl font-extrabold text-white drop-shadow-sm">{s.v}</div>
-              <div className="mt-2 text-amber-100/80 text-sm">{s.k}</div>
-            </div>
-          ))}
-        </div>
+    <section className="py-10 bg-white border-y border-red-100">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        {stats.map((s) => (
+          <div key={s.k}>
+            <div className="text-3xl font-extrabold text-red-700">{s.v}</div>
+            <div className="text-sm text-gray-600">{s.k}</div>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
 function Features() {
-  const items = [
-    { title: "Top Talent Only", desc: "Rigorous screening, fluent callers, in-house academy, daily QC reviews.", icon: Spark },
-    { title: "Cold Call + Text + Lead Mgmt", desc: "Dialing, follow-up, and CRM workflow to push deals across the line.", icon: A11y },
-    { title: "Managed Data", desc: "Pulling, skip-tracing, scrubbing, split-testing — list health monitored hourly.", icon: Clean },
-    { title: "Built-In QA", desc: "Every lead is reviewed, scored, and checked before it hits your CRM.", icon: Types },
-    { title: "Culture of Excellence", desc: "Well-paid, trained agents = better calls and better leads.", icon: Responsive },
-    { title: "Deploy-ready", desc: "Easy to host on Vercel/Netlify. Zero babysitting.", icon: Deploy },
+  const features = [
+    {
+      title: "Lead Qualification",
+      desc: "VAs pre-screen every seller lead to ensure motivation, property details, and deal readiness before passing them to you.",
+      icon: "🎯",
+    },
+    {
+      title: "CRM & Follow-up Management",
+      desc: "We handle your CRM, update statuses, schedule callbacks, and maintain consistent follow-ups.",
+      icon: "📋",
+    },
+    {
+      title: "Cold Calling & Outreach",
+      desc: "Your dedicated VA uses proven scripts to engage leads via phone, SMS, and email for maximum conversion.",
+      icon: "📞",
+    },
+    {
+      title: "Data & Reporting",
+      desc: "Daily performance reports and lead summaries so you always know what’s working.",
+      icon: "📊",
+    },
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-amber-900">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight text-white">
-            Why DFU-VA Stands Out
-          </h2>
-          <p className="mt-3 text-amber-100/80">
-            Our systems, training, and people are built for consistent performance and long-term growth.
-          </p>
-        </div>
+    <section
+      id="features"
+      className="py-20 bg-gradient-to-b from-red-900 via-red-800 to-red-700 text-white"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl font-extrabold">Why DFU-VA Works</h2>
+        <p className="mt-3 text-red-100 max-w-2xl mx-auto">
+          Our real estate virtual assistants handle the heavy lifting — from lead generation to follow-ups — so you can focus on closing deals.
+        </p>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((it) => (
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((f) => (
             <div
-              key={it.title}
-              className="rounded-2xl border border-amber-200/20 bg-white/5 p-6 hover:shadow-[0_0_20px_rgba(255,200,100,0.15)] transition"
+              key={f.title}
+              className="group rounded-2xl bg-white text-red-800 shadow-lg p-6 hover:-translate-y-1 hover:shadow-2xl transition-transform duration-300"
             >
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 grid place-items-center text-slate-900 shadow-inner">
-                <it.icon />
-              </div>
-              <h3 className="mt-4 font-semibold text-white">{it.title}</h3>
-              <p className="mt-1 text-sm text-amber-100/80">{it.desc}</p>
+              <div className="text-4xl mb-4">{f.icon}</div>
+              <h3 className="text-lg font-bold">{f.title}</h3>
+              <p className="mt-2 text-sm text-gray-600">{f.desc}</p>
             </div>
           ))}
         </div>
@@ -269,34 +297,64 @@ function Features() {
     </section>
   );
 }
-
 function Steps() {
   const steps = [
-    { n: "STEP 1", t: "30-Min Pipeline Acceleration Call", d: "We review your market, buy box, and diagnose your current lead-flow." },
-    { n: "STEP 2", t: "Custom Game Plan", d: "Scripts, lead criteria, multi-channel outreach tailored to you." },
-    { n: "STEP 3", t: "Launch", d: "Callers, texters, and lead managers push qualified leads into your CRM." },
-    { n: "STEP 4", t: "Daily Results + Optimization", d: "Weekly KPIs and continuous improvements compound performance." },
+    {
+      label: "Step 1",
+      title: "Discovery Call",
+      desc: "We understand your market, buy box, systems, and deal volume targets.",
+    },
+    {
+      label: "Step 2",
+      title: "Custom DFU-VA Setup",
+      desc: "We build scripts, lead criteria, and workflows tailored to your acquisitions process.",
+    },
+    {
+      label: "Step 3",
+      title: "Launch & Integration",
+      desc: "Your VA plugs into your CRM, starts outreach, and routes only qualified opportunities.",
+    },
+    {
+      label: "Step 4",
+      title: "Optimize & Scale",
+      desc: "We monitor performance, refine targeting, and scale your VA team as your pipeline grows.",
+    },
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-amber-900 text-white relative overflow-hidden">
-      {/* subtle gold glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,200,100,0.12),transparent_60%)]" />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-bold tracking-tight text-amber-300">How it works</h2>
-        <p className="mt-2 text-center text-amber-100/80">Simple. Fast. No babysitting required.</p>
+    <section
+      id="how-it-works"
+      className="py-20 bg-red-50 border-y border-red-100"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-extrabold text-center text-red-700">
+          How DFU-VA Works
+        </h2>
+        <p className="mt-3 text-center text-gray-700 max-w-2xl mx-auto">
+          A clear, done-for-you process that turns cold data into qualified, motivated seller leads.
+        </p>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
-          {steps.map((s) => (
+        <div className="mt-12 grid gap-6 md:grid-cols-4">
+          {steps.map((step, index) => (
             <div
-              key={s.n}
-              className="rounded-2xl bg-white/5 border border-white/10 p-8
-                         hover:border-amber-300/40 hover:shadow-[0_0_24px_rgba(255,200,100,0.15)]
-                         transition backdrop-blur-sm"
+              key={step.label}
+              className="relative flex flex-col h-full rounded-2xl bg-white border border-red-100 px-5 py-6
+                         shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
             >
-              <div className="text-xs font-semibold text-amber-400 tracking-wider">{s.n}</div>
-              <div className="mt-2 text-xl font-bold text-white">{s.t}</div>
-              <p className="mt-2 text-sm text-amber-100/80 leading-relaxed">{s.d}</p>
+              {/* step number */}
+              <div className="flex items-center gap-2 text-xs font-semibold text-red-600 uppercase tracking-wide">
+                <span className="h-7 w-7 flex items-center justify-center rounded-full bg-red-600 text-white text-xs font-bold">
+                  {index + 1}
+                </span>
+                {step.label}
+              </div>
+
+              <h3 className="mt-3 text-lg font-bold text-gray-900">
+                {step.title}
+              </h3>
+              <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+                {step.desc}
+              </p>
             </div>
           ))}
         </div>
@@ -304,43 +362,122 @@ function Steps() {
     </section>
   );
 }
-function Pricing({ onContact }: { onContact: () => void }) {
-  return (
-    <section className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-amber-900">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-white">Simple pricing</h2>
-          <p className="mt-3 text-amber-100/80">Start free, upgrade when you grow.</p>
-        </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
-          <Plan
-            name="Starter"
-            price="$0"
-            features={["Basic pages", "Contact form", "Email support"]}
-            cta="Get started"
-            onClick={onContact}
-          />
-          <Plan
-            accent
-            name="Pro"
-            price="$19"
-            features={["All Starter", "Blog ready", "Custom domains", "Priority support"]}
-            cta="Go Pro"
-            onClick={onContact}
-          />
-          <Plan
-            name="Business"
-            price="$49"
-            features={["All Pro", "Team accounts", "Analytics", "SLA support"]}
-            cta="Talk to sales"
-            onClick={onContact}
-          />
+function Pricing() {
+  const plans = [
+    {
+      name: "Starter",
+      price: "$499/mo",
+      features: [
+        "1 Dedicated VA",
+        "Lead sourcing + qualification",
+        "Daily progress reports",
+        "Basic CRM updates",
+      ],
+      popular: false,
+    },
+    {
+      name: "Pro",
+      price: "$899/mo",
+      features: [
+        "2 Dedicated VAs",
+        "Multi-channel outreach (SMS, email, calls)",
+        "Pipeline management",
+        "Priority support",
+      ],
+      popular: true,
+    },
+    {
+      name: "Scale",
+      price: "$1,499/mo",
+      features: [
+        "Full VA team (up to 4 members)",
+        "Custom lead targeting",
+        "Advanced reporting dashboard",
+        "Dedicated account manager",
+      ],
+      popular: false,
+    },
+  ];
+
+  return (
+    <section
+      id="pricing"
+      className="py-20 bg-white text-gray-900 border-t border-red-100"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl font-extrabold text-red-700">
+          Transparent Pricing for Real Results
+        </h2>
+        <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
+          Choose the plan that fits your workflow and scale up as your deals grow.
+        </p>
+
+        <div className="mt-12 grid md:grid-cols-3 gap-8">
+          {plans.map((plan) => (
+            <div
+              key={plan.name}
+              className={`rounded-2xl border ${
+                plan.popular
+                  ? "border-red-500 shadow-xl bg-red-50"
+                  : "border-gray-200 bg-white"
+              } p-8 text-left flex flex-col justify-between transition-transform hover:-translate-y-1 hover:shadow-2xl`}
+            >
+              {plan.popular && (
+                <div className="text-sm font-semibold text-white bg-red-600 rounded-full px-3 py-1 inline-block mb-4">
+                  Most Popular
+                </div>
+              )}
+              <div>
+                <h3 className="text-xl font-bold text-red-700">{plan.name}</h3>
+                <p className="mt-2 text-4xl font-extrabold text-gray-900">
+                  {plan.price}
+                </p>
+              </div>
+
+              <ul className="mt-6 space-y-3">
+                {plan.features.map((f) => (
+                  <li
+                    key={f}
+                    className="flex items-center text-gray-700"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 text-red-600 mr-2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                className={`mt-8 w-full rounded-xl py-3 font-semibold transition
+                ${
+                  plan.popular
+                    ? "bg-red-600 text-white hover:bg-red-700"
+                    : "border border-red-600 text-red-600 hover:bg-red-50"
+                }`}
+              >
+                Get Started
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+
 
 function Plan({
   name,
@@ -391,47 +528,78 @@ function Plan({
 }
 function FAQ() {
   const faqs = [
-    { q: "What kind of leads will I actually get?", a: "Motivated sellers. Real conversations. Every lead reviewed before your CRM." },
-    { q: "Will you work inside my CRM?", a: "Yes — comping, negotiating, appointments, keeping your pipeline tight and active." },
-    { q: "Can you customize scripts and criteria?", a: "Absolutely. We tailor scripts and qualification standards to your strategy." },
+    {
+      q: "What kind of leads will I actually get?",
+      a: "We focus on motivated seller leads only. Your VA uses pre-set criteria and scripts to filter out unqualified time-wasters before they hit your pipeline.",
+    },
+    {
+      q: "Do you work inside my existing CRM?",
+      a: "Yes. We plug directly into your CRM or tech stack, keep records updated, tag opportunities, and ensure nothing slips through the cracks.",
+    },
+    {
+      q: "How fast can we get started?",
+      a: "Most clients are onboarded and live within 5–7 business days after the discovery call and setup approval.",
+    },
+    {
+      q: "Can I scale up or down my VA team?",
+      a: "Absolutely. You can upgrade, add more VAs, or adjust scope as your deal flow increases—without the hiring and training headaches.",
+    },
   ];
-  const [open, setOpen] = useState<number | null>(0);
+
+  const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
   return (
-    <section className="relative overflow-hidden py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-amber-900">
-      {/* subtle gold glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(255,200,100,0.12),transparent_60%)]" />
+    <section
+      id="faq"
+      className="py-20 bg-white"
+    >
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-extrabold text-center text-red-700">
+          Frequently Asked Questions
+        </h2>
+        <p className="mt-3 text-center text-gray-600">
+          Still thinking it through? Here are the answers investors and operators ask us before plugging into DFU-VA.
+        </p>
 
-      <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-bold tracking-tight text-amber-300">FAQs</h2>
-
-        <div className="mt-8 space-y-4">
-          {faqs.map((f, i) => {
-            const isOpen = open === i;
+        <div className="mt-10 space-y-3">
+          {faqs.map((item, i) => {
+            const isOpen = openIndex === i;
             return (
               <div
                 key={i}
-                className={`rounded-2xl border p-2 transition backdrop-blur-sm
-                            ${isOpen
-                              ? "border-amber-300/40 bg-white/10 shadow-[0_0_24px_rgba(255,200,100,0.15)]"
-                              : "border-white/10 bg-white/5 hover:border-amber-300/30"}`}
+                className={`rounded-2xl border transition-all bg-white ${
+                  isOpen
+                    ? "border-red-400 shadow-md"
+                    : "border-red-100 hover:border-red-300 hover:shadow-sm"
+                }`}
               >
                 <button
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between rounded-xl px-4 py-4 text-left"
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full flex items-center justify-between px-4 py-3 gap-3"
                 >
-                  <span className="font-semibold text-white">{f.q}</span>
                   <span
-                    className={`ml-4 grid h-7 w-7 place-items-center rounded-full text-sm font-bold transition
-                               ${isOpen ? "bg-amber-400/20 text-amber-300" : "bg-white/10 text-amber-200"}`}
+                    className={`text-sm font-semibold text-left ${
+                      isOpen ? "text-red-700" : "text-gray-900"
+                    }`}
+                  >
+                    {item.q}
+                  </span>
+                  <span
+                    className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs
+                      ${
+                        isOpen
+                          ? "border-red-600 text-red-600"
+                          : "border-red-200 text-red-500"
+                      }`}
                   >
                     {isOpen ? "−" : "+"}
                   </span>
                 </button>
 
                 {isOpen && (
-                  <div className="px-4 pb-4 text-sm text-amber-100/85 leading-relaxed">
-                    {f.a}
+                  <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                    {item.a}
                   </div>
                 )}
               </div>
@@ -442,23 +610,21 @@ function FAQ() {
     </section>
   );
 }
-
 function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<{ [k: string]: string }>({});
 
-  // 🔗 Webhook URL from Vercel (.env) — or hardcode temporarily to test
-  const WEBHOOK = import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined;
-
-  // basic validation
   function validate() {
     const e: { [k: string]: string } = {};
+
     if (!form.name.trim()) e.name = "Name is required";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Valid email required";
-    if (form.message.trim().length < 10) e.message = "Please write at least 10 characters";
-    if (!WEBHOOK) e.webhook = "Missing VITE_CONTACT_WEBHOOK (add it in Vercel → Settings → Environment Variables).";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      e.email = "Valid email required";
+    if (form.message.trim().length < 10)
+      e.message = "Please write at least 10 characters";
+
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -468,6 +634,8 @@ function Contact() {
     if (!validate()) return;
 
     setLoading(true);
+    setErrors({});
+
     try {
       const payload = {
         name: form.name.trim(),
@@ -477,30 +645,24 @@ function Contact() {
       };
 
       const res = await fetch("/api/contact", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" }, // normal JSON now
-  body: JSON.stringify(payload),
-});
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-if (!res.ok) {
-  const txt = await res.text().catch(() => "");
-  throw new Error(`Submit failed: ${res.status} ${txt}`);
-}
-setSubmitted(true);
-
-
-      // If using no-cors, res.type will be "opaque" — treat as success
-      if (res.ok || res.type === "opaque") {
-        // If CORS is enabled on your script, you can also read the JSON:
-        // const data = await res.json();
-        setSubmitted(true);
-      } else {
+      if (!res.ok) {
         const txt = await res.text().catch(() => "");
-        throw new Error(`Submit failed: ${res.status} ${txt}`);
+        throw new Error(txt || `Submit failed with status ${res.status}`);
       }
+
+      setSubmitted(true);
     } catch (err: any) {
       console.error(err);
-      setErrors({ submit: err?.message ?? "Failed to submit. Please try again." });
+      setErrors({
+        submit:
+          err?.message ||
+          "Failed to submit. Please try again in a moment.",
+      });
     } finally {
       setLoading(false);
     }
@@ -510,11 +672,15 @@ setSubmitted(true);
     return (
       <section className="py-24" id="contact">
         <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100 text-emerald-700">
+          <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-700">
             <Check />
           </div>
-          <h2 className="mt-4 text-2xl font-bold">Thanks! We’ll be in touch.</h2>
-          <p className="mt-2 text-gray-600">Your message has been received.</p>
+          <h2 className="mt-4 text-2xl font-bold text-red-600">
+            Thanks! We’ll be in touch.
+          </h2>
+          <p className="mt-2 text-gray-600">
+            Your message has been received.
+          </p>
         </div>
       </section>
     );
@@ -523,80 +689,99 @@ setSubmitted(true);
   return (
     <section className="py-20" id="contact">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold tracking-tight">Contact us</h2>
-        <p className="mt-2 text-gray-700">Have questions? Send a message and we’ll reply soon.</p>
+        <h2 className="text-3xl font-extrabold tracking-tight text-center text-red-600">
+          Contact DFU-VA
+        </h2>
+        <p className="mt-2 text-center text-gray-600">
+          Tell us about your operation and we’ll show you how DFU-VA can plug in.
+        </p>
 
-        {errors.webhook && (
-          <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-red-700 text-sm">
-            {errors.webhook}
-          </div>
-        )}
-        {errors.submit && !errors.webhook && (
-          <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-red-700 text-sm">
+        {errors.submit && (
+          <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {errors.submit}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-5 bg-white/90 backdrop-blur-sm rounded-3xl border border-red-100 px-6 sm:px-10 py-8 shadow-sm">
           <div>
-            <label className="block text-sm font-medium">Name</label>
+            <label className="block text-sm font-semibold text-red-700">
+              Full Name
+            </label>
             <input
-              className={`mt-1 w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ${
-                errors.name ? "border-red-300 ring-red-100" : "border-amber-300/60 focus:ring-amber-200"
-              }`}
+              className={`mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:ring-2
+                ${
+                  errors.name
+                    ? "border-red-400 ring-red-100"
+                    : "border-red-100 focus:border-red-400 focus:ring-red-100"
+                }`}
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Your full name"
+              placeholder="John Doe"
             />
-            {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+            {errors.name && (
+              <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+            )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Email</label>
+            <label className="block text-sm font-semibold text-red-700">
+              Email
+            </label>
             <input
-              className={`mt-1 w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ${
-                errors.email ? "border-red-300 ring-red-100" : "border-amber-300/60 focus:ring-amber-200"
-              }`}
+              className={`mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:ring-2
+                ${
+                  errors.email
+                    ? "border-red-400 ring-red-100"
+                    : "border-red-100 focus:border-red-400 focus:ring-red-100"
+                }`}
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               placeholder="you@example.com"
             />
-            {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+            {errors.email && (
+              <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+            )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Message</label>
+            <label className="block text-sm font-semibold text-red-700">
+              Message
+            </label>
             <textarea
-              className={`mt-1 w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ${
-                errors.message ? "border-red-300 ring-red-100" : "border-amber-300/60 focus:ring-amber-200"
-              }`}
+              className={`mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:ring-2 min-h-[140px]
+                ${
+                  errors.message
+                    ? "border-red-400 ring-red-100"
+                    : "border-red-100 focus:border-red-400 focus:ring-red-100"
+                }`}
               value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              placeholder="How can we help?"
-              rows={5}
+              onChange={(e) =>
+                setForm({ ...form, message: e.target.value })
+              }
+              placeholder="Briefly describe your markets, deal volume & what you need help with"
             />
-            {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
+            {errors.message && (
+              <p className="mt-1 text-xs text-red-600">
+                {errors.message}
+              </p>
+            )}
           </div>
 
           <button
             type="submit"
-            disabled={loading || !!errors.webhook}
-            className="relative overflow-hidden rounded-xl px-6 py-3 text-sm font-semibold
-                       text-slate-900 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-400
-                       shadow-lg hover:opacity-95 transition-all duration-300 disabled:opacity-60"
+            disabled={loading}
+            className="mt-4 w-full rounded-xl bg-red-600 py-3.5 text-sm font-semibold text-white
+                       shadow-md hover:bg-red-700 transition-colors disabled:opacity-60"
           >
-            <span className="relative z-10">{loading ? "Sending..." : "Send message"}</span>
-            <span
-              className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2
-                         bg-white/30 blur-sm skew-x-12
-                         animate-[sheen_1.8s_linear_infinite]"
-            />
+            {loading ? "Sending..." : "Send message"}
           </button>
         </form>
       </div>
     </section>
   );
 }
+
+
 
 
 /* -------------------------- UI bits -------------------------- */
