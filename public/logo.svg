@@ -1,0 +1,51 @@
+<svg
+  width="220"
+  height="70"
+  viewBox="0 0 220 70"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Icon: House + Chat bubble -->
+  <g transform="translate(0,10)">
+    <path
+      d="M10 26L34 6L58 26"
+      fill="none"
+      stroke="#D50000"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <rect
+      x="16"
+      y="24"
+      width="36"
+      height="24"
+      rx="5"
+      fill="transparent"
+      stroke="#D50000"
+      stroke-width="2"
+    />
+    <path
+      d="M30 48L26 55L32 51"
+      fill="transparent"
+      stroke="#D50000"
+      stroke-width="1.5"
+      stroke-linejoin="round"
+    />
+    <circle cx="26" cy="36" r="2" fill="#D50000" />
+    <circle cx="34" cy="36" r="2" fill="#D50000" />
+    <circle cx="42" cy="36" r="2" fill="#D50000" />
+  </g>
+
+  <!-- Brand Text -->
+  <text
+    x="75"
+    y="46"
+    font-family="Albert Sans, sans-serif"
+    font-size="34"
+    font-weight="800"
+    fill="#D50000"
+  >
+    DFU-VA
+  </text>
+</svg>
