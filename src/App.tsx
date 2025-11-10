@@ -1,5 +1,7 @@
 import realestate from "./assets/realestate.jpg";
-import logo from "./assets/logo.svg";
+
+
+
 
 import React, { useState } from "react";
 
@@ -10,7 +12,7 @@ export default function App() {
   const [active, setActive] =
     useState<"home" | "features" | "pricing" | "contact">("home");
 
-    function goTo(section: "home" | "features" | "pricing" | "contact") {
+  function goTo(section: "home" | "features" | "pricing" | "contact") {
     setActive(section);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -26,26 +28,34 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Brand */}
-            <div className="flex items-center gap-3">
-  <img
-  src={logo}
-  alt="DFU-VA logo"
-  className="h-12 w-auto invert brightness-0"
-  style={{ filter: "brightness(0) invert(1)" }}
-/>
+           <div className="flex items-center gap-3">
+  <Logo />
+</div>
 
-
-              
-            </div>
 
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-6 text-sm">
-  <NavItem label="Home"     isActive={active === "home"}     onClick={() => goTo("home")} />
-  <NavItem label="Features" isActive={active === "features"} onClick={() => goTo("features")} />
-  <NavItem label="Pricing"  isActive={active === "pricing"}  onClick={() => goTo("pricing")} />
-  <NavItem label="Contact"  isActive={active === "contact"}  onClick={() => goTo("contact")} />
-</nav>
-
+              <NavItem
+                label="Home"
+                isActive={active === "home"}
+                onClick={() => goTo("home")}
+              />
+              <NavItem
+                label="Features"
+                isActive={active === "features"}
+                onClick={() => goTo("features")}
+              />
+              <NavItem
+                label="Sales"
+                isActive={active === "pricing"}
+                onClick={() => goTo("pricing")}
+              />
+              <NavItem
+                label="Contact"
+                isActive={active === "contact"}
+                onClick={() => goTo("contact")}
+              />
+            </nav>
 
             {/* Mobile toggle */}
             <div className="md:hidden">
@@ -69,107 +79,175 @@ export default function App() {
 
         {/* Mobile nav */}
         {menuOpen && (
-  <div className="md:hidden border-t border-white/10 bg-white/5">
-    <div className="px-4 py-2 space-y-1">
-      <MobileLink label="Home"     onClick={() => { goTo("home"); setMenuOpen(false); }} />
-      <MobileLink label="Features" onClick={() => { goTo("features"); setMenuOpen(false); }} />
-      <MobileLink label="Pricing"  onClick={() => { goTo("pricing"); setMenuOpen(false); }} />
-      <MobileLink label="Contact"  onClick={() => { goTo("contact"); setMenuOpen(false); }} />
-    </div>
-  </div>
-)}
-
+          <div className="md:hidden border-t border-white/10 bg-white/5">
+            <div className="px-4 py-2 space-y-1">
+              <MobileLink
+                label="Home"
+                onClick={() => {
+                  goTo("home");
+                  setMenuOpen(false);
+                }}
+              />
+              <MobileLink
+                label="Features"
+                onClick={() => {
+                  goTo("features");
+                  setMenuOpen(false);
+                }}
+              />
+              <MobileLink
+                label="Sales"
+                onClick={() => {
+                  goTo("pricing");
+                  setMenuOpen(false);
+                }}
+              />
+              <MobileLink
+                label="Contact"
+                onClick={() => {
+                  goTo("contact");
+                  setMenuOpen(false);
+                }}
+              />
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Main */}
       <main className="flex-1 relative bg-white">
-       {active === "home" && (
-  <>
-    <Hero onGetStarted={() => goTo("features")} />
-    <StatsStrip />
-    <Features />
-    <Steps />
-    <Pricing onContact={() => goTo("contact")} />
-    <FAQ />
-  </>
-)}
+        {active === "home" && (
+          <>
+            <Hero onGetStarted={() => goTo("features")} />
+            <StatsStrip />
+            <Features />
+            <Steps />
+            <Pricing />
+            <FAQ />
+          </>
+        )}
 
-{active === "features" && <Features />}
-{active === "pricing" && <Pricing onContact={() => goTo("contact")} />}
-{active === "contact" && <Contact />}
+        {active === "features" && (
+          <>
+            <Hero onGetStarted={() => goTo("features")} />
+            <Features />
+            <Steps />
+            <Pricing />
+            <FAQ />
+          </>
+        )}
 
+        {active === "pricing" && (
+          <>
+            <Hero onGetStarted={() => goTo("features")} />
+            <Pricing />
+            <FAQ />
+          </>
+        )}
+
+        {active === "contact" && (
+          <>
+            <Hero onGetStarted={() => goTo("features")} />
+            <Contact />
+          </>
+        )}
       </main>
 
       {/* Footer */}
-        <footer className="bg-gradient-to-r from-red-950 via-red-900 to-red-800 text-red-50 border-t border-white/10">
-  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-    <div className="grid gap-6 md:grid-cols-[2fr,1fr,1fr,1fr] items-start">
-      {/* Brand */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-full border border-red-300/50 bg-white/10 flex items-center justify-center">
-            <img
-              src={logo}
-              alt="DFU-VA"
-              className="h-4 w-4"
-              style={{ filter: "brightness(0) invert(1)" }}
-            />
+      <footer className="bg-gradient-to-r from-red-950 via-red-900 to-red-800 text-red-50 border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+          <div className="grid gap-6 md:grid-cols-[2fr,1fr,1fr,1fr] items-start">
+            {/* Brand */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+               <div className="h-7 w-7 rounded-full border border-red-300/50 bg-white/10 flex items-center justify-center">
+  <Logo />
+</div>
+
+                <span className="text-base font-semibold tracking-wide">
+                  DFU-VA
+                </span>
+              </div>
+              <p className="text-[13px] text-red-100/85 leading-snug max-w-sm">
+                Real estate virtual assistants who qualify, follow up, and fill
+                your pipeline with motivated sellers.
+              </p>
+            </div>
+
+            {/* Product */}
+            <div>
+              <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+                Product
+              </h4>
+              <ul className="space-y-0.5 text-[13px]">
+                <li>
+                  <a href="#features" className="hover:text-white transition">
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <a href="#pricing" className="hover:text-white transition">
+                    Sales
+                  </a>
+                </li>
+                <li>
+                  <a href="#faq" className="hover:text-white transition">
+                    FAQ
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+                Company
+              </h4>
+              <ul className="space-y-0.5 text-[13px]">
+                <li>
+                  <a href="#home" className="hover:text-white transition">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="#contact" className="hover:text-white transition">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+                Legal
+              </h4>
+              <ul className="space-y-0.5 text-[13px]">
+                <li>
+                  <a href="#" className="hover:text-white transition">
+                    Privacy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition">
+                    Terms
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <span className="text-base font-semibold tracking-wide">DFU-VA</span>
+
+          {/* Bottom bar */}
+          <div className="mt-6 pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-red-200/70">
+            <span>
+              © {new Date().getFullYear()}{" "}
+              <span className="font-semibold text-white">DFU-VA</span>. All
+              rights reserved.
+            </span>
+            <span>Real Estate Virtual Assistant Solutions</span>
+          </div>
         </div>
-        <p className="text-[13px] text-red-100/85 leading-snug max-w-sm">
-          Real estate virtual assistants who qualify, follow up, and fill your
-          pipeline with motivated sellers.
-        </p>
-      </div>
-
-      {/* Product */}
-      <div>
-        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
-          Product
-        </h4>
-        <ul className="space-y-0.5 text-[13px]">
-          <li><a href="#features" className="hover:text-white transition">Features</a></li>
-          <li><a href="#pricing" className="hover:text-white transition">Pricing</a></li>
-          <li><a href="#faq" className="hover:text-white transition">FAQ</a></li>
-        </ul>
-      </div>
-
-      {/* Company */}
-      <div>
-        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
-          Company
-        </h4>
-        <ul className="space-y-0.5 text-[13px]">
-          <li><a href="#home" className="hover:text-white transition">About</a></li>
-          <li><a href="#contact" className="hover:text-white transition">Contact</a></li>
-        </ul>
-      </div>
-
-      {/* Legal */}
-      <div>
-        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
-          Legal
-        </h4>
-        <ul className="space-y-0.5 text-[13px]">
-          <li><a href="#" className="hover:text-white transition">Privacy</a></li>
-          <li><a href="#" className="hover:text-white transition">Terms</a></li>
-        </ul>
-      </div>
-    </div>
-
-    {/* Bottom bar */}
-    <div className="mt-6 pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-red-200/70">
-      <span>
-        © {new Date().getFullYear()} <span className="font-semibold text-white">DFU-VA</span>. All rights reserved.
-      </span>
-      <span>Real Estate Virtual Assistant Solutions</span>
-    </div>
-  </div>
-</footer>
-
-
-
+      </footer>
     </div>
   );
 }
@@ -268,6 +346,7 @@ function StatsStrip() {
     </section>
   );
 }
+
 function Features() {
   const features = [
     {
@@ -295,15 +374,16 @@ function Features() {
   return (
     <section
       id="features"
-      className="py-20 bg-[#FFF5F5]" // soft light red-tinted background
+      className="py-20 bg-[#FFF5F5]"
     >
+      {/* soft light red-tinted background */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl font-extrabold text-red-700">
           Why DFU-VA Works
         </h2>
         <p className="mt-3 text-gray-700 max-w-2xl mx-auto">
-          Our real estate virtual assistants handle the heavy lifting — from lead
-          generation to follow-ups — so you can focus on closing deals.
+          Our real estate virtual assistants handle the heavy lifting — from
+          lead generation to follow-ups — so you can focus on closing deals.
         </p>
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -317,9 +397,7 @@ function Features() {
                          hover:-translate-y-1 transition-all duration-300"
             >
               <div className="text-3xl mb-4 text-red-600">{f.icon}</div>
-              <h3 className="text-lg font-bold text-red-700">
-                {f.title}
-              </h3>
+              <h3 className="text-lg font-bold text-red-700">{f.title}</h3>
               <p className="mt-2 text-sm text-gray-600 leading-relaxed">
                 {f.desc}
               </p>
@@ -330,7 +408,6 @@ function Features() {
     </section>
   );
 }
-
 
 function Steps() {
   const steps = [
@@ -396,41 +473,54 @@ function Steps() {
     </section>
   );
 }
+function Pricing() {
+  // Main Calendly link
+  const calendlyUrl = "https://calendly.com/dave-dfu-va/30min";
 
-function Pricing({ onContact }: { onContact?: () => void }) {
   const plans = [
     {
-      name: "Starter",
-      price: "$499/mo",
+      name: "Customer Service",
+      desc: "Delivering exceptional support, 24/7.",
       features: [
-        "1 Dedicated VA",
-        "Lead sourcing + qualification",
-        "Daily progress reports",
-        "Basic CRM updates",
+        "Dedicated 24/7 agents to assist your customers with care and efficiency",
+        "Quality team to ensure every interaction meets service excellence standards",
+        "Auditing team regularly reviewing performance for accuracy and consistency",
+        "24/7 support via phone, chat, or email",
+        "Bi-weekly performance meetings for transparent reporting",
       ],
-      popular: false,
     },
     {
-      name: "Pro",
-      price: "$899/mo",
+      name: "Cold Calling",
+      desc: "Driving conversations that convert.",
       features: [
-        "2 Dedicated VAs",
-        "Multi-channel outreach (SMS, email, calls)",
-        "Pipeline management",
-        "Priority support",
+        "Dedicated VA focused on lead generation and sales conversion",
+        "Quality assurance to maintain call consistency and professionalism",
+        "Auditing team to track metrics and optimize performance",
+        "Bi-weekly client success meetings to align on goals and strategy",
+        "24/7 email support for campaign updates and assistance",
       ],
-      popular: true,
     },
     {
-      name: "Scale",
-      price: "$1,499/mo",
+      name: "Data Generation",
+      desc: "Providing the data that powers your deals.",
       features: [
-        "Full VA team (up to 4 members)",
-        "Custom lead targeting",
-        "Advanced reporting dashboard",
-        "Dedicated account manager",
+        "Customized data pulled based on your buy box, markets, and budget",
+        "Up-to-date, verified leads ready for outreach",
+        "Skip tracing to efficiently locate decision-makers",
       ],
-      popular: false,
+    },
+    {
+      name: "Property Management (Short-Term Rentals)",
+      desc: "Full-service STR management for maximum ROI.",
+      features: [
+        "Marketing optimization across top booking platforms",
+        "Sales follow-up to convert inquiries into confirmed bookings",
+        "Dynamic pricing optimization to maximize occupancy and profit",
+        "Guest communication handled end-to-end",
+        "Maintenance dispatching and tracking",
+        "Cleaner dispatching for consistent, on-time turnovers",
+        "Regular performance meetings to review KPIs and improvements",
+      ],
     },
   ];
 
@@ -441,49 +531,34 @@ function Pricing({ onContact }: { onContact?: () => void }) {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl font-extrabold text-red-700">
-          Transparent Pricing for Real Results
+          Book Your DFU-VA Strategy Call
         </h2>
         <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-          Choose the plan that fits your workflow and scale up as your deals
-          grow.
+          Choose the service that matches your operations, then pick a time with our team to map out your DFU-VA setup.
         </p>
 
-        <div className="mt-12 grid md:grid-cols-3 gap-8">
+        <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {plans.map((plan) => (
             <div
-              key={plan.name}
-              className={`rounded-2xl border ${
-                plan.popular
-                  ? "border-red-500 shadow-xl bg-red-50"
-                  : "border-gray-200 bg-white"
-              } p-8 text-left flex flex-col justify-between transition-transform hover:-translate-y-1 hover:shadow-2xl`}
-            >
-              {plan.popular && (
-                <div className="text-sm font-semibold text-white bg-red-600 rounded-full px-3 py-1 inline-block mb-4">
-                  Most Popular
-                </div>
-              )}
+  key={plan.name}
+  className="rounded-2xl border border-red-100 bg-white shadow-sm p-8 text-left 
+             flex flex-col gap-5 transition-transform hover:-translate-y-1 hover:shadow-2xl
+             max-h-[480px] overflow-y-auto"
+>
 
               <div>
-                <h3 className="text-xl font-bold text-red-700">
-                  {plan.name}
-                </h3>
-                <p className="mt-2 text-4xl font-extrabold text-gray-900">
-                  {plan.price}
-                </p>
+                <h3 className="text-xl font-bold text-red-700">{plan.name}</h3>
+                <p className="mt-2 text-sm text-gray-600">{plan.desc}</p>
               </div>
 
               <ul className="mt-6 space-y-3">
                 {plan.features.map((f) => (
-                  <li
-                    key={f}
-                    className="flex items-center text-gray-700"
-                  >
+                  <li key={f} className="flex items-center text-gray-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth="2"
+                      strokeWidth={2}
                       stroke="currentColor"
                       className="w-5 h-5 text-red-600 mr-2"
                     >
@@ -499,12 +574,11 @@ function Pricing({ onContact }: { onContact?: () => void }) {
               </ul>
 
               <button
-                onClick={onContact}
-                className={`mt-8 w-full rounded-xl py-3 font-semibold transition ${
-                  plan.popular
-                    ? "bg-red-600 text-white hover:bg-red-700"
-                    : "border border-red-600 text-red-600 hover:bg-red-50"
-                }`}
+                onClick={() =>
+                  window.open(calendlyUrl, "_blank", "noopener,noreferrer")
+                }
+                className="mt-8 w-full rounded-xl bg-red-600 py-3 font-semibold text-white
+                           hover:bg-red-700 transition"
               >
                 Talk to Our Team
               </button>
@@ -842,7 +916,6 @@ function Badge({ label }: { label: string }) {
   );
 }
 
-/* Icon used across sections */
 function Check() {
   return (
     <svg
@@ -855,6 +928,73 @@ function Check() {
       strokeLinejoin="round"
     >
       <path d="M20 6L9 17l-5-5" />
+    </svg>
+  );
+}
+// Logo.tsx
+
+
+export function Logo() {
+  return (
+    <svg
+      width="140"
+      height="40"
+      viewBox="0 0 220 64"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-labelledby="fuVaLogoTitle"
+      role="img"
+    >
+      <title id="fuVaLogoTitle">FU-VA Logo</title>
+
+      {/* Headset outline */}
+      <path
+        d="M10 18 C10 8 18 4 28 4 H38 C49 4 56 11 56 22 V26 C56 37 49 44 38 44 H26 C20 44 16 47 16 52 V58 H24"
+        fill="none"
+        stroke="#FFFFFF"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Earcup */}
+      <circle cx="56" cy="26" r="4" fill="#FFFFFF" />
+
+      {/* Mic Arm */}
+      <path
+        d="M28 52 H42 C44.5 52 46.5 54 46.5 56.5 C46.5 59 44.5 61 42 61 H38"
+        fill="none"
+        stroke="#FFFFFF"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
+
+      {/* House INSIDE (red, clearly visible) */}
+      <polygon
+        points="30,15 18,26 18,42 42,42 42,26"
+        fill="#9B111E"          // << RED HOUSE
+        stroke="#FFFFFF"
+        strokeWidth={2.4}
+        strokeLinejoin="round"
+      />
+
+      {/* Windows */}
+      <rect x="26.5" y="29" width="3" height="3" fill="#FFFFFF" />
+      <rect x="31.5" y="29" width="3" height="3" fill="#FFFFFF" />
+      <rect x="26.5" y="34" width="3" height="3" fill="#FFFFFF" />
+      <rect x="31.5" y="34" width="3" height="3" fill="#FFFFFF" />
+
+      {/* FU-VA text, tight to icon */}
+      <text
+        x="64"
+        y="41"
+        fill="#FFFFFF"
+        fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+        fontSize="28"
+        fontWeight={700}
+        letterSpacing="0.5"
+      >
+        FU-VA
+      </text>
     </svg>
   );
 }
