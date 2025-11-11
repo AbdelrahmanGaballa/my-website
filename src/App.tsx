@@ -312,6 +312,10 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
     />
   </div>
 </div>
+<div className="absolute -bottom-6 -left-6 hidden lg:block">
+  <Badge label="+200 clients" />
+</div>
+
 
 
 
@@ -900,13 +904,12 @@ function MobileLink({
     </button>
   );
 }
-
 function Badge({ label }: { label: string }) {
   return (
-    <div className="inline-flex items-center gap-2 rounded-full border border-pink-200 bg-white px-3 py-1 shadow-sm">
+    <div className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-white px-3 py-1 shadow-sm">
       <svg
         viewBox="0 0 24 24"
-        className="h-4 w-4"
+        className="h-4 w-4 text-red-600"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
@@ -915,9 +918,7 @@ function Badge({ label }: { label: string }) {
       >
         <path d="M20 6L9 17l-5-5" />
       </svg>
-      <span className="text-xs font-medium text-fuchsia-700">
-        {label}
-      </span>
+      <span className="text-xs font-medium text-red-700">{label}</span>
     </div>
   );
 }
