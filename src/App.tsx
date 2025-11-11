@@ -920,7 +920,7 @@ function Badge({ label }: { label: string }) {
       </svg>
       <span className="text-xs font-medium text-red-700">{label}</span>
     </div>
-  );
+  )
 }
 
 function Check() {
