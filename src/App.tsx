@@ -1,4 +1,7 @@
 import realestate from "./assets/realestate.jpg";
+import deal from "./assets/deal.jpg";
+import deal2 from "./assets/deal2.jpg";
+import outdoor from "./assets/outdoor.jpg";
 
 
 
@@ -253,8 +256,17 @@ export default function App() {
 }
 
 /* -------------------- Sections -------------------- */
-
 function Hero({ onGetStarted }: { onGetStarted: () => void }) {
+  const images = [realestate, deal, deal2, outdoor];
+  const [currentImage, setCurrentImage] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 3000); // toggle every 2 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-red-900 via-red-800 to-red-700" />
@@ -266,16 +278,13 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
             <p className="text-xs font-semibold text-red-100 border border-red-400/40 bg-white/5 px-3 py-1 rounded-full inline-flex">
               For Wholesalers, Flippers & Deal Hunters
             </p>
-
             <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
               Never Run Out of Qualified Seller Leads.
             </h1>
-
             <p className="mt-4 text-red-50/95 text-lg max-w-2xl">
               DFU-VA plugs trained real estate virtual assistants into your
               pipeline so you talk only to serious sellers ready to move.
             </p>
-
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#contact"
@@ -283,7 +292,6 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
               >
                 Turn on My Lead-Flow
               </a>
-
               <button
                 onClick={onGetStarted}
                 className="rounded-xl border border-white/40 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
@@ -291,37 +299,30 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
                 See how it works →
               </button>
             </div>
-
-            <div className="mt-8 flex items-center gap-6 text-sm text-red-100/90">
-              <div className="flex items-center gap-2">
-                <Check /> Multi-channel outreach
-              </div>
-              <div className="flex items-center gap-2">
-                <Check /> Daily lead flow
-              </div>
-            </div>
           </div>
 
           {/* Visual */}
           <div className="relative">
-            <div className="aspect-video w-full rounded-2xl border border-red-300/40 bg-white/5 shadow-xl p-4 backdrop-blur-sm">
-              <div className="h-full w-full rounded-xl overflow-hidden border border-white/40 shadow-lg">
-                <img
-                  src={realestate}
-                  alt="Real estate lead dashboard"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
-                />
-              </div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 hidden lg:block">
-              <Badge label="+200 clients" />
-            </div>
+<div className="aspect-video w-full rounded-2xl border border-red-300/40 bg-white/5 shadow-xl p-4 backdrop-blur-sm">
+  <div className="h-full w-full rounded-xl overflow-hidden border border-white/40 shadow-lg">
+    <img
+      src={images[currentImage]}
+      alt="Real estate visual"
+      className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+    />
+  </div>
+</div>
+
+
+
+
           </div>
         </div>
       </div>
     </section>
   );
 }
+
 
 function StatsStrip() {
   const stats = [
@@ -474,35 +475,33 @@ function Steps() {
   );
 }
 function Pricing() {
-  // Main Calendly link
+  // Your main Calendly event link
   const calendlyUrl = "https://calendly.com/dave-dfu-va/30min";
 
   const plans = [
     {
       name: "Customer Service",
-      desc: "Delivering exceptional support, 24/7.",
+      subtitle: "Delivering exceptional support, 24/7.",
       features: [
         "Dedicated 24/7 agents to assist your customers with care and efficiency",
-        "Quality team to ensure every interaction meets service excellence standards",
+        "Quality team ensuring every interaction meets service excellence standards",
         "Auditing team regularly reviewing performance for accuracy and consistency",
         "24/7 support via phone, chat, or email",
-        "Bi-weekly performance meetings for transparent reporting",
       ],
     },
     {
       name: "Cold Calling",
-      desc: "Driving conversations that convert.",
+      subtitle: "Driving conversations that convert.",
       features: [
         "Dedicated VA focused on lead generation and sales conversion",
         "Quality assurance to maintain call consistency and professionalism",
         "Auditing team to track metrics and optimize performance",
         "Bi-weekly client success meetings to align on goals and strategy",
-        "24/7 email support for campaign updates and assistance",
       ],
     },
     {
       name: "Data Generation",
-      desc: "Providing the data that powers your deals.",
+      subtitle: "Providing the data that powers your deals.",
       features: [
         "Customized data pulled based on your buy box, markets, and budget",
         "Up-to-date, verified leads ready for outreach",
@@ -511,15 +510,13 @@ function Pricing() {
     },
     {
       name: "Property Management (Short-Term Rentals)",
-      desc: "Full-service STR management for maximum ROI.",
+      subtitle: "Full-service STR management for maximum ROI.",
       features: [
         "Marketing optimization across top booking platforms",
         "Sales follow-up to convert inquiries into confirmed bookings",
-        "Dynamic pricing optimization to maximize occupancy and profit",
+        "Dynamic pricing to maximize occupancy and profit",
         "Guest communication handled end-to-end",
-        "Maintenance dispatching and tracking",
-        "Cleaner dispatching for consistent, on-time turnovers",
-        "Regular performance meetings to review KPIs and improvements",
+        "Maintenance & cleaner dispatching with performance tracking",
       ],
     },
   ];
@@ -529,56 +526,64 @@ function Pricing() {
       id="pricing"
       className="py-20 bg-white text-gray-900 border-t border-red-100"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-extrabold text-red-700">
-          Book Your DFU-VA Strategy Call
-        </h2>
-        <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-          Choose the service that matches your operations, then pick a time with our team to map out your DFU-VA setup.
-        </p>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h2 className="text-3xl font-extrabold text-red-700">
+            Book Your DFU-VA Strategy Call
+          </h2>
+          <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
+            Choose the service that matches your operation. Each engagement
+            starts with a strategy call to tailor DFU-VA support to your needs.
+          </p>
+        </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {/* Cards */}
+        <div className="mt-12 grid gap-8 md:grid-cols-4 items-stretch">
           {plans.map((plan) => (
             <div
-  key={plan.name}
-  className="rounded-2xl border border-red-100 bg-white shadow-sm p-8 text-left 
-             flex flex-col gap-5 transition-transform hover:-translate-y-1 hover:shadow-2xl
-             max-h-[480px] overflow-y-auto"
->
-
+              key={plan.name}
+              className="rounded-2xl border border-red-100 bg-white shadow-sm p-6 flex flex-col justify-between h-full
+                         transition-transform hover:-translate-y-1 hover:shadow-2xl"
+            >
+              {/* Top text block */}
               <div>
-                <h3 className="text-xl font-bold text-red-700">{plan.name}</h3>
-                <p className="mt-2 text-sm text-gray-600">{plan.desc}</p>
+                <h3 className="text-xl font-bold text-red-700">
+                  {plan.name}
+                </h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  {plan.subtitle}
+                </p>
+
+                <ul className="mt-5 space-y-2 text-sm text-gray-700">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-4 h-4 mt-1 text-red-600 flex-shrink-0"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <ul className="mt-6 space-y-3">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-center text-gray-700">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                      stroke="currentColor"
-                      className="w-5 h-5 text-red-600 mr-2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
+              {/* Button locked to bottom */}
               <button
                 onClick={() =>
                   window.open(calendlyUrl, "_blank", "noopener,noreferrer")
                 }
-                className="mt-8 w-full rounded-xl bg-red-600 py-3 font-semibold text-white
-                           hover:bg-red-700 transition"
+                className="mt-6 w-full rounded-xl bg-red-600 py-3 text-sm font-semibold
+                           text-white hover:bg-red-700 transition-colors"
               >
                 Talk to Our Team
               </button>
@@ -589,6 +594,7 @@ function Pricing() {
     </section>
   );
 }
+
 
 function FAQ() {
   const faqs = [
