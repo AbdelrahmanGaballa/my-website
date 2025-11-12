@@ -5,7 +5,7 @@ import outdoor from "./assets/outdoor.jpg";
 
 import React, { useState } from "react";
 
-/** App.tsx — DFU-VA Landing (Red & White) */
+/** App.tsx — DFU-VA Landing (Red & White, Calendly + Reviews) */
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +14,19 @@ export default function App() {
 
   function goTo(section: "home" | "features" | "pricing" | "contact") {
     setActive(section);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Prefer section top if present (for Book a Call etc.)
+    const idMap: Record<typeof section, string> = {
+      home: "home-top",
+      features: "features",
+      pricing: "pricing",
+      contact: "contact",
+    };
+    const target = document.getElementById(idMap[section]);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   return (
@@ -53,6 +65,16 @@ export default function App() {
                 isActive={active === "pricing"}
                 onClick={() => goTo("pricing")}
               />
+              <button
+                onClick={() => {
+                  document
+                    .getElementById("book-call")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="rounded-xl bg-white/15 px-3 py-1.5 text-sm font-semibold hover:bg-white/20 transition ring-1 ring-white/20"
+              >
+                Book a Call
+              </button>
               <NavItem
                 label="Contact"
                 isActive={active === "contact"}
@@ -106,6 +128,15 @@ export default function App() {
                 }}
               />
               <MobileLink
+                label="Book a Call"
+                onClick={() => {
+                  document
+                    .getElementById("book-call")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  setMenuOpen(false);
+                }}
+              />
+              <MobileLink
                 label="Contact"
                 onClick={() => {
                   goTo("contact");
@@ -117,143 +148,148 @@ export default function App() {
         )}
       </header>
 
+      {/* Main */}
      <main className="flex-1 relative bg-white">
   {active === "home" && (
     <>
-      <Hero onGetStarted={() => goTo("features")} />
+      <div id="home-top" />
+      <Hero onGetStarted={() => setActive("features")} />
       <StatsStrip />
       <Features />
       <Steps />
       <Pricing />
+      <Reviews />
+      <BookCall />
       <FAQ />
     </>
   )}
 
-  {active === "features" && (
-    <>
-      <Features />
-      <Steps />
-      <Pricing />
-      <FAQ />
-    </>
-  )}
+  {active === "features" && <Features />}
 
-  {active === "pricing" && (
-    <>
-      <Pricing />
-      <FAQ />
-    </>
-  )}
+  {active === "pricing" && <Pricing />}
 
   {active === "contact" && <Contact />}
 </main>
 
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-red-950 via-red-900 to-red-800 text-red-50 border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid gap-6 md:grid-cols-[2fr,1fr,1fr,1fr] items-start">
-            {/* Brand */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full border border-red-300/50 bg-white/10 flex items-center justify-center p-0.5">
-  <img
-    src="/logo1.png"
-    alt="DFU-VA"
-    className="h-full w-auto object-contain"
-  />
-</div>
-
-
-                <span className="text-base font-semibold tracking-wide">
-                  DFU-VA
-                </span>
-              </div>
-              <p className="text-[13px] text-red-100/85 leading-snug max-w-sm">
-                Real estate virtual assistants who qualify, follow up, and fill
-                your pipeline with motivated sellers.
-              </p>
-            </div>
-
-            {/* Product */}
-            <div>
-              <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
-                Product
-              </h4>
-              <ul className="space-y-0.5 text-[13px]">
-                <li>
-                  <a href="#features" className="hover:text-white transition">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#pricing" className="hover:text-white transition">
-                    Sales
-                  </a>
-                </li>
-                <li>
-                  <a href="#faq" className="hover:text-white transition">
-                    FAQ
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
-                Company
-              </h4>
-              <ul className="space-y-0.5 text-[13px]">
-                <li>
-                  <a href="#home" className="hover:text-white transition">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" className="hover:text-white transition">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
-                Legal
-              </h4>
-              <ul className="space-y-0.5 text-[13px]">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Privacy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Terms
-                  </a>
-                </li>
-              </ul>
-            </div>
+     {/* Footer */}
+<footer className="bg-gradient-to-r from-red-950 via-red-900 to-red-800 text-red-50 border-t border-white/10">
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+    <div className="grid gap-6 md:grid-cols-[2fr,1fr,1fr,1fr] items-start">
+      {/* Brand */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-8 rounded-full border border-red-300/50 bg-white/10 flex items-center justify-center p-0.5">
+            <img
+              src="/logo1.png"
+              alt="DFU-VA"
+              className="h-full w-auto object-contain"
+            />
           </div>
-
-          {/* Bottom bar */}
-          <div className="mt-6 pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-red-200/70">
-            <span>
-              © {new Date().getFullYear()}{" "}
-              <span className="font-semibold text-white">DFU-VA</span>. All
-              rights reserved.
-            </span>
-            <span>Real Estate Virtual Assistant Solutions</span>
-          </div>
+          <span className="text-base font-semibold tracking-wide">
+            DFU-VA
+          </span>
         </div>
-      </footer>
+        <p className="text-[13px] text-red-100/85 leading-snug max-w-sm">
+          Real estate virtual assistants who qualify, follow up, and fill
+          your pipeline with motivated sellers.
+        </p>
+      </div>
+
+      {/* Product */}
+      <div>
+        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+          Product
+        </h4>
+        <ul className="space-y-0.5 text-[13px]">
+          <li>
+            <button
+              onClick={() => setActive("features")}
+              className="hover:text-white transition"
+            >
+              Features
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => setActive("pricing")}
+              className="hover:text-white transition"
+            >
+              Sales
+            </button>
+          </li>
+          <li>
+            <a href="#faq" className="hover:text-white transition">
+              FAQ
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Company */}
+      <div>
+        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+          Company
+        </h4>
+        <ul className="space-y-0.5 text-[13px]">
+          <li>
+            <button
+              onClick={() => setActive("home")}
+              className="hover:text-white transition"
+            >
+              About
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => setActive("contact")}
+              className="hover:text-white transition"
+            >
+              Contact
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      {/* Legal */}
+      <div>
+        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+          Legal
+        </h4>
+        <ul className="space-y-0.5 text-[13px]">
+          <li>
+            <a href="#" className="hover:text-white transition">
+              Privacy
+            </a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-white transition">
+              Terms
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Bottom bar */}
+    <div className="mt-6 pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-red-200/70">
+      <span>
+        © {new Date().getFullYear()}{" "}
+        <span className="font-semibold text-white">DFU-VA</span>. All
+        rights reserved.
+      </span>
+      <span>Real Estate Virtual Assistant Solutions</span>
+    </div>
+  </div>
+</footer>
+
     </div>
   );
 }
 
 /* -------------------- Sections -------------------- */
+
 function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   const images = [realestate, deal, deal2, outdoor];
   const [currentImage, setCurrentImage] = React.useState(0);
@@ -261,7 +297,7 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 3000); // toggle every 2 seconds (kept as your original 3000ms)
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -296,6 +332,12 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
               >
                 See how it works →
               </button>
+              <a
+                href="#book-call"
+                className="rounded-xl border border-white/40 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
+              >
+                Book a Call
+              </a>
             </div>
           </div>
 
@@ -369,11 +411,7 @@ function Features() {
   ];
 
   return (
-    <section
-      id="features"
-      className="py-20 bg-[#FFF5F5]"
-    >
-      {/* soft light red-tinted background */}
+    <section id="features" className="py-20 bg-[#FFF5F5]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl font-extrabold text-red-700">
           Why DFU-VA Works
@@ -431,10 +469,7 @@ function Steps() {
   ];
 
   return (
-    <section
-      id="how-it-works"
-      className="py-20 bg-red-50 border-y border-red-100"
-    >
+    <section id="how-it-works" className="py-20 bg-red-50 border-y border-red-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-extrabold text-center text-red-700">
           How DFU-VA Works
@@ -472,7 +507,6 @@ function Steps() {
 }
 
 function Pricing() {
-  // Your main Calendly event link
   const calendlyUrl = "https://calendly.com/dave-dfu-va/30min";
 
   const plans = [
@@ -519,10 +553,7 @@ function Pricing() {
   ];
 
   return (
-    <section
-      id="pricing"
-      className="py-20 bg-white text-gray-900 border-t border-red-100"
-    >
+    <section id="pricing" className="py-20 bg-white text-gray-900 border-t border-red-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-red-700">
@@ -542,7 +573,6 @@ function Pricing() {
               className="rounded-2xl border border-red-100 bg-white shadow-sm p-6 flex flex-col justify-between h-full
                          transition-transform hover:-translate-y-1 hover:shadow-2xl"
             >
-              {/* Top text block */}
               <div>
                 <h3 className="text-xl font-bold text-red-700">
                   {plan.name}
@@ -562,11 +592,7 @@ function Pricing() {
                         stroke="currentColor"
                         className="w-4 h-4 mt-1 text-red-600 flex-shrink-0"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5 13l4 4L19 7"
-                        />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                       <span>{f}</span>
                     </li>
@@ -574,18 +600,206 @@ function Pricing() {
                 </ul>
               </div>
 
-              {/* Button locked to bottom */}
-              <button
-                onClick={() =>
-                  window.open(calendlyUrl, "_blank", "noopener,noreferrer")
-                }
-                className="mt-6 w-full rounded-xl bg-red-600 py-3 text-sm font-semibold
-                           text-white hover:bg-red-700 transition-colors"
-              >
-                Talk to Our Team
-              </button>
+              <div className="mt-6 space-y-2">
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById("book-call")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                  }
+                  className="w-full rounded-xl bg-red-600 py-3 text-sm font-semibold
+                             text-white hover:bg-red-700 transition-colors"
+                >
+                  Talk to Our Team
+                </button>
+                <a
+                  href={calendlyUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block text-center text-xs text-gray-500 hover:text-red-600"
+                >
+                  or open Calendly in a new tab
+                </a>
+              </div>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------- Reviews -------------------- */
+function Reviews() {
+  const testimonials = [
+    {
+      name: "Jason Miller",
+      role: "Wholesaler",
+      location: "Houston, TX",
+      rating: 5,
+      quote:
+        "Before DFU-VA, my CRM was a graveyard of cold leads. Within two weeks, my VA revived dozens of prospects and booked 4 new appointments.",
+    },
+    {
+      name: "Amanda Lewis",
+      role: "Real Estate Investor",
+      location: "Florida",
+      rating: 5,
+      quote:
+        "I finally have time to focus on closings instead of chasing sellers. Professional, consistent, and worth every dollar.",
+    },
+    {
+      name: "Michael Chen",
+      role: "Acquisition Manager",
+      location: "Phoenix, AZ",
+      rating: 5,
+      quote:
+        "Training and systems are top-notch. My VA understood our process day one and qualified motivated sellers immediately.",
+    },
+    {
+      name: "Sarah Johnson",
+      role: "Flipper",
+      location: "California",
+      rating: 5,
+      quote:
+        "Cold-calling quality is amazing — confident tone, proper scripts, and detailed notes. Closed 3 deals in 45 days.",
+    },
+    {
+      name: "David Hernandez",
+      role: "STR Operator",
+      location: "Nationwide",
+      rating: 5,
+      quote:
+        "Guest comms improved, reviews went up, and I barely touch my phone now. DFU-VA keeps everything smooth 24/7.",
+    },
+    {
+      name: "Brooke Simmons",
+      role: "Team Owner",
+      location: "Georgia",
+      rating: 5,
+      quote:
+        "Feels like I added an ops team without the overhead. VAs manage CRM, follow-ups, and data so we focus on offers.",
+    },
+    {
+      name: "Alex Carter",
+      role: "Realtor",
+      location: "Dallas, TX",
+      rating: 5,
+      quote:
+        "Auditing & quality control stood out. Every lead passed to me was genuinely interested — no fluff, no wasted calls.",
+    },
+    {
+  name: "Nina Patel",
+  role: "Real Estate Investor",
+  location: "Chicago, IL",
+  rating: 5,
+  quote:
+    "DFU-VA gave me structure I didn’t even know I was missing. My VA updates the CRM daily and sends me reports that make decision-making effortless. It feels like having an in-house team.",
+},
+{
+  name: "Robert King",
+  role: "Real Estate Developer",
+  location: "Las Vegas, NV",
+  rating: 5,
+  quote:
+    "Their process is clean, organized, and fully transparent. From the initial call to the daily communication, everything runs like clockwork. I now have consistent deal flow every week.",
+},
+
+  ];
+
+  return (
+    <section id="reviews" className="py-20 bg-white border-t border-red-100">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h2 className="text-3xl font-extrabold text-red-700">Client Reviews</h2>
+          <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
+            What investors and operators say after plugging in DFU-VA.
+          </p>
+        </div>
+
+        {/* Cards */}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((t) => (
+            <article
+              key={t.name + t.location}
+              className="group h-full rounded-2xl bg-white border border-red-100 p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)]
+                         hover:border-red-200 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all"
+            >
+              <div className="flex items-center gap-1">
+                <Stars count={t.rating} />
+              </div>
+
+              <p className="mt-4 text-gray-700 leading-relaxed">
+                “{t.quote}”
+              </p>
+
+              <div className="mt-6 flex items-center justify-between">
+                <div className="text-sm">
+                  <div className="font-semibold text-gray-900">{t.name}</div>
+                  <div className="text-gray-500">{t.role}</div>
+                </div>
+
+                <span className="inline-flex items-center rounded-full border border-red-200 bg-white px-2.5 py-1 text-[11px] font-medium text-red-700">
+                  {t.location}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* CTA */}
+     
+      </div>
+    </section>
+  );
+}
+
+function Stars({ count = 5 }: { count?: number }) {
+  return (
+    <>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg
+          key={i}
+          viewBox="0 0 24 24"
+          className={`h-4 w-4 ${i < count ? "text-amber-400" : "text-red-100"}`}
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M12 17.27l6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l4.46 4.73-1.64 7.03L12 17.27z" />
+        </svg>
+      ))}
+    </>
+  );
+}
+
+
+
+/* ===== Calendly Inline (NEW) ===== */
+function BookCall() {
+  const calendlyUrl =
+    "https://calendly.com/dave-dfu-va/30min?hide_event_type_details=1&hide_gdpr_banner=1";
+
+  return (
+    <section id="book-call" className="py-20 bg-white border-t border-red-100">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-extrabold text-center text-red-700">
+          Book Your Strategy Call
+        </h2>
+        <p className="mt-3 text-center text-gray-600 max-w-2xl mx-auto">
+          Pick a time that works—no back-and-forth. This call helps us tailor DFU-VA to your
+          markets, systems, and deal goals.
+        </p>
+
+        <div className="mt-10 rounded-2xl border border-red-100 overflow-hidden shadow-sm">
+          {/* Responsive Calendly iframe */}
+          <div className="relative" style={{ paddingTop: "0" }}>
+            <iframe
+              title="Calendly — DFU-VA"
+              src={calendlyUrl}
+              className="w-full"
+              style={{ minHeight: 780, border: "0" }}
+            />
+          </div>
         </div>
       </div>
     </section>
