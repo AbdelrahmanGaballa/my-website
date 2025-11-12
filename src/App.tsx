@@ -3,9 +3,6 @@ import deal from "./assets/deal.jpg";
 import deal2 from "./assets/deal2.jpg";
 import outdoor from "./assets/outdoor.jpg";
 
-
-
-
 import React, { useState } from "react";
 
 /** App.tsx — DFU-VA Landing (Red & White) */
@@ -31,10 +28,13 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Brand */}
-           <div className="flex items-center gap-3">
-  <Logo />
-</div>
-
+            <div className="flex items-center gap-3">
+              <img
+                src="/logo1.png"
+                alt="DFU-VA"
+                className="h-14 w-auto"
+              />
+            </div>
 
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-6 text-sm">
@@ -163,9 +163,14 @@ export default function App() {
             {/* Brand */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-               <div className="h-7 w-7 rounded-full border border-red-300/50 bg-white/10 flex items-center justify-center">
-  <Logo />
+              <div className="h-8 w-8 rounded-full border border-red-300/50 bg-white/10 flex items-center justify-center p-0.5">
+  <img
+    src="/logo1.png"
+    alt="DFU-VA"
+    className="h-full w-auto object-contain"
+  />
 </div>
+
 
                 <span className="text-base font-semibold tracking-wide">
                   DFU-VA
@@ -263,7 +268,7 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 3000); // toggle every 2 seconds
+    }, 3000); // toggle every 2 seconds (kept as your original 3000ms)
     return () => clearInterval(interval);
   }, []);
 
@@ -303,30 +308,24 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
 
           {/* Visual */}
           <div className="relative">
-<div className="aspect-video w-full rounded-2xl border border-red-300/40 bg-white/5 shadow-xl p-4 backdrop-blur-sm">
-  <div className="h-full w-full rounded-xl overflow-hidden border border-white/40 shadow-lg">
-    <img
-      src={images[currentImage]}
-      alt="Real estate visual"
-      className="w-full h-full object-cover transition-all duration-700 ease-in-out"
-    />
-  </div>
-</div>
-<div className="absolute -bottom-6 -left-6 hidden lg:block">
-  <Badge label="+200 clients" />
-</div>
-
-
-
-
-
+            <div className="aspect-video w-full rounded-2xl border border-red-300/40 bg-white/5 shadow-xl p-4 backdrop-blur-sm">
+              <div className="h-full w-full rounded-xl overflow-hidden border border-white/40 shadow-lg">
+                <img
+                  src={images[currentImage]}
+                  alt="Real estate visual"
+                  className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+                />
+              </div>
+            </div>
+            <div className="absolute -bottom-6 -left-6 hidden lg:block">
+              <Badge label="+200 clients" />
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
 
 function StatsStrip() {
   const stats = [
@@ -478,6 +477,7 @@ function Steps() {
     </section>
   );
 }
+
 function Pricing() {
   // Your main Calendly event link
   const calendlyUrl = "https://calendly.com/dave-dfu-va/30min";
@@ -598,7 +598,6 @@ function Pricing() {
     </section>
   );
 }
-
 
 function FAQ() {
   const faqs = [
@@ -904,6 +903,7 @@ function MobileLink({
     </button>
   );
 }
+
 function Badge({ label }: { label: string }) {
   return (
     <div className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-white px-3 py-1 shadow-sm">
@@ -920,7 +920,7 @@ function Badge({ label }: { label: string }) {
       </svg>
       <span className="text-xs font-medium text-red-700">{label}</span>
     </div>
-  )
+  );
 }
 
 function Check() {
@@ -935,73 +935,6 @@ function Check() {
       strokeLinejoin="round"
     >
       <path d="M20 6L9 17l-5-5" />
-    </svg>
-  );
-}
-// Logo.tsx
-
-
-export function Logo() {
-  return (
-    <svg
-      width="140"
-      height="40"
-      viewBox="0 0 220 64"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-labelledby="fuVaLogoTitle"
-      role="img"
-    >
-      <title id="fuVaLogoTitle">FU-VA Logo</title>
-
-      {/* Headset outline */}
-      <path
-        d="M10 18 C10 8 18 4 28 4 H38 C49 4 56 11 56 22 V26 C56 37 49 44 38 44 H26 C20 44 16 47 16 52 V58 H24"
-        fill="none"
-        stroke="#FFFFFF"
-        strokeWidth={3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Earcup */}
-      <circle cx="56" cy="26" r="4" fill="#FFFFFF" />
-
-      {/* Mic Arm */}
-      <path
-        d="M28 52 H42 C44.5 52 46.5 54 46.5 56.5 C46.5 59 44.5 61 42 61 H38"
-        fill="none"
-        stroke="#FFFFFF"
-        strokeWidth={3}
-        strokeLinecap="round"
-      />
-
-      {/* House INSIDE (red, clearly visible) */}
-      <polygon
-        points="30,15 18,26 18,42 42,42 42,26"
-        fill="#9B111E"          // << RED HOUSE
-        stroke="#FFFFFF"
-        strokeWidth={2.4}
-        strokeLinejoin="round"
-      />
-
-      {/* Windows */}
-      <rect x="26.5" y="29" width="3" height="3" fill="#FFFFFF" />
-      <rect x="31.5" y="29" width="3" height="3" fill="#FFFFFF" />
-      <rect x="26.5" y="34" width="3" height="3" fill="#FFFFFF" />
-      <rect x="31.5" y="34" width="3" height="3" fill="#FFFFFF" />
-
-      {/* FU-VA text, tight to icon */}
-      <text
-        x="64"
-        y="41"
-        fill="#FFFFFF"
-        fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-        fontSize="28"
-        fontWeight={700}
-        letterSpacing="0.5"
-      >
-        FU-VA
-      </text>
     </svg>
   );
 }
