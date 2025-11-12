@@ -117,44 +117,37 @@ export default function App() {
         )}
       </header>
 
-      {/* Main */}
-      <main className="flex-1 relative bg-white">
-        {active === "home" && (
-          <>
-            <Hero onGetStarted={() => goTo("features")} />
-            <StatsStrip />
-            <Features />
-            <Steps />
-            <Pricing />
-            <FAQ />
-          </>
-        )}
+     <main className="flex-1 relative bg-white">
+  {active === "home" && (
+    <>
+      <Hero onGetStarted={() => goTo("features")} />
+      <StatsStrip />
+      <Features />
+      <Steps />
+      <Pricing />
+      <FAQ />
+    </>
+  )}
 
-        {active === "features" && (
-          <>
-            <Hero onGetStarted={() => goTo("features")} />
-            <Features />
-            <Steps />
-            <Pricing />
-            <FAQ />
-          </>
-        )}
+  {active === "features" && (
+    <>
+      <Features />
+      <Steps />
+      <Pricing />
+      <FAQ />
+    </>
+  )}
 
-        {active === "pricing" && (
-          <>
-            <Hero onGetStarted={() => goTo("features")} />
-            <Pricing />
-            <FAQ />
-          </>
-        )}
+  {active === "pricing" && (
+    <>
+      <Pricing />
+      <FAQ />
+    </>
+  )}
 
-        {active === "contact" && (
-          <>
-            <Hero onGetStarted={() => goTo("features")} />
-            <Contact />
-          </>
-        )}
-      </main>
+  {active === "contact" && <Contact />}
+</main>
+
 
       {/* Footer */}
       <footer className="bg-gradient-to-r from-red-950 via-red-900 to-red-800 text-red-50 border-t border-white/10">
