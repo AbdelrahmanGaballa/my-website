@@ -4,11 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DFU-VA</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Theme color -->
     <meta name="theme-color" content="#8B0E12" />
   </head>
+
   <body>
+    <!-- Root React mount point -->
     <div id="root"></div>
+
+    <!-- React/Vite entry -->
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- ✅ Crisp Live Chat Integration -->
+    <script type="text/javascript">
+      window.$crisp = [];
+      window.CRISP_WEBSITE_ID = "866491d8-2cbb-47c6-8a6e-c90132b6d388";
+      (function () {
+        var d = document;
+        var s = d.createElement("script");
+        s.src = "https://client.crisp.chat/l.js";
+        s.async = 1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+      })();
+    </script>
   </body>
 </html>
