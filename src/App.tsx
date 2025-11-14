@@ -588,7 +588,7 @@ function Pricing() {
                          flex flex-col h-full transition-transform hover:-translate-y-1 hover:shadow-2xl"
             >
               {/* Top text block (fixed height for alignment) */}
-              <div className="min-h-[100px]">
+              <div className="min-h-[110px]">
                 <h3 className="text-lg font-bold text-red-700">
                   {plan.name}
                 </h3>
@@ -599,8 +599,8 @@ function Pricing() {
 
               {/* Scrollable features (shorter, hidden scrollbar) */}
               <ul
-                className="mt-4 space-y-2 text-[13px] text-gray-700 flex-1 overflow-y-auto pr-1 custom-scroll"
-                style={{ maxHeight: "150px" }}
+                className="mt-4 space-y-2 text-[13px] text-gray-700 overflow-y-auto pr-1 custom-scroll"
+                style={{ height: "150px" }}
               >
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-start gap-2">
@@ -643,7 +643,6 @@ function Pricing() {
     </section>
   );
 }
-
 
 
 
