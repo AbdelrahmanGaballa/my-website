@@ -505,8 +505,8 @@ function Steps() {
     </section>
   );
 }
-
 function Pricing() {
+  // Your main Calendly event link
   const calendlyUrl = "https://calendly.com/dave-dfu-va/30min";
 
   const plans = [
@@ -540,7 +540,7 @@ function Pricing() {
       ],
     },
     {
-      name: "Property Management (Short-Term Rentals)",
+      name: "Property Management",
       subtitle: "Full-service STR management for maximum ROI.",
       features: [
         "Marketing optimization across top booking platforms",
@@ -550,84 +550,102 @@ function Pricing() {
         "Maintenance & cleaner dispatching with performance tracking",
       ],
     },
+    {
+      name: "SMS Marketing",
+      subtitle: "Engage leads instantly. Drive measurable results.",
+      features: [
+        "Weekly KPI reports with detailed performance metrics and insights",
+        "Full message coverage: every text is read and responded to promptly",
+        "High delivery & response rates with continually optimized campaigns",
+        "Targeted campaigns: right message, right audience, right time",
+        "24/7 support for campaign updates, strategy adjustments, and new launches",
+      ],
+    },
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-white text-gray-900 border-t border-red-100">
+    <section
+      id="pricing"
+      className="py-16 bg-white text-gray-900 border-t border-red-100"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-red-700">
             Book Your DFU-VA Strategy Call
           </h2>
-          <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
             Choose the service that matches your operation. Each engagement
             starts with a strategy call to tailor DFU-VA support to your needs.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="mt-12 grid gap-8 md:grid-cols-4 items-stretch">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 items-stretch">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className="rounded-2xl border border-red-100 bg-white shadow-sm p-6 flex flex-col justify-between h-full
-                         transition-transform hover:-translate-y-1 hover:shadow-2xl"
+              className="rounded-2xl border border-red-100 bg-white shadow-sm p-5 
+                         flex flex-col h-full transition-transform hover:-translate-y-1 hover:shadow-2xl"
             >
-              <div>
-                <h3 className="text-xl font-bold text-red-700">
+              {/* Top text block (fixed height for alignment) */}
+              <div className="min-h-[100px]">
+                <h3 className="text-lg font-bold text-red-700">
                   {plan.name}
                 </h3>
                 <p className="mt-2 text-sm text-gray-600">
                   {plan.subtitle}
                 </p>
-
-                <ul className="mt-5 space-y-2 text-sm text-gray-700">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-4 h-4 mt-1 text-red-600 flex-shrink-0"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
 
-              <div className="mt-6 space-y-2">
+              {/* Scrollable features (shorter, hidden scrollbar) */}
+              <ul
+                className="mt-4 space-y-2 text-[13px] text-gray-700 flex-1 overflow-y-auto pr-1 custom-scroll"
+                style={{ maxHeight: "150px" }}
+              >
+                {plan.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="w-4 h-4 mt-0.5 text-red-600 flex-shrink-0"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Button fixed to bottom, aligned across cards */}
+              <div className="mt-5 pt-1 border-t border-red-50 flex-none">
                 <button
                   onClick={() =>
-                    document
-                      .getElementById("book-call")
-                      ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                    window.open(calendlyUrl, "_blank", "noopener,noreferrer")
                   }
                   className="w-full rounded-xl bg-red-600 py-3 text-sm font-semibold
                              text-white hover:bg-red-700 transition-colors"
                 >
                   Talk to Our Team
                 </button>
-                <a
-                  href={calendlyUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block text-center text-xs text-gray-500 hover:text-red-600"
-                >
-                  or open Calendly in a new tab
-                </a>
               </div>
             </div>
           ))}
         </div>
       </div>
+
     </section>
   );
 }
+
+
+
 
 /* -------------------- Reviews -------------------- */
 function Reviews() {
