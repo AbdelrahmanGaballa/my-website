@@ -28,6 +28,19 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
+    function goToBookCall() {
+    // Make sure the Home layout (with BookCall) is shown
+    setActive("home");
+
+    // Wait for React to render, then scroll
+    setTimeout(() => {
+      const el = document.getElementById("book-call");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 50);
+  }
+
 
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col">
@@ -65,16 +78,13 @@ export default function App() {
                 isActive={active === "pricing"}
                 onClick={() => goTo("pricing")}
               />
-              <button
-                onClick={() => {
-                  document
-                    .getElementById("book-call")
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
-                className="rounded-xl bg-white/15 px-3 py-1.5 text-sm font-semibold hover:bg-white/20 transition ring-1 ring-white/20"
-              >
-                Book a Call
-              </button>
+             <button
+  onClick={goToBookCall}
+  className="rounded-xl bg-white/15 px-3 py-1.5 text-sm font-semibold hover:bg-white/20 transition ring-1 ring-white/20"
+>
+  Book a Call
+</button>
+
               <NavItem
                 label="Contact"
                 isActive={active === "contact"}
@@ -127,15 +137,14 @@ export default function App() {
                   setMenuOpen(false);
                 }}
               />
-              <MobileLink
-                label="Book a Call"
-                onClick={() => {
-                  document
-                    .getElementById("book-call")
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  setMenuOpen(false);
-                }}
-              />
+             <MobileLink
+  label="Book a Call"
+  onClick={() => {
+    goToBookCall();
+    setMenuOpen(false);
+  }}
+/>
+
               <MobileLink
                 label="Contact"
                 onClick={() => {
