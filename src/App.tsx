@@ -158,7 +158,7 @@ export default function App() {
       <Features />
       <Steps />
       <Pricing />
-      <Reviews />
+     
       <BookCall />
       <FAQ />
     </>
@@ -647,147 +647,8 @@ function Pricing() {
 
 
 /* -------------------- Reviews -------------------- */
-function Reviews() {
-  const testimonials = [
-    {
-      name: "Jason Miller",
-      role: "Wholesaler",
-      location: "Houston, TX",
-      rating: 5,
-      quote:
-        "Before DFU-VA, my CRM was a graveyard of cold leads. Within two weeks, my VA revived dozens of prospects and booked 4 new appointments.",
-    },
-    {
-      name: "Amanda Lewis",
-      role: "Real Estate Investor",
-      location: "Florida",
-      rating: 5,
-      quote:
-        "I finally have time to focus on closings instead of chasing sellers. Professional, consistent, and worth every dollar.",
-    },
-    {
-      name: "Michael Chen",
-      role: "Acquisition Manager",
-      location: "Phoenix, AZ",
-      rating: 5,
-      quote:
-        "Training and systems are top-notch. My VA understood our process day one and qualified motivated sellers immediately.",
-    },
-    {
-      name: "Sarah Johnson",
-      role: "Flipper",
-      location: "California",
-      rating: 5,
-      quote:
-        "Cold-calling quality is amazing — confident tone, proper scripts, and detailed notes. Closed 3 deals in 45 days.",
-    },
-    {
-      name: "David Hernandez",
-      role: "STR Operator",
-      location: "Nationwide",
-      rating: 5,
-      quote:
-        "Guest comms improved, reviews went up, and I barely touch my phone now. DFU-VA keeps everything smooth 24/7.",
-    },
-    {
-      name: "Brooke Simmons",
-      role: "Team Owner",
-      location: "Georgia",
-      rating: 5,
-      quote:
-        "Feels like I added an ops team without the overhead. VAs manage CRM, follow-ups, and data so we focus on offers.",
-    },
-    {
-      name: "Alex Carter",
-      role: "Realtor",
-      location: "Dallas, TX",
-      rating: 5,
-      quote:
-        "Auditing & quality control stood out. Every lead passed to me was genuinely interested — no fluff, no wasted calls.",
-    },
-    {
-  name: "Nina Patel",
-  role: "Real Estate Investor",
-  location: "Chicago, IL",
-  rating: 5,
-  quote:
-    "DFU-VA gave me structure I didn’t even know I was missing. My VA updates the CRM daily and sends me reports that make decision-making effortless. It feels like having an in-house team.",
-},
-{
-  name: "Robert King",
-  role: "Real Estate Developer",
-  location: "Las Vegas, NV",
-  rating: 5,
-  quote:
-    "Their process is clean, organized, and fully transparent. From the initial call to the daily communication, everything runs like clockwork. I now have consistent deal flow every week.",
-},
 
-  ];
 
-  return (
-    <section id="reviews" className="py-20 bg-white border-t border-red-100">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-red-700">Client Reviews</h2>
-          <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-            What investors and operators say after plugging in DFU-VA.
-          </p>
-        </div>
-
-        {/* Cards */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((t) => (
-            <article
-              key={t.name + t.location}
-              className="group h-full rounded-2xl bg-white border border-red-100 p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)]
-                         hover:border-red-200 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all"
-            >
-              <div className="flex items-center gap-1">
-                <Stars count={t.rating} />
-              </div>
-
-              <p className="mt-4 text-gray-700 leading-relaxed">
-                “{t.quote}”
-              </p>
-
-              <div className="mt-6 flex items-center justify-between">
-                <div className="text-sm">
-                  <div className="font-semibold text-gray-900">{t.name}</div>
-                  <div className="text-gray-500">{t.role}</div>
-                </div>
-
-                <span className="inline-flex items-center rounded-full border border-red-200 bg-white px-2.5 py-1 text-[11px] font-medium text-red-700">
-                  {t.location}
-                </span>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* CTA */}
-     
-      </div>
-    </section>
-  );
-}
-
-function Stars({ count = 5 }: { count?: number }) {
-  return (
-    <>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg
-          key={i}
-          viewBox="0 0 24 24"
-          className={`h-4 w-4 ${i < count ? "text-amber-400" : "text-red-100"}`}
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path d="M12 17.27l6.18 3.73-1.64-7.03L21 9.24l-7.19-.61L12 2 10.19 8.63 3 9.24l4.46 4.73-1.64 7.03L12 17.27z" />
-        </svg>
-      ))}
-    </>
-  );
-}
 
 
 
