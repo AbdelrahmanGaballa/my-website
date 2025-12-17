@@ -279,6 +279,75 @@ export default function App() {
           </li>
         </ul>
       </div>
+      {/* Social */}
+<div>
+  <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
+    Social
+  </h4>
+
+  <div className="flex items-center gap-3 mt-2">
+    {/* Facebook */}
+    <a
+      href="https://www.facebook.com/share/15sRSHukbR/?mibextid=wwXIfr"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Facebook"
+      className="h-9 w-9 flex items-center justify-center rounded-full
+                 border border-white/20 bg-white/10
+                 hover:bg-white/20 transition"
+    >
+      <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+        <path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2v-2.9h2V9.7c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v1.5h2.6l-.4 2.9h-2.2v7A10 10 0 0 0 22 12Z" />
+      </svg>
+    </a>
+
+    {/* Instagram */}
+    <a
+      href="https://www.instagram.com/dfu.va?igsh=MXU4M3htZTh3aWhwag=="
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Instagram"
+      className="h-9 w-9 flex items-center justify-center rounded-full
+                 border border-white/20 bg-white/10
+                 hover:bg-white/20 transition"
+    >
+      <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+        <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7Zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10Zm-5 3.3A4.7 4.7 0 1 0 16.7 12 4.7 4.7 0 0 0 12 7.3Zm0 7.7A3 3 0 1 1 15 12a3 3 0 0 1-3 3Zm4.8-8.7a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1Z" />
+      </svg>
+    </a>
+
+    {/* LinkedIn */}
+    <a
+      href="https://www.linkedin.com/company/dfu-va/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+      className="h-9 w-9 flex items-center justify-center rounded-full
+                 border border-white/20 bg-white/10
+                 hover:bg-white/20 transition"
+    >
+      <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+        <path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5ZM3 9h4v12H3Zm7 0h3.8v1.7h.1a4.2 4.2 0 0 1 3.8-2.1c4 0 4.7 2.6 4.7 6v6.4h-4v-5.7c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.8H10Z" />
+      </svg>
+    </a>
+
+    {/* TikTok */}
+    <a
+      href="https://www.tiktok.com/@dfuva?_r=1&_t=ZS-92IZqnx6TFB"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="TikTok"
+      className="h-9 w-9 flex items-center justify-center rounded-full
+                 border border-white/20 bg-white/10
+                 hover:bg-white/20 transition"
+    >
+      <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+        <path d="M21 8.5a6.5 6.5 0 0 1-4.5-1.8v8.3a6.5 6.5 0 1 1-6.5-6.5c.3 0 .7 0 1 .1v3.4a3.1 3.1 0 1 0 2.1 3V2h3.1A6.5 6.5 0 0 0 21 6.1Z" />
+      </svg>
+    </a>
+  </div>
+</div>
+
     </div>
 
     {/* Bottom bar */}
