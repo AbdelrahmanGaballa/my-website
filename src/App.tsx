@@ -228,11 +228,7 @@ export default function App() {
               Sales
             </button>
           </li>
-          <li>
-            <a href="#faq" className="hover:text-white transition">
-              FAQ
-            </a>
-          </li>
+          
         </ul>
       </div>
 
@@ -261,24 +257,7 @@ export default function App() {
         </ul>
       </div>
 
-      {/* Legal */}
-      <div>
-        <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
-          Legal
-        </h4>
-        <ul className="space-y-0.5 text-[13px]">
-          <li>
-            <a href="#" className="hover:text-white transition">
-              Privacy
-            </a>
-          </li>
-          <li>
-            <a href="#" className="hover:text-white transition">
-              Terms
-            </a>
-          </li>
-        </ul>
-      </div>
+     
       {/* Social */}
 <div>
   <h4 className="text-sm font-semibold text-red-200 uppercase tracking-wide mb-1.5">
