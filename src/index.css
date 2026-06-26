@@ -1,4 +1,27 @@
 @import "tailwindcss";
+
+/* Global polish */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Better focus visibility */
+:focus-visible {
+  outline: 2px solid rgba(220, 38, 38, 0.35);
+  outline-offset: 3px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(220, 38, 38, 0.18);
+}
+
 /* Hide scrollbar, keep scroll working */
 .custom-scroll::-webkit-scrollbar {
   width: 0px;

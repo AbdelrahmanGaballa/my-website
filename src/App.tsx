@@ -907,10 +907,21 @@ function Contact() {
         <h2 className="text-3xl font-extrabold tracking-tight text-center text-red-600">
           Contact DFU-VA
         </h2>
-        <p className="mt-2 text-center text-gray-600">
-          Tell us about your operation and we’ll show you how DFU-VA can plug
-          in.
-        </p>
+       <p className="mt-2 text-center text-gray-600">
+  Tell us about your operation and we'll show you how DFU-VA can plug
+  in.
+</p>
+
+<div className="mt-4 flex items-center justify-center gap-2">
+  <div className="h-9 w-9 flex items-center justify-center rounded-full bg-red-50">
+    <svg viewBox="0 0 24 24" className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.18 12 19.79 19.79 0 0 1 2 3.18 2 2 0 0 1 4 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  </div>
+  <a href="tel:+12013655503" className="text-base font-semibold text-red-600 hover:text-red-700 transition">
+    (201) 365-5503
+  </a>
+</div>
 
         {errors.submit && (
           <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
