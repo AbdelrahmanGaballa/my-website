@@ -2,6 +2,7 @@ import realestate from "./assets/realestate.jpg";
 import deal from "./assets/deal.jpg";
 import deal2 from "./assets/deal2.jpg";
 import outdoor from "./assets/outdoor.jpg";
+import reviewVideoFile from "./assets/review-video.mp4";
 
 import React, { useState } from "react";
 
@@ -167,6 +168,7 @@ export default function App() {
       <Features />
       <Steps />
       <Pricing />
+      <Reviews />
      
       <BookCall />
       <FAQ />
@@ -822,7 +824,113 @@ function FAQ() {
     </section>
   );
 }
+function Reviews() {
+  const testimonials = [
+    {
+      name: "Alex Mercer",
+      role: "Wholesaler & Acquisition Manager",
+      location: "Dallas, TX",
+      avatar: "AM",
+      quote: "Before DFU-VA, I was spending 4 hours a day cold calling dead leads. Their cold calling VA lined up 3 highly motivated sellers in the first two weeks. One deal alone paid for the entire year of service.",
+      rating: 5
+    },
+    {
+      name: "Sarah Jenkins",
+      role: "STR Property Investor",
+      location: "Orlando, FL",
+      avatar: "SJ",
+      quote: "Managing guest inquiries and cleaner schedules for my 8 Airbnbs was burning me out. The Property Management team from DFU-VA stepped in seamlessly. Occupancy is up 12% and I finally got my weekends back.",
+      rating: 5
+    },
+    {
+      name: "Marcus Thorne",
+      role: "Fix & Flip Operator",
+      location: "Atlanta, GA",
+      avatar: "MT",
+      quote: "The skip tracing and SMS marketing campaigns they build are top-notch. They manage the entire pipeline directly inside our Podio CRM. Clean data, stellar compliance, and excellent daily reporting.",
+      rating: 5
+    }
+  ];
 
+  return (
+    <section id="reviews" className="py-20 bg-red-50/50 border-t border-red-100">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
+        {/* --- Video Component Section --- */}
+        <div className="text-center mb-8">
+          <p className="text-xs font-semibold text-red-600 uppercase tracking-wider">Success Story</p>
+          <h2 className="mt-2 text-3xl font-extrabold text-red-700">
+            See How Our VAs Transform Operations
+          </h2>
+          <p className="mt-3 text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
+            Real results from scaling real estate investors who took their time back.
+          </p>
+        </div>
+
+        {/* Video Player Display */}
+        <div className="relative mx-auto max-w-3xl rounded-2xl overflow-hidden border border-red-100 shadow-xl bg-gray-900 aspect-video mb-20">
+          <video 
+            src={reviewVideoFile}
+            controls
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        {/* --- Written Reviews Grid Section --- */}
+        <div className="text-center mb-12">
+          <p className="text-xs font-semibold text-red-600 uppercase tracking-wider">Testimonials</p>
+          <h3 className="mt-2 text-2xl font-bold text-gray-900">
+            Trusted by Investors Nationwide
+          </h3>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {testimonials.map((t) => (
+            <div 
+              key={t.name}
+              className="rounded-2xl border border-red-100 bg-white p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
+            >
+              <div>
+                {/* Stars layout */}
+                <div className="flex items-center gap-1 text-amber-500 mb-4">
+                  {[...Array(t.rating)].map((_, i) => (
+                    <svg key={i} viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                
+                <p className="text-gray-700 text-sm leading-relaxed italic mb-6">
+                  "{t.quote}"
+                </p>
+              </div>
+
+              {/* User Meta info card */}
+              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                <div className="h-10 w-10 rounded-full bg-red-600 text-white font-bold text-sm flex items-center justify-center shadow-sm flex-shrink-0">
+                  {t.avatar}
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <h4 className="text-sm font-bold text-gray-900">{t.name}</h4>
+                    <span className="inline-flex items-center rounded bg-green-50 px-1.5 py-0.5 text-[10px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                      Verified Client
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-0.5">{t.role} • {t.location}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
 function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
