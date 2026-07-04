@@ -867,25 +867,25 @@ function Reviews() {
       desc: "VA uncovers a motivated seller with an inherited property looking for a cash offer."
     },
     {
-      title: "Pre-Screening & Buy-Box Audit",
-      tag: "Lead Qualification",
+      title: "Outbound Wholesaling Lead",
+      tag: "Cold Outreach",
       duration: "3:12",
       src: call2,
-      desc: "VA systematically reviews property condition, timeline, and price expectations."
+      desc: "VA uncovers a motivated seller with an inherited property looking for a cash offer."
     },
     {
-      title: "STR Management Inquiry",
-      tag: "Inbound Support",
+      title: "Outbound Wholesaling Lead",
+      tag: "Cold Outreach",
       duration: "1:58",
       src: call3,
-      desc: "VA smoothly handles an out-of-state guest booking conflict and locks in an extension."
+      desc: "VA uncovers a motivated seller with an inherited property looking for a cash offer."
     },
     {
-      title: "Follow-Up & Pipeline Nurturing",
-      tag: "CRM Management",
+      title: "Outbound Wholesaling Lead",
+      tag: "Cold Outreach",
       duration: "2:15",
       src: call4,
-      desc: "VA reconnects with a warm lead, confirms structural details, and updates the investor dashboard."
+      desc: "VA uncovers a motivated seller with an inherited property looking for a cash offer."
     }
   ];
 
@@ -985,9 +985,9 @@ function Reviews() {
                     </span>
                     <span className="text-xs font-mono text-gray-400">{call.duration}</span>
                   </div>
-                  <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-red-700 transition-colors">
-                    {call.title}
-                  </h4>
+                 <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-red-700 transition-colors">
+  Call #{i + 1}: {call.title}
+</h4>
                   <p className="text-xs text-gray-500 leading-relaxed mb-6">{call.desc}</p>
                 </div>
 
@@ -1110,7 +1110,7 @@ function Contact() {
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.18 12 19.79 19.79 0 0 1 2 3.18 2 2 0 0 1 4 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
             </div>
-            <h3 className="mt-4 text-lg font-bold text-gray-900">Call Our Office</h3>
+            <h3 className="mt-4 text-lg font-bold text-gray-900">Call or Text Our Office</h3>
             <p className="mt-1 text-sm text-gray-500">Speak directly with our team</p>
             <span className="mt-4 text-base font-semibold text-red-600 group-hover:text-red-700 transition-colors">
               (201) 365-5503
