@@ -4,7 +4,13 @@ import deal2 from "./assets/deal2.jpg";
 import outdoor from "./assets/outdoor.jpg";
 import reviewVideoFile from "./assets/review-video.mp4";
 
-import React, { useState } from "react";
+import call1 from "./assets/call1.mpeg";
+import call2 from "./assets/call2.wav";
+import call3 from "./assets/call3.wav";
+import call4 from "./assets/call4.mpeg";
+
+import React, { useState, useRef } from "react";
+
 
 /** App.tsx — DFU-VA Landing (Red & White, Calendly + Reviews) */
 
@@ -852,79 +858,222 @@ function Reviews() {
     }
   ];
 
+  const audioCalls = [
+    {
+      title: "Outbound Wholesaling Lead",
+      tag: "Cold Outreach",
+      duration: "2:45",
+      src: call1,
+      desc: "VA uncovers a motivated seller with an inherited property looking for a cash offer."
+    },
+    {
+      title: "Pre-Screening & Buy-Box Audit",
+      tag: "Lead Qualification",
+      duration: "3:12",
+      src: call2,
+      desc: "VA systematically reviews property condition, timeline, and price expectations."
+    },
+    {
+      title: "STR Management Inquiry",
+      tag: "Inbound Support",
+      duration: "1:58",
+      src: call3,
+      desc: "VA smoothly handles an out-of-state guest booking conflict and locks in an extension."
+    },
+    {
+      title: "Follow-Up & Pipeline Nurturing",
+      tag: "CRM Management",
+      duration: "2:15",
+      src: call4,
+      desc: "VA reconnects with a warm lead, confirms structural details, and updates the investor dashboard."
+    }
+  ];
+
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+  const audioRefs = useRef<Record<number, HTMLAudioElement | null>>({});
+
+  const togglePlay = (index: number) => {
+    const currentAudio = audioRefs.current[index];
+    if (!currentAudio) return;
+
+    if (playingIndex === index) {
+      currentAudio.pause();
+      setPlayingIndex(null);
+    } else {
+      if (playingIndex !== null && audioRefs.current[playingIndex]) {
+        audioRefs.current[playingIndex]?.pause();
+      }
+      currentAudio.play();
+      setPlayingIndex(index);
+    }
+  };
+
   return (
-    <section id="reviews" className="py-20 bg-red-50/50 border-t border-red-100">
+    <section id="reviews" className="py-24 bg-zinc-50 border-t border-red-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* --- Video Component Section --- */}
-        <div className="text-center mb-8">
-          <p className="text-xs font-semibold text-red-600 uppercase tracking-wider">Success Story</p>
-          <h2 className="mt-2 text-3xl font-extrabold text-red-700">
-            See How Our VAs Transform Operations
+        {/* Section Heading */}
+        <div className="text-center mb-16">
+          <span className="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-100">
+            Proof of Work
+          </span>
+          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
+            The DFU-VA Proof Hub
           </h2>
-          <p className="mt-3 text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
-            Real results from scaling real estate investors who took their time back.
+          <p className="mt-3 text-sm sm:text-base text-gray-500 max-w-xl mx-auto">
+            Explore live video case studies, unedited call recordings, and testimonials straight from scaling operations.
           </p>
         </div>
 
-        {/* Video Player Display */}
-        <div className="relative mx-auto max-w-3xl rounded-2xl overflow-hidden border border-red-100 shadow-xl bg-gray-900 aspect-video mb-20">
-          <video 
-            src={reviewVideoFile}
-            controls
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            Your browser does not support the video tag.
-          </video>
-        </div>
+        {/* --- DYNAMIC BENTO GRID COMMAND CENTER --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 auto-rows-auto items-stretch">
+          
+          {/* BOX 1: Large Case Study Video Box */}
+          <div className="lg:col-span-3 lg:row-span-2 bg-gradient-to-br from-red-950 to-red-900 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl border border-red-800 relative overflow-hidden group">
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-red-600/10 rounded-full blur-2xl pointer-events-none" />
+            
+            <div className="space-y-4 mb-6">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/10 text-red-200 border border-white/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                Live Breakdown
+              </span>
+              <h3 className="text-2xl font-extrabold text-white tracking-tight">
+                How We Qualify & Route Your Real Estate Leads
+              </h3>
+              <p className="text-red-100/75 text-xs sm:text-sm leading-relaxed">
+                Watch the exact operational workflow our trained virtual assistants run every single day to clean data and tee up motivated sellers.
+              </p>
+            </div>
 
-        {/* --- Written Reviews Grid Section --- */}
-        <div className="text-center mb-12">
-          <p className="text-xs font-semibold text-red-600 uppercase tracking-wider">Testimonials</p>
-          <h3 className="mt-2 text-2xl font-bold text-gray-900">
-            Trusted by Investors Nationwide
-          </h3>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-3">
-          {testimonials.map((t) => (
-            <div 
-              key={t.name}
-              className="rounded-2xl border border-red-100 bg-white p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
-            >
-              <div>
-                {/* Stars layout */}
-                <div className="flex items-center gap-1 text-amber-500 mb-4">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <svg key={i} viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                
-                <p className="text-gray-700 text-sm leading-relaxed italic mb-6">
-                  "{t.quote}"
-                </p>
+            {/* Video Player Display */}
+            <div className="relative w-full rounded-2xl border border-white/10 bg-black/40 p-2 backdrop-blur-sm shadow-2xl">
+              <div className="flex items-center gap-1 pb-2 pl-1">
+                <div className="w-2 h-2 rounded-full bg-white/20" />
+                <div className="w-2 h-2 rounded-full bg-white/20" />
+                <div className="w-2 h-2 rounded-full bg-white/20" />
               </div>
-
-              {/* User Meta info card */}
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div className="h-10 w-10 rounded-full bg-red-600 text-white font-bold text-sm flex items-center justify-center shadow-sm flex-shrink-0">
-                  {t.avatar}
-                </div>
-                <div>
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    <h4 className="text-sm font-bold text-gray-900">{t.name}</h4>
-                    <span className="inline-flex items-center rounded bg-green-50 px-1.5 py-0.5 text-[10px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                      Verified Client
-                    </span>
-                  </div>
-                  <p className="text-xs text-gray-500 mt-0.5">{t.role} • {t.location}</p>
-                </div>
+              <div className="overflow-hidden rounded-xl bg-gray-950 aspect-video relative">
+                <video 
+                  src={reviewVideoFile}
+                  controls
+                  playsInline
+                  controlsList="nodownload"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* AUDIO CALL BOXES (2 through 5 loop dynamically into column blocks) */}
+          {audioCalls.map((call, i) => {
+            const isCurrentPlaying = playingIndex === i;
+            return (
+              <div 
+                key={i}
+                className={`lg:col-span-2 bg-white border rounded-3xl p-6 shadow-sm flex flex-col justify-between transition-all duration-300 group ${
+                  isCurrentPlaying 
+                    ? "border-red-500 shadow-lg ring-1 ring-red-500/10 bg-gradient-to-br from-white to-red-50/10" 
+                    : "border-gray-200/70 hover:border-red-200 hover:shadow-md hover:-translate-y-0.5"
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className={`inline-flex items-center rounded-lg px-2.5 py-0.5 text-[10px] font-bold tracking-wide uppercase ${
+                      isCurrentPlaying ? "bg-red-600 text-white" : "bg-red-50 text-red-700"
+                    }`}>
+                      {call.tag}
+                    </span>
+                    <span className="text-xs font-mono text-gray-400">{call.duration}</span>
+                  </div>
+                  <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-red-700 transition-colors">
+                    {call.title}
+                  </h4>
+                  <p className="text-xs text-gray-500 leading-relaxed mb-6">{call.desc}</p>
+                </div>
+
+                <audio 
+                  ref={(el) => { audioRefs.current[i] = el; }} 
+                  src={call.src}
+                  onEnded={() => setPlayingIndex(null)}
+                />
+
+                {/* Custom Deck Controller */}
+                <div className="flex items-center gap-3 bg-zinc-50 rounded-2xl p-2.5 border border-zinc-100">
+                  <button
+                    type="button"
+                    onClick={() => togglePlay(i)}
+                    className={`h-9 w-9 flex-shrink-0 flex items-center justify-center rounded-full shadow transition-all ${
+                      isCurrentPlaying 
+                        ? "bg-red-600 text-white hover:bg-red-700 scale-95" 
+                        : "bg-white text-gray-900 hover:text-red-600 border border-gray-100"
+                    }`}
+                  >
+                    {isCurrentPlaying ? (
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                        <path fillRule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25zm7.5 0a.75.75 0 0 1 .75-.75H16.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 translate-x-0.5">
+                        <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </button>
+
+                  {/* Waveform graphic strips */}
+                  <div className="flex-1 flex items-center gap-0.5 h-4 px-1">
+                    {[...Array(16)].map((_, barIdx) => {
+                      const randomHeight = Math.floor(Math.random() * 12) + 4;
+                      return (
+                        <div 
+                          key={barIdx}
+                          style={{ height: isCurrentPlaying ? `${randomHeight}px` : '3px' }}
+                          className={`flex-1 rounded-full transition-all duration-300 ${
+                            isCurrentPlaying ? "bg-red-500/80 odd:animate-pulse" : "bg-gray-300"
+                          }`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* BOX 6: Full Ribbon-Width Bottom Testimonials Slider Block */}
+          <div className="lg:col-span-7 bg-white border border-gray-200/70 rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="h-2 w-2 rounded-full bg-green-500 animate-ping" />
+              <h4 className="text-sm font-bold tracking-wider uppercase text-gray-400">Verified Partner Sentiment</h4>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              {testimonials.map((t) => (
+                <div key={t.name} className="flex flex-col justify-between h-full bg-zinc-50/50 rounded-2xl p-5 border border-zinc-100/80">
+                  <div>
+                    <div className="flex items-center gap-0.5 text-amber-500 mb-3">
+                      {[...Array(t.rating)].map((_, i) => (
+                        <svg key={i} viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                    <p className="text-gray-600 text-xs sm:text-sm italic leading-relaxed mb-4">"{t.quote}"</p>
+                  </div>
+
+                  <div className="flex items-center gap-2.5 pt-3 border-t border-gray-200/40">
+                    <div className="h-8 w-8 rounded-full bg-red-600 text-white font-extrabold text-xs flex items-center justify-center shadow-sm flex-shrink-0">
+                      {t.avatar}
+                    </div>
+                    <div className="min-w-0">
+                      <h5 className="text-xs font-bold text-gray-900 truncate">{t.name}</h5>
+                      <p className="text-[10px] text-gray-400 truncate">{t.role}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
 
       </div>
