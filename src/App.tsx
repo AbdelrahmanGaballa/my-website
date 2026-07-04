@@ -932,192 +932,64 @@ function Reviews() {
   );
 }
 function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [errors, setErrors] = useState<{ [k: string]: string }>({});
-
-  function validate() {
-    const e: { [k: string]: string } = {};
-    if (!form.name.trim()) e.name = "Name is required";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      e.email = "Valid email required";
-    if (form.message.trim().length < 10)
-      e.message = "Please write at least 10 characters";
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  }
-
-  async function handleSubmit(ev: React.FormEvent) {
-    ev.preventDefault();
-    if (!validate()) return;
-
-    setLoading(true);
-    setErrors({});
-
-    try {
-      const payload = {
-        name: form.name.trim(),
-        email: form.email.trim(),
-        message: form.message.trim(),
-        source: "DFU-VA Website",
-      };
-
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        const txt = await res.text().catch(() => "");
-        throw new Error(txt || `Submit failed with status ${res.status}`);
-      }
-
-      setSubmitted(true);
-    } catch (err: any) {
-      console.error(err);
-      setErrors({
-        submit:
-          err?.message ||
-          "Failed to submit. Please try again in a moment.",
-      });
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  if (submitted) {
-    return (
-      <section className="py-24" id="contact">
-        <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-700">
-            <Check />
-          </div>
-          <h2 className="mt-4 text-2xl font-bold text-red-600">
-            Thanks! We’ll be in touch.
-          </h2>
-          <p className="mt-2 text-gray-600">
-            Your message has been received.
-          </p>
-        </div>
-      </section>
-    );
-  }
+  const whatsappUrl = "https://wa.me/12013655503?text=Hi%20Dave%2C%20I%27m%20interested%20in%20DFU-VA%20services%20for%20my%20real%20estate%20operation.%20Can%20we%20connect%3F";
 
   return (
-    <section className="py-20" id="contact">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold tracking-tight text-center text-red-600">
-          Contact DFU-VA
-        </h2>
-       <p className="mt-2 text-center text-gray-600">
-  Tell us about your operation and we'll show you how DFU-VA can plug
-  in.
-</p>
+    <section className="py-20 bg-white" id="contact">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Header Block */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold tracking-tight text-red-600">
+            Contact DFU-VA
+          </h2>
+          <p className="mt-3 text-gray-600 max-w-xl mx-auto">
+            Ready to scale your pipeline? Connect with us directly via phone or WhatsApp Business to discuss your real estate operation.
+          </p>
+        </div>
 
-<div className="mt-4 flex items-center justify-center gap-2">
-  <div className="h-9 w-9 flex items-center justify-center rounded-full bg-red-50">
-    <svg viewBox="0 0 24 24" className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.18 12 19.79 19.79 0 0 1 2 3.18 2 2 0 0 1 4 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
-  </div>
-  <a href="tel:+12013655503" className="text-base font-semibold text-red-600 hover:text-red-700 transition">
-    (201) 365-5503
-  </a>
-</div>
-
-        {errors.submit && (
-          <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {errors.submit}
-          </div>
-        )}
-
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8 space-y-5 bg-white/90 backdrop-blur-sm rounded-3xl border border-red-100 px-6 sm:px-10 py-8 shadow-sm"
-        >
-          <div>
-            <label className="block text-sm font-semibold text-red-700">
-              Full Name
-            </label>
-            <input
-              className={`mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:ring-2 ${
-                errors.name
-                  ? "border-red-400 ring-red-100"
-                  : "border-red-100 focus:border-red-400 focus:ring-red-100"
-              }`}
-              value={form.name}
-              onChange={(e) =>
-                setForm({ ...form, name: e.target.value })
-              }
-              placeholder="John Doe"
-            />
-            {errors.name && (
-              <p className="mt-1 text-xs text-red-600">
-                {errors.name}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-red-700">
-              Email
-            </label>
-            <input
-              className={`mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:ring-2 ${
-                errors.email
-                  ? "border-red-400 ring-red-100"
-                  : "border-red-100 focus:border-red-400 focus:ring-red-100"
-              }`}
-              value={form.email}
-              onChange={(e) =>
-                setForm({ ...form, email: e.target.value })
-              }
-              placeholder="you@example.com"
-            />
-            {errors.email && (
-              <p className="mt-1 text-xs text-red-600">
-                {errors.email}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-red-700">
-              Message
-            </label>
-            <textarea
-              className={`mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:ring-2 min-h-[140px] ${
-                errors.message
-                  ? "border-red-400 ring-red-100"
-                  : "border-red-100 focus:border-red-400 focus:ring-red-100"
-              }`}
-              value={form.message}
-              onChange={(e) =>
-                setForm({ ...form, message: e.target.value })
-              }
-              placeholder="Briefly describe your markets, deal volume & what you need help with"
-            />
-            {errors.message && (
-              <p className="mt-1 text-xs text-red-600">
-                {errors.message}
-              </p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="mt-4 w-full rounded-xl bg-red-600 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-red-700 transition-colors disabled:opacity-60"
+        {/* Action Grid */}
+        <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          
+          {/* Option 1: Direct Phone Call */}
+          <a
+            href="tel:+12013655503"
+            className="group flex flex-col items-center justify-center p-8 bg-white border border-red-100 rounded-3xl shadow-sm hover:border-red-400 hover:shadow-md transition-all duration-300 text-center"
           >
-            {loading ? "Sending..." : "Send message"}
-          </button>
-        </form>
+            <div className="h-14 w-14 flex items-center justify-center rounded-2xl bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
+              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.18 12 19.79 19.79 0 0 1 2 3.18 2 2 0 0 1 4 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-gray-900">Call Our Office</h3>
+            <p className="mt-1 text-sm text-gray-500">Speak directly with our team</p>
+            <span className="mt-4 text-base font-semibold text-red-600 group-hover:text-red-700 transition-colors">
+              (201) 365-5503
+            </span>
+          </a>
+
+          {/* Option 2: WhatsApp Business */}
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col items-center justify-center p-8 bg-white border border-red-100 rounded-3xl shadow-sm hover:border-green-400 hover:shadow-md transition-all duration-300 text-center"
+          >
+            <div className="h-14 w-14 flex items-center justify-center rounded-2xl bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
+              <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.973 0c3.184.001 6.177 1.239 8.426 3.49 2.249 2.251 3.486 5.246 3.485 8.432-.003 6.616-5.34 11.962-11.918 11.962-2.006-.001-3.973-.509-5.717-1.478L0 24zm6.59-4.846c1.657.983 3.284 1.5 4.881 1.5 5.433 0 9.85-4.394 9.852-9.793.001-2.615-1.015-5.074-2.862-6.923C16.63 2.088 14.185 1.07 11.97 1.071c-5.435 0-9.85 4.393-9.853 9.793-.001 2.01.536 3.97 1.554 5.694l-1.02 3.723 3.816-1.001z"/>
+                <path d="M15.982 12.912c-.29-.145-1.716-.848-1.982-.944-.266-.096-.46-.145-.654.145-.194.291-.75.944-.92 1.137-.169.194-.338.218-.628.073-.29-.145-1.224-.451-2.33-1.442-.862-.77-1.443-1.72-1.612-2.012-.17-.29-.018-.447.127-.591.13-.13.29-.34.436-.51.145-.17.194-.291.29-.485.097-.194.049-.364-.025-.51-.073-.145-.654-1.576-.896-2.158-.236-.569-.475-.492-.654-.501-.169-.008-.363-.01-.557-.01-.194 0-.51.073-.776.364-.266.291-1.02 1.002-1.02 2.448 0 1.447 1.047 2.842 1.193 3.037.145.194 2.063 3.15 4.996 4.417.698.301 1.244.482 1.67.618.702.223 1.34.191 1.845.115.563-.085 1.717-.702 1.959-1.382.242-.68.242-1.262.17-1.382-.073-.12-.266-.218-.556-.363z"/>
+              </svg>
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-gray-900">WhatsApp Business</h3>
+            <p className="mt-1 text-sm text-gray-500">Instant chat & deal discovery</p>
+            <span className="mt-4 text-base font-semibold text-green-600 group-hover:text-green-700 transition-colors">
+             Connect on WhatsApp
+            </span>
+          </a>
+
+        </div>
+
       </div>
     </section>
   );
