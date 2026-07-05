@@ -4,10 +4,10 @@ import deal2 from "./assets/deal2.jpg";
 import outdoor from "./assets/outdoor.jpg";
 import reviewVideoFile from "./assets/review-video.mp4";
 
-import call1 from "./assets/call1.mpeg";
+import call1 from "./assets/call1.mp3";
 import call2 from "./assets/call2.wav";
 import call3 from "./assets/call3.wav";
-import call4 from "./assets/call4.mpeg";
+import call4 from "./assets/call4.mp3";
 
 import React, { useState, useRef } from "react";
 
