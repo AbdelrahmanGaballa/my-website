@@ -205,7 +205,7 @@ export default function App() {
             <ScrollReveal>
               <StatsStrip />
             </ScrollReveal>
-            
+
             <ScrollReveal>
         <LogoTicker />
       </ScrollReveal>
@@ -533,60 +533,98 @@ function StatsStrip() {
     </section>
   );
 }
-
 function Features() {
   const features = [
     {
       title: "Lead Qualification",
       desc: "VAs pre-screen every seller lead to ensure motivation, property details, and deal readiness before passing them to you.",
-      icon: "🎯",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+        </svg>
+      ),
     },
     {
       title: "CRM & Follow-up Management",
       desc: "We handle your CRM, update statuses, schedule callbacks, and maintain consistent follow-ups.",
-      icon: "📋",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+      ),
     },
     {
       title: "Cold Calling & Outreach",
       desc: "Your dedicated VA uses proven scripts to engage leads via phone, SMS, and email for maximum conversion.",
-      icon: "📞",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+      ),
     },
     {
       title: "Data & Reporting",
       desc: "Daily performance reports and lead summaries so you always know what’s working.",
-      icon: "📊",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+      ),
     },
   ];
 
   return (
-    <section id="features" className="py-20 bg-[#FFF5F5]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-extrabold text-red-700">
-          Why DFU-VA Works
-        </h2>
-        <p className="mt-3 text-gray-700 max-w-2xl mx-auto">
-          Our real estate virtual assistants handle the heavy lifting — from
-          lead generation to follow-ups — so you can focus on closing deals.
-        </p>
+    <section id="features" className="py-24 bg-gradient-to-b from-zinc-50/80 via-[#FFF5F5]/40 to-white border-t border-red-100/40">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Modernized Section Header */}
+        <div className="text-center mb-16">
+          <span className="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-sm">
+            Core Capabilities
+          </span>
+          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
+            Why DFU-VA Works
+          </h2>
+          <p className="mt-4 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Our real estate virtual assistants handle the heavy lifting — from
+            lead generation to follow-ups — so you can focus strictly on closing deals.
+          </p>
+        </div>
 
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* 3D Interactive Tilt & Glow Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {features.map((f) => (
-            <div
-              key={f.title}
-              className="group rounded-2xl bg-white border border-red-50
-                         shadow-[0_10px_30px_rgba(0,0,0,0.04)]
-                         px-6 py-8 text-left flex flex-col items-start
-                         hover:border-red-200 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)]
-                         hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="text-3xl mb-4 text-red-600">{f.icon}</div>
-              <h3 className="text-lg font-bold text-red-700">{f.title}</h3>
-              <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                {f.desc}
-              </p>
+            <div key={f.title} className="h-full">
+              <GlowTiltCard>
+                <div className="flex flex-col justify-between h-full p-2 min-h-[240px]">
+                  <div>
+                    {/* Premium Animated Icon Container */}
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-50 via-white to-red-100/80 flex items-center justify-center text-red-600 border border-red-200/60 shadow-sm mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-red-600 group-hover:text-white group-hover:shadow-red-500/20 group-hover:shadow-lg">
+                      {f.icon}
+                    </div>
+                    
+                    <h3 className="text-lg font-extrabold text-gray-900 mb-2.5 tracking-tight transition-colors duration-300 group-hover:text-red-700">
+                      {f.title}
+                    </h3>
+                    
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                      {f.desc}
+                    </p>
+                  </div>
+                </div>
+              </GlowTiltCard>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
@@ -595,60 +633,86 @@ function Features() {
 function Steps() {
   const steps = [
     {
-      label: "Step 1",
+      label: "Phase One",
       title: "Discovery Call",
       desc: "We understand your market, buy box, systems, and deal volume targets.",
     },
     {
-      label: "Step 2",
+      label: "Phase Two",
       title: "Custom DFU-VA Setup",
       desc: "We build scripts, lead criteria, and workflows tailored to your acquisitions process.",
     },
     {
-      label: "Step 3",
+      label: "Phase Three",
       title: "Launch & Integration",
       desc: "Your VA plugs into your CRM, starts outreach, and routes only qualified opportunities.",
     },
     {
-      label: "Step 4",
+      label: "Phase Four",
       title: "Optimize & Scale",
       desc: "We monitor performance, refine targeting, and scale your VA team as your pipeline grows.",
     },
   ];
 
   return (
-    <section id="how-it-works" className="py-20 bg-red-50 border-y border-red-100">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-center text-red-700">
-          How DFU-VA Works
-        </h2>
-        <p className="mt-3 text-center text-gray-700 max-w-2xl mx-auto">
-          A clear, done-for-you process that turns cold data into qualified,
-          motivated seller leads.
-        </p>
+    <section id="how-it-works" className="py-24 bg-gradient-to-b from-white via-red-50/30 to-white border-y border-red-100/40 relative overflow-hidden">
+      {/* Background Ambient Glow Layer */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[350px] bg-gradient-to-r from-red-500/[0.03] via-transparent to-red-500/[0.03] blur-3xl pointer-events-none" />
 
-        <div className="mt-12 grid gap-6 md:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Modernized Section Header */}
+        <div className="text-center mb-20">
+          <span className="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-sm">
+            Onboarding Timeline
+          </span>
+          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
+            How DFU-VA Works
+          </h2>
+          <p className="mt-4 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            A clear, done-for-you process that turns cold data into qualified, motivated seller leads.
+          </p>
+        </div>
+
+        {/* Timeline Grid Track */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative items-stretch">
+          
+          {/* Connecting Vector Progress Track (Desktop Viewports Only) */}
+          <div className="hidden lg:block absolute top-[44px] left-[12%] right-[12%] h-[2px] bg-gradient-to-r from-red-200/60 via-red-300 to-red-200/20 z-0 pointer-events-none" />
+
           {steps.map((step, index) => (
             <div
               key={step.label}
-              className="relative flex flex-col h-full rounded-2xl bg-white border border-red-100 px-5 py-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
+              className="group relative flex flex-col justify-between h-full rounded-3xl bg-zinc-50/40 hover:bg-white border border-gray-200/60 hover:border-red-200/80 px-6 py-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 z-10"
             >
-              <div className="flex items-center gap-2 text-xs font-semibold text-red-600 uppercase tracking-wide">
-                <span className="h-7 w-7 flex items-center justify-center rounded-full bg-red-600 text-white text-xs font-bold">
-                  {index + 1}
-                </span>
-                {step.label}
+              <div>
+                {/* Visual Header Row */}
+                <div className="flex items-center justify-between gap-2 mb-6">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-red-900 to-red-700 text-white text-sm font-mono font-black shadow-md shadow-red-900/10 group-hover:scale-110 transition-transform duration-300">
+                    0{index + 1}
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-red-600 bg-red-50/80 border border-red-100 px-2.5 py-1 rounded-md">
+                    {step.label}
+                  </span>
+                </div>
+
+                {/* Typography Block */}
+                <h3 className="text-lg font-extrabold text-gray-900 tracking-tight mb-3 transition-colors duration-300 group-hover:text-red-700">
+                  {step.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
+                  {step.desc}
+                </p>
               </div>
 
-              <h3 className="mt-3 text-lg font-bold text-gray-900">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                {step.desc}
-              </p>
+              {/* Card Footer Structural Accent Anchor */}
+              <div className="mt-6 pt-4 border-t border-gray-100 flex justify-end">
+                <div className="h-1.5 w-1.5 rounded-full bg-gray-300 group-hover:bg-red-500 transition-colors duration-300" />
+              </div>
             </div>
           ))}
         </div>
+        
       </div>
     </section>
   );
