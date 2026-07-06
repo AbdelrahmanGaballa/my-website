@@ -207,6 +207,10 @@ export default function App() {
             </ScrollReveal>
             
             <ScrollReveal>
+        <LogoTicker />
+      </ScrollReveal>
+
+            <ScrollReveal>
               <Features />
             </ScrollReveal>
             
@@ -1051,77 +1055,74 @@ function Reviews() {
             </div>
           </div>
 
-          {/* AUDIO CALL BOXES (2 through 5 loop dynamically into column blocks) */}
+          {/* AUDIO CALL BOXES WITH GLOW-TILT INTELLIGENCE */}
           {audioCalls.map((call, i) => {
             const isCurrentPlaying = playingIndex === i;
             return (
-              <div 
-                key={i}
-                className={`lg:col-span-2 bg-white border rounded-3xl p-6 shadow-sm flex flex-col justify-between transition-all duration-300 group ${
-                  isCurrentPlaying 
-                    ? "border-red-500 shadow-lg ring-1 ring-red-500/10 bg-gradient-to-br from-white to-red-50/10" 
-                    : "border-gray-200/70 hover:border-red-200 hover:shadow-md hover:-translate-y-0.5"
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className={`inline-flex items-center rounded-lg px-2.5 py-0.5 text-[10px] font-bold tracking-wide uppercase ${
-                      isCurrentPlaying ? "bg-red-600 text-white" : "bg-red-50 text-red-700"
-                    }`}>
-                      {call.tag}
-                    </span>
-                    <span className="text-xs font-mono text-gray-400">{call.duration}</span>
+              <div key={i} className="lg:col-span-2 h-full">
+                <GlowTiltCard>
+                  <div className="flex flex-col justify-between h-full min-h-[220px]">
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-4">
+                        <span className={`inline-flex items-center rounded-lg px-2.5 py-0.5 text-[10px] font-bold tracking-wide uppercase ${
+                          isCurrentPlaying ? "bg-red-600 text-white" : "bg-red-50 text-red-700"
+                        }`}>
+                          {call.tag}
+                        </span>
+                        <span className="text-xs font-mono text-gray-400">{call.duration}</span>
+                      </div>
+                      <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-red-700 transition-colors">
+                        Call #{i + 1}: {call.title}
+                      </h4>
+                      <p className="text-xs text-gray-500 leading-relaxed mb-6">{call.desc}</p>
+                    </div>
+
+                    <audio 
+                      ref={(el) => { audioRefs.current[i] = el; }} 
+                      src={call.src}
+                      onEnded={() => setPlayingIndex(null)}
+                    />
+
+                    {/* Custom Deck Controller */}
+                    <div className="flex items-center gap-3 bg-zinc-50 rounded-2xl p-2.5 border border-zinc-100/80">
+                      <button
+                        type="button"
+                        onClick={() => togglePlay(i)}
+                        className={`h-9 w-9 flex-shrink-0 flex items-center justify-center rounded-full shadow transition-all ${
+                          isCurrentPlaying 
+                            ? "bg-red-600 text-white hover:bg-red-700 scale-95" 
+                            : "bg-white text-gray-900 hover:text-red-600 border border-gray-100"
+                        }`}
+                      >
+                        {isCurrentPlaying ? (
+                          <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                            <path fillRule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25zm7.5 0a.75.75 0 0 1 .75-.75H16.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25z" clipRule="evenodd" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 translate-x-0.5">
+                            <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </button>
+
+                      {/* Waveform graphic strips */}
+                      <div className="flex-1 flex items-center gap-0.5 h-4 px-1">
+                        {[...Array(16)].map((_, barIdx) => {
+                          const randomHeight = Math.floor(Math.random() * 12) + 4;
+                          return (
+                            <div 
+                              key={barIdx}
+                              style={{ height: isCurrentPlaying ? `${randomHeight}px` : '3px' }}
+                              className={`flex-1 rounded-full transition-all duration-300 ${
+                                isCurrentPlaying ? "bg-red-500/80 odd:animate-pulse" : "bg-gray-300"
+                              }`}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-                 <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-red-700 transition-colors">
-  Call #{i + 1}: {call.title}
-</h4>
-                  <p className="text-xs text-gray-500 leading-relaxed mb-6">{call.desc}</p>
-                </div>
-
-                <audio 
-                  ref={(el) => { audioRefs.current[i] = el; }} 
-                  src={call.src}
-                  onEnded={() => setPlayingIndex(null)}
-                />
-
-                {/* Custom Deck Controller */}
-                <div className="flex items-center gap-3 bg-zinc-50 rounded-2xl p-2.5 border border-zinc-100">
-                  <button
-                    type="button"
-                    onClick={() => togglePlay(i)}
-                    className={`h-9 w-9 flex-shrink-0 flex items-center justify-center rounded-full shadow transition-all ${
-                      isCurrentPlaying 
-                        ? "bg-red-600 text-white hover:bg-red-700 scale-95" 
-                        : "bg-white text-gray-900 hover:text-red-600 border border-gray-100"
-                    }`}
-                  >
-                    {isCurrentPlaying ? (
-                      <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                        <path fillRule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25zm7.5 0a.75.75 0 0 1 .75-.75H16.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25z" clipRule="evenodd" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 translate-x-0.5">
-                        <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
-                      </svg>
-                    )}
-                  </button>
-
-                  {/* Waveform graphic strips */}
-                  <div className="flex-1 flex items-center gap-0.5 h-4 px-1">
-                    {[...Array(16)].map((_, barIdx) => {
-                      const randomHeight = Math.floor(Math.random() * 12) + 4;
-                      return (
-                        <div 
-                          key={barIdx}
-                          style={{ height: isCurrentPlaying ? `${randomHeight}px` : '3px' }}
-                          className={`flex-1 rounded-full transition-all duration-300 ${
-                            isCurrentPlaying ? "bg-red-500/80 odd:animate-pulse" : "bg-gray-300"
-                          }`}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
+                </GlowTiltCard>
               </div>
             );
           })}
@@ -1135,27 +1136,31 @@ function Reviews() {
 
             <div className="grid gap-6 md:grid-cols-3">
               {testimonials.map((t) => (
-                <div key={t.name} className="flex flex-col justify-between h-full bg-zinc-50/50 rounded-2xl p-5 border border-zinc-100/80">
-                  <div>
-                    <div className="flex items-center gap-0.5 text-amber-500 mb-3">
-                      {[...Array(t.rating)].map((_, i) => (
-                        <svg key={i} viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <p className="text-gray-600 text-xs sm:text-sm italic leading-relaxed mb-4">"{t.quote}"</p>
-                  </div>
+                <div key={t.name} className="h-full">
+                  <GlowTiltCard>
+                    <div className="flex flex-col justify-between h-full min-h-[200px]">
+                      <div>
+                        <div className="flex items-center gap-0.5 text-amber-500 mb-3">
+                          {[...Array(t.rating)].map((_, i) => (
+                            <svg key={i} viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <p className="text-gray-600 text-xs sm:text-sm italic leading-relaxed mb-4">"{t.quote}"</p>
+                      </div>
 
-                  <div className="flex items-center gap-2.5 pt-3 border-t border-gray-200/40">
-                    <div className="h-8 w-8 rounded-full bg-red-600 text-white font-extrabold text-xs flex items-center justify-center shadow-sm flex-shrink-0">
-                      {t.avatar}
+                      <div className="flex items-center gap-2.5 pt-3 border-t border-gray-200/40">
+                        <div className="h-8 w-8 rounded-full bg-red-600 text-white font-extrabold text-xs flex items-center justify-center shadow-sm flex-shrink-0">
+                          {t.avatar}
+                        </div>
+                        <div className="min-w-0">
+                          <h5 className="text-xs font-bold text-gray-900 truncate">{t.name}</h5>
+                          <p className="text-[10px] text-gray-400 truncate">{t.role}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="min-w-0">
-                      <h5 className="text-xs font-bold text-gray-900 truncate">{t.name}</h5>
-                      <p className="text-[10px] text-gray-400 truncate">{t.role}</p>
-                    </div>
-                  </div>
+                  </GlowTiltCard>
                 </div>
               ))}
             </div>
@@ -1369,4 +1374,129 @@ function AnimatedCounter({ target, duration = 3000 }: { target: number; duration
   }, [hasStarted, target, duration]);
 
   return <span ref={elementRef}>{count.toLocaleString()}</span>;
+}
+function GlowTiltCard({ children }: { children: React.ReactNode }) {
+  const cardRef = React.useRef<HTMLDivElement>(null);
+  const [, setCoords] = React.useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+
+    const card = cardRef.current;
+    const rect = card.getBoundingClientRect();
+    
+    // Calculate cursor position relative to the element
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Calculate rotation angles based on cursor offset from the center
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((centerY - y) / centerY) * 8; // Max 8 degrees tilt
+    const rotateY = ((x - centerX) / centerX) * 8;
+
+    setCoords({ x, y });
+    
+    // Apply styling parameters directly to the element variables
+    card.style.setProperty("--mx", `${x}px`);
+    card.style.setProperty("--my", `${y}px`);
+    card.style.setProperty("--rx", `${rotateX}deg`);
+    card.style.setProperty("--ry", `${rotateY}deg`);
+  };
+
+  const handleMouseEnter = () => setIsHovered(true);
+  
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (!cardRef.current) return;
+    // Instantly or smoothly snap back to center state layout
+    cardRef.current.style.setProperty("--rx", "0deg");
+    cardRef.current.style.setProperty("--ry", "0deg");
+  };
+
+  return (
+    <div className="perspective-1000 w-full h-full">
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
+        }}
+        className="w-full h-full relative rounded-2xl border border-red-100 bg-white p-6 transition-all duration-200 ease-out shadow-sm hover:shadow-xl preserve-3d overflow-hidden group"
+      >
+        {/* Dynamic Interactive Crimson Radial Border Light Layer */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-300 pointer-events-none z-0 ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            background: `radial-gradient(400px circle at var(--mx, 0px) var(--my, 0px), rgba(220, 38, 38, 0.08), transparent 80%)`,
+          }}
+        />
+
+        {/* Bring actual nested content back to the forefront above background spotlights */}
+        <div className="relative z-10 translate-z-10 w-full h-full">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LogoTicker() {
+  // A clean list of CRMs and real estate tech tools your VAs operate within
+  const logos = [
+    { name: "Podio", type: "CRM System" },
+    { name: "Salesforce", type: "Enterprise Tech" },
+    { name: "REI BlackBook", type: "Investor Tool" },
+    { name: "Follow Up Boss", type: "Lead Routing" },
+    { name: "HubSpot", type: "Automation" },
+    { name: "Launch Control", type: "SMS Platform" },
+  ];
+
+  // We duplicate the array to ensure seamless, infinite loop bridging
+  const tickerItems = [...logos, ...logos, ...logos, ...logos];
+
+  return (
+    <section className="py-8 bg-zinc-50 overflow-hidden relative border-b border-red-100/40">
+      
+      {/* Premium Glassmorphic Gradient Edge Masks */}
+      <div className="absolute inset-y-0 left-0 w-20 sm:w-40 bg-gradient-to-r from-zinc-50 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-20 sm:w-40 bg-gradient-to-l from-zinc-50 to-transparent z-10 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 mb-3">
+        <p className="text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest text-gray-400">
+          Seamless Tech Stack Ecosystem Integration
+        </p>
+      </div>
+
+      {/* The Flex Ticker track */}
+      <div className="flex overflow-hidden width-full hover-pause select-none items-center py-2">
+        <div className="flex gap-12 sm:gap-20 whitespace-nowrap animate-marquee items-center">
+          {tickerItems.map((logo, idx) => (
+            <div 
+              key={idx} 
+              className="flex items-center gap-2 group transition-opacity duration-300"
+            >
+              {/* Sleek Abstract Placeholder Tech Icon */}
+              <div className="h-7 w-7 rounded-lg bg-red-100 flex items-center justify-center text-red-700 font-black text-xs border border-red-200/50 group-hover:scale-105 transition-transform">
+                {logo.name[0]}
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-black text-gray-800 tracking-tight group-hover:text-red-700 transition-colors">
+                  {logo.name}
+                </span>
+                <span className="text-[9px] font-medium text-gray-400 -mt-0.5">
+                  {logo.type}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
