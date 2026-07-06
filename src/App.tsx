@@ -1560,49 +1560,85 @@ function GlowTiltCard({ children }: { children: React.ReactNode }) {
 }
 
 function LogoTicker() {
-  // A clean list of CRMs and real estate tech tools your VAs operate within
   const logos = [
-    { name: "Podio", type: "CRM System" },
-    { name: "Salesforce", type: "Enterprise Tech" },
-    { name: "REI BlackBook", type: "Investor Tool" },
-    { name: "Follow Up Boss", type: "Lead Routing" },
-    { name: "HubSpot", type: "Automation" },
-    { name: "Launch Control", type: "SMS Platform" },
+    {
+      name: "Podio",
+      type: "CRM System",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-[#00AEEF]">
+          {/* Official Podio Chevron Cluster Symbol */}
+          <path d="M12 .523L2.34 6.102v11.16L12 22.84l9.66-5.578v-11.16L12 .523zm-1.35 16.14l-4.5-4.5 1.91-1.91 2.59 2.58 6.59-6.59 1.91 1.91-8.5 8.51z" />
+        </svg>
+      ),
+    },
+    {
+      name: "Salesforce",
+      type: "Enterprise Tech",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-[#00A1E0]">
+          {/* Official Salesforce Cloud Brand Shape */}
+          <path d="M17.75 8.5c.14 0 .25.03.36.08a4.25 4.25 0 018.14 1.42 3.5 3.5 0 01.25 6.91l-.25.09H4.25a3.75 3.75 0 01-.52-7.43 4.5 4.5 0 017.38-2.92 5.5 5.5 0 016.64 1.85z" />
+        </svg>
+      ),
+    },
+    {
+      name: "HubSpot",
+      type: "Automation",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-[#FF7A59]">
+          {/* Official HubSpot Connected Node Sprocket */}
+          <path d="M22.5 11.25h-3.15a6.002 6.002 0 00-5.1-5.1V3a1.5 1.5 0 00-3 0v3.15a6.002 6.002 0 00-5.1 5.1H3a1.5 1.5 0 000 3h3.15a6.002 6.002 0 005.1 5.1V21a1.5 1.5 0 003 0v-3.15a6.002 6.002 0 005.1-5.1h3.15a1.5 1.5 0 000-3zm-10.5 4.5a3.75 3.75 0 1 1 3.75-3.75 3.75 3.75 0 0 1-3.75 3.75z" />
+        </svg>
+      ),
+    },
+    {
+      name: "Launch Control",
+      type: "SMS Platform",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-red-600">
+          {/* Premium Rocket Launch Technical Symbol */}
+          <path d="M4.5 16.5c-1.5 1.26-2.5 3.19-2.5 5.5h20c0-2.31-1-4.24-2.5-5.5" />
+          <path d="M12 2C7.5 2 4 7 4 13c0 2.21 1.79 4 4 4h8c2.21 0 4-1.79 4-4 0-6-3.5-11-8-11z" />
+          <path d="M9 12h6" />
+        </svg>
+      ),
+    },
   ];
 
-  // We duplicate the array to ensure seamless, infinite loop bridging
-  const tickerItems = [...logos, ...logos, ...logos, ...logos];
+  // Duplicating the items so it bridges into a perfect continuous seamless loop
+  const tickerItems = [...logos, ...logos, ...logos, ...logos, ...logos];
 
   return (
-    <section className="py-8 bg-zinc-50 overflow-hidden relative border-b border-red-100/40">
+    <section className="py-10 bg-zinc-50 overflow-hidden relative border-b border-red-100/40">
       
-      {/* Premium Glassmorphic Gradient Edge Masks */}
-      <div className="absolute inset-y-0 left-0 w-20 sm:w-40 bg-gradient-to-r from-zinc-50 to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-20 sm:w-40 bg-gradient-to-l from-zinc-50 to-transparent z-10 pointer-events-none" />
+      {/* Premium Glassmorphic Overlay Gradient Edge Masks */}
+      <div className="absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-zinc-50 via-zinc-50/70 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-zinc-50 via-zinc-50/70 to-transparent z-10 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 mb-3">
+      <div className="max-w-7xl mx-auto px-4 mb-5">
         <p className="text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest text-gray-400">
           Seamless Tech Stack Ecosystem Integration
         </p>
       </div>
 
-      {/* The Flex Ticker track */}
+      {/* The Running Flex Track */}
       <div className="flex overflow-hidden width-full hover-pause select-none items-center py-2">
-        <div className="flex gap-12 sm:gap-20 whitespace-nowrap animate-marquee items-center">
+        <div className="flex gap-16 sm:gap-24 whitespace-nowrap animate-marquee items-center">
           {tickerItems.map((logo, idx) => (
             <div 
               key={idx} 
-              className="flex items-center gap-2 group transition-opacity duration-300"
+              className="flex items-center gap-3.5 group transition-all duration-300"
             >
-              {/* Sleek Abstract Placeholder Tech Icon */}
-              <div className="h-7 w-7 rounded-lg bg-red-100 flex items-center justify-center text-red-700 font-black text-xs border border-red-200/50 group-hover:scale-105 transition-transform">
-                {logo.name[0]}
+              {/* Premium Isolated Interactive Logo Housing */}
+              <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center border border-gray-200/60 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-red-200 group-hover:shadow-md">
+                {logo.icon}
               </div>
+              
               <div className="flex flex-col">
                 <span className="text-sm font-black text-gray-800 tracking-tight group-hover:text-red-700 transition-colors">
                   {logo.name}
                 </span>
-                <span className="text-[9px] font-medium text-gray-400 -mt-0.5">
+                <span className="text-[10px] font-bold text-gray-400 tracking-wide uppercase -mt-0.5">
                   {logo.type}
                 </span>
               </div>
