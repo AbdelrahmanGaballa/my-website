@@ -9,7 +9,7 @@ import call2 from "./assets/call2.wav";
 import call3 from "./assets/call3.wav";
 import call4 from "./assets/call4.mp3";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 
 /** App.tsx — DFU-VA Landing (Red & White, Calendly + Reviews) */
@@ -18,6 +18,17 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] =
     useState<"home" | "features" | "pricing" | "contact">("home");
+
+  // --- CINEMATIC CURTAIN PRELOADER STATE ---
+  const [isCurtainOpen, setIsCurtainOpen] = useState(false);
+
+  useEffect(() => {
+    // Small timeout buffer for stable initial asset mounts before opening the curtain
+    const timer = setTimeout(() => {
+      setIsCurtainOpen(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   function goTo(section: "home" | "features" | "pricing" | "contact") {
     setActive(section);
@@ -35,7 +46,8 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
-    function goToBookCall() {
+
+  function goToBookCall() {
     // Make sure the Home layout (with BookCall) is shown
     setActive("home");
 
@@ -48,14 +60,27 @@ export default function App() {
     }, 50);
   }
 
-
   return (
-    <div className="min-h-screen bg-white text-gray-900 flex flex-col">
+    <div className="min-h-screen bg-white text-gray-900 flex flex-col relative">
+      
+      {/* --- CINEMATIC CURTAIN REVEAL OVERLAY --- */}
+      <div 
+        className={`fixed inset-0 z-[9999] bg-zinc-950 flex items-center justify-center pointer-events-none transition-transform duration-1000 cubic-bezier(0.85, 0, 0.15, 1) ${
+          isCurtainOpen ? "-translate-y-full" : "translate-y-0"
+        }`}
+      >
+        <div className="text-center">
+          <span className="text-white font-black tracking-widest text-2xl border-b-2 border-red-600 pb-2">
+            DFU-VA
+          </span>
+        </div>
+      </div>
+
       {/* Header */}
       <header
         className="sticky top-0 z-40 border-b border-red-100/40
-                   bg-gradient-to-r from-red-900 to-red-700
-                   text-white backdrop-blur"
+                   bg-gradient-to-r from-red-900/80 to-red-700/80
+                   text-white backdrop-blur-md transition-all duration-300"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
@@ -85,12 +110,12 @@ export default function App() {
                 isActive={active === "pricing"}
                 onClick={() => goTo("pricing")}
               />
-             <button
-  onClick={goToBookCall}
-  className="rounded-xl bg-white/15 px-3 py-1.5 text-sm font-semibold hover:bg-white/20 transition ring-1 ring-white/20"
->
-  Book a Call
-</button>
+              <button
+                onClick={goToBookCall}
+                className="rounded-xl bg-white/15 px-3 py-1.5 text-sm font-semibold hover:bg-white/20 transition ring-1 ring-white/20"
+              >
+                Book a Call
+              </button>
 
               <NavItem
                 label="Contact"
@@ -144,13 +169,13 @@ export default function App() {
                   setMenuOpen(false);
                 }}
               />
-             <MobileLink
-  label="Book a Call"
-  onClick={() => {
-    goToBookCall();
-    setMenuOpen(false);
-  }}
-/>
+              <MobileLink
+                label="Book a Call"
+                onClick={() => {
+                  goToBookCall();
+                  setMenuOpen(false);
+                }}
+              />
 
               <MobileLink
                 label="Contact"
@@ -165,47 +190,47 @@ export default function App() {
       </header>
 
       {/* Main */}
-     <main className="flex-1 relative bg-white">
-  {active === "home" && (
-    <>
-      <div id="home-top" />
-      <Hero onGetStarted={() => setActive("features")} />
-      <ScrollReveal>
-      <StatsStrip />
-    </ScrollReveal>
-    
-    <ScrollReveal>
-      <Features />
-    </ScrollReveal>
-    
-    <ScrollReveal>
-      <Steps />
-    </ScrollReveal>
-    
-    <ScrollReveal>
-      <Pricing />
-    </ScrollReveal>
-    
-    <ScrollReveal>
-      <Reviews />
-    </ScrollReveal>
-    
-    <ScrollReveal>
-      <BookCall />
-    </ScrollReveal>
-    
-    <ScrollReveal>
-      <FAQ />
-    </ScrollReveal>
-    </>
-  )}
+      <main className="flex-1 relative bg-white">
+        {active === "home" && (
+          <>
+            <div id="home-top" />
+            <Hero onGetStarted={() => setActive("features")} />
+            <ScrollReveal>
+              <StatsStrip />
+            </ScrollReveal>
+            
+            <ScrollReveal>
+              <Features />
+            </ScrollReveal>
+            
+            <ScrollReveal>
+              <Steps />
+            </ScrollReveal>
+            
+            <ScrollReveal>
+              <Pricing />
+            </ScrollReveal>
+            
+            <ScrollReveal>
+              <Reviews />
+            </ScrollReveal>
+            
+            <ScrollReveal>
+              <BookCall />
+            </ScrollReveal>
+            
+            <ScrollReveal>
+              <FAQ />
+            </ScrollReveal>
+          </>
+        )}
 
-  {active === "features" && <Features />}
+        {active === "features" && <Features />}
 
-  {active === "pricing" && <Pricing />}
+        {active === "pricing" && <Pricing />}
 
-  {active === "contact" && <Contact />}
-</main>
+        {active === "contact" && <Contact />}
+      </main>
 
 
       {/* Footer */}
@@ -387,7 +412,7 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-red-900 via-red-800 to-red-700" />
+      <div className="absolute inset-0 bg-gradient-to-b from-red-950 via-red-900 to-red-800" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
@@ -403,36 +428,44 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
               DFU-VA plugs trained real estate virtual assistants into your
               pipeline so you talk only to serious sellers ready to move.
             </p>
+            
             <div className="mt-8 flex flex-wrap items-center gap-3">
+              {/* Turn on My Lead-Flow Button (With Premium Shimmer Effect) */}
               <a
                 href="#contact"
-                className="rounded-xl px-6 py-3 text-sm font-semibold bg-white text-red-700 shadow-lg hover:bg-red-50 transition"
+                className="relative overflow-hidden rounded-xl px-6 py-3 text-sm font-bold bg-white text-red-700 shadow-lg hover:bg-red-50 transition-all duration-300 hover:scale-[1.02] group"
               >
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-red-600/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                 Turn on My Lead-Flow
               </a>
+
               <button
                 onClick={onGetStarted}
                 className="rounded-xl border border-white/40 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
               >
                 See how it works →
               </button>
+
+              {/* Book a Call Button (With Premium Shimmer Effect) */}
               <a
                 href="#book-call"
-                className="rounded-xl border border-white/40 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
+                className="relative overflow-hidden rounded-xl border border-white/40 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] group"
               >
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                 Book a Call
               </a>
             </div>
           </div>
 
-          {/* Visual */}
-          <div className="relative">
+          {/* Visual Container (With Premium Zoom Effect) */}
+          <div className="relative group">
             <div className="aspect-video w-full rounded-2xl border border-red-300/40 bg-white/5 shadow-xl p-4 backdrop-blur-sm">
-              <div className="h-full w-full rounded-xl overflow-hidden border border-white/40 shadow-lg">
+              <div className="h-full w-full rounded-xl overflow-hidden border border-white/40 shadow-lg relative">
                 <img
                   src={images[currentImage]}
                   alt="Real estate visual"
-                  className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+                  // Added cinematic subtle scaling transition classes here
+                  className="w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 group-hover:scale-100"
                 />
               </div>
             </div>
@@ -445,13 +478,32 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
     </section>
   );
 }
-
 function StatsStrip() {
   const stats = [
-    { k: "Qualified Leads", v: "10k+" },
-    { k: "Average ROI", v: "5x" },
-    { k: "Revenue Generated", v: "$3M+" },
-    { k: "Retention Rate", v: "94%" },
+    { 
+      k: "Qualified Leads", 
+      value: 10, 
+      prefix: "", 
+      suffix: "k+" 
+    },
+    { 
+      k: "Average ROI", 
+      value: 5, 
+      prefix: "", 
+      suffix: "x" 
+    },
+    { 
+      k: "Revenue Generated", 
+      value: 3, 
+      prefix: "$", 
+      suffix: "M+" 
+    },
+    { 
+      k: "Retention Rate", 
+      value: 94, 
+      prefix: "", 
+      suffix: "%" 
+    },
   ];
 
   return (
@@ -460,9 +512,11 @@ function StatsStrip() {
         {stats.map((s) => (
           <div key={s.k}>
             <div className="text-3xl font-extrabold text-red-700">
-              {s.v}
+              {s.prefix}
+              <AnimatedCounter target={s.value} />
+              {s.suffix}
             </div>
-            <div className="text-sm text-gray-600">{s.k}</div>
+            <div className="text-sm text-gray-600 mt-1">{s.k}</div>
           </div>
         ))}
       </div>
@@ -819,14 +873,14 @@ function FAQ() {
                   className="w-full flex items-center justify-between px-4 py-3 gap-3"
                 >
                   <span
-                    className={`text-sm font-semibold text-left ${
+                    className={`text-sm font-semibold text-left transition-colors duration-300 ${
                       isOpen ? "text-red-700" : "text-gray-900"
                     }`}
                   >
                     {item.q}
                   </span>
                   <span
-                    className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs ${
+                    className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs transition-colors duration-300 ${
                       isOpen
                         ? "border-red-600 text-red-600"
                         : "border-red-200 text-red-500"
@@ -836,11 +890,19 @@ function FAQ() {
                   </span>
                 </button>
 
-                {isOpen && (
-                  <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
-                    {item.a}
+                {/* THE UPGRADED GRID SLIDE ACCORDION CONTAINER */}
+                <div 
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                      {item.a}
+                    </div>
                   </div>
-                )}
+                </div>
+
               </div>
             );
           })}
@@ -1260,3 +1322,45 @@ function ScrollReveal({ children }: { children: React.ReactNode }) {
 }
 
 
+function AnimatedCounter({ target, duration = 3000 }: { target: number; duration?: number }) {
+  const [count, setCount] = React.useState(0);
+  const [hasStarted, setHasStarted] = React.useState(false);
+  const elementRef = React.useRef<HTMLSpanElement>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasStarted) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  React.useEffect(() => {
+    if (!hasStarted) return;
+
+    let start = 0;
+    const increment = target / (duration / 16); // ~60fps calculation
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [hasStarted, target, duration]);
+
+  return <span ref={elementRef}>{count.toLocaleString()}</span>;
+}
