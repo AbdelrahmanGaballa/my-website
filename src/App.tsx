@@ -725,6 +725,7 @@ function Pricing() {
     {
       name: "Customer Service",
       subtitle: "Delivering exceptional support, 24/7.",
+      tag: "Operations",
       features: [
         "Dedicated 24/7 agents to assist your customers with care and efficiency",
         "Quality team ensuring every interaction meets service excellence standards",
@@ -735,6 +736,7 @@ function Pricing() {
     {
       name: "Cold Calling",
       subtitle: "Driving conversations that convert.",
+      tag: "Acquisitions",
       features: [
         "Dedicated VA focused on lead generation and sales conversion",
         "Quality assurance to maintain call consistency and professionalism",
@@ -745,6 +747,7 @@ function Pricing() {
     {
       name: "Data Generation",
       subtitle: "Providing the data that powers your deals.",
+      tag: "Intelligence",
       features: [
         "Customized data pulled based on your buy box, markets, and budget",
         "Up-to-date, verified leads ready for outreach",
@@ -754,6 +757,7 @@ function Pricing() {
     {
       name: "Property Management",
       subtitle: "Full-service STR management for maximum ROI.",
+      tag: "Hospitality",
       features: [
         "Marketing optimization across top booking platforms",
         "Sales follow-up to convert inquiries into confirmed bookings",
@@ -765,6 +769,7 @@ function Pricing() {
     {
       name: "SMS Marketing",
       subtitle: "Engage leads instantly. Drive measurable results.",
+      tag: "Scale Outreach",
       features: [
         "Weekly KPI reports with detailed performance metrics and insights",
         "Full message coverage: every text is read and responded to promptly",
@@ -775,83 +780,127 @@ function Pricing() {
     },
   ];
 
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
-    <section
-      id="pricing"
-      className="py-16 bg-white text-gray-900 border-t border-red-100"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-red-700">
+    <section id="pricing" className="py-24 bg-zinc-50 border-t border-red-100/40 relative overflow-hidden">
+      {/* Structural Accent Geometry */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-red-500/[0.02] rounded-full blur-3xl pointer-events-none" />
+      
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Typography Header */}
+        <div className="text-center mb-16">
+          <span className="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-sm">
+            Service Tiers
+          </span>
+          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
             Book Your DFU-VA Strategy Call
           </h2>
-          <p className="mt-3 text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
-            Choose the service that matches your operation. Each engagement
-            starts with a strategy call to tailor DFU-VA support to your needs.
+          <p className="mt-4 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Choose the specific service branch that matches your active deployment scale. Each configuration starts with a strategy session to map workflows precisely.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 items-stretch">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className="rounded-2xl border border-red-100 bg-white shadow-sm p-5 
-                         flex flex-col h-full transition-transform hover:-translate-y-1 hover:shadow-2xl"
-            >
-              {/* Top text block (fixed height for alignment) */}
-              <div className="min-h-[110px]">
-                <h3 className="text-lg font-bold text-red-700">
-                  {plan.name}
-                </h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  {plan.subtitle}
-                </p>
+        {/* --- DUAL INTERACTIVE COMMAND ROW MODULE --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-12">
+          
+          {/* LEFT COLUMN PANEL: Tab Trigger Engine */}
+          <div className="lg:col-span-5 space-y-3">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2 mb-2">
+              Select Operating Segment
+            </p>
+            {plans.map((plan, idx) => {
+              const isSelected = activeTab === idx;
+              return (
+                <button
+                  key={plan.name}
+                  type="button"
+                  onClick={() => setActiveTab(idx)}
+                  className={`w-full text-left flex items-center justify-between p-4 rounded-2xl transition-all duration-300 border ${
+                    isSelected
+                      ? "bg-gradient-to-r from-red-950 to-red-900 text-white border-red-900 shadow-lg shadow-red-950/10 -translate-x-1"
+                      : "bg-white text-gray-900 border-gray-200/60 hover:border-red-200 hover:bg-zinc-50/50"
+                  }`}
+                >
+                  <div className="min-w-0 pr-4">
+                    <h4 className={`text-base font-bold tracking-tight ${isSelected ? "text-white" : "text-gray-900"}`}>
+                      {plan.name}
+                    </h4>
+                    <p className={`text-xs truncate mt-0.5 ${isSelected ? "text-red-200/70" : "text-gray-500"}`}>
+                      {plan.subtitle}
+                    </p>
+                  </div>
+                  <span className={`text-[9px] font-bold tracking-wide uppercase px-2.5 py-1 rounded-md flex-shrink-0 ${
+                    isSelected ? "bg-white/10 text-red-200 border border-white/10" : "bg-zinc-100 text-gray-500"
+                  }`}>
+                    {plan.tag}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* RIGHT COLUMN PANEL: Live Canvas Workspace Viewport */}
+          <div className="lg:col-span-7 h-full">
+            <div className="bg-white border border-gray-200/70 rounded-3xl p-6 sm:p-8 shadow-sm relative overflow-hidden transition-all duration-300 min-h-[460px] flex flex-col justify-between group hover:border-red-200/60 hover:shadow-xl">
+              
+              {/* Inner Focus Details */}
+              <div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-100">
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-red-600 bg-red-50 border border-red-100 px-2.5 py-1 rounded-md">
+                      Deployment Structure
+                    </span>
+                    <h3 className="text-2xl font-black text-gray-900 tracking-tight mt-3">
+                      {plans[activeTab].name}
+                    </h3>
+                  </div>
+                  <p className="text-sm font-semibold text-red-600 bg-red-50/50 px-3 py-1.5 rounded-xl border border-red-100/40">
+                    {plans[activeTab].subtitle}
+                  </p>
+                </div>
+
+                {/* Fully Expanded Un-Cropped Checklists */}
+                <div className="mt-6">
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+                    Included Scope & Deliverables
+                  </p>
+                  <ul className="space-y-3.5">
+                    {plans[activeTab].features.map((feature, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-3 text-sm text-gray-600 animate-[fadeIn_0.4s_ease-out]">
+                        <div className="h-5 w-5 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-red-600 flex-shrink-0 mt-0.5">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3 h-3">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
-              {/* Scrollable features (shorter, hidden scrollbar) */}
-              <ul
-                className="mt-4 space-y-2 text-[13px] text-gray-700 overflow-y-auto pr-1 custom-scroll"
-                style={{ height: "150px" }}
-              >
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                      stroke="currentColor"
-                      className="w-4 h-4 mt-0.5 text-red-600 flex-shrink-0"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Button fixed to bottom, aligned across cards */}
-              <div className="mt-5 pt-1 border-t border-red-50 flex-none">
+              {/* Solitary High-Converting Executive Action Button */}
+              <div className="mt-8 pt-6 border-t border-gray-100">
                 <button
-                  onClick={() =>
-                    window.open(calendlyUrl, "_blank", "noopener,noreferrer")
-                  }
-                  className="w-full rounded-xl bg-red-600 py-3 text-sm font-semibold
-                             text-white hover:bg-red-700 transition-colors"
+                  type="button"
+                  onClick={() => window.open(calendlyUrl, "_blank", "noopener,noreferrer")}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 text-sm font-bold shadow-lg shadow-red-600/10 hover:shadow-red-600/20 transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  Talk to Our Team
+                  <span>Schedule Operational Strategy Session</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
                 </button>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
 
+            </div>
+          </div>
+
+        </div>
+
+      </div>
     </section>
   );
 }
