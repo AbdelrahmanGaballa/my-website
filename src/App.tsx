@@ -84,9 +84,9 @@ export default function App() {
       </div>
 
       {/* Header */}
- <header
-  className="sticky top-0 z-40 border-b border-red-900/30
-             bg-red-950/90 bg-gradient-to-r from-red-950/40 via-red-900/20 to-red-950/40
+<header
+  className="sticky top-0 z-40 border-b border-red-900/40
+             bg-red-900/90 bg-gradient-to-r from-red-950/30 via-red-800/30 to-red-950/30
              text-white backdrop-blur-md transition-all duration-300"
 >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
