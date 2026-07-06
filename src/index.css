@@ -36,3 +36,24 @@ body {
     transform: translateX(100%);
   }
 }
+@keyframes curtainTextReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+    letter-spacing: 0.1em;
+    filter: blur(4px);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    letter-spacing: 0.25em;
+  }
+}
+
+.animate-curtain-text {
+  animation: curtainTextReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

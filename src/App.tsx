@@ -63,25 +63,32 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col relative">
       
-      {/* --- CINEMATIC CURTAIN REVEAL OVERLAY --- */}
+      {/* --- MATCHING THEME CINEMATIC CURTAIN REVEAL OVERLAY --- */}
       <div 
-        className={`fixed inset-0 z-[9999] bg-zinc-950 flex items-center justify-center pointer-events-none transition-transform duration-1000 cubic-bezier(0.85, 0, 0.15, 1) ${
+        className={`fixed inset-0 z-[9999] bg-gradient-to-br from-red-950 via-red-900 to-zinc-950 flex items-center justify-center pointer-events-none transition-transform duration-[1100ms] cubic-bezier(0.85, 0, 0.15, 1) ${
           isCurtainOpen ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <div className="text-center">
-          <span className="text-white font-black tracking-widest text-2xl border-b-2 border-red-600 pb-2">
+        {/* Subtle radial ambient background light glow */}
+        <div className="absolute w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+        
+        <div className="text-center relative z-10">
+          <span className="text-white font-black uppercase tracking-widest text-4xl block animate-curtain-text drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]">
             DFU-VA
           </span>
+          {/* Elegant active loading accent strip */}
+          <div className="mt-4 h-[2px] w-16 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto overflow-hidden relative">
+            <div className="w-full h-full bg-white absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite]" />
+          </div>
         </div>
       </div>
 
       {/* Header */}
-      <header
-        className="sticky top-0 z-40 border-b border-red-100/40
-                   bg-gradient-to-r from-red-900/80 to-red-700/80
-                   text-white backdrop-blur-md transition-all duration-300"
-      >
+ <header
+  className="sticky top-0 z-40 border-b border-red-900/30
+             bg-red-950/90 bg-gradient-to-r from-red-950/40 via-red-900/20 to-red-950/40
+             text-white backdrop-blur-md transition-all duration-300"
+>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Brand */}
@@ -231,7 +238,6 @@ export default function App() {
 
         {active === "contact" && <Contact />}
       </main>
-
 
       {/* Footer */}
      {/* Footer */}
