@@ -170,14 +170,33 @@ export default function App() {
     <>
       <div id="home-top" />
       <Hero onGetStarted={() => setActive("features")} />
+      <ScrollReveal>
       <StatsStrip />
+    </ScrollReveal>
+    
+    <ScrollReveal>
       <Features />
+    </ScrollReveal>
+    
+    <ScrollReveal>
       <Steps />
+    </ScrollReveal>
+    
+    <ScrollReveal>
       <Pricing />
+    </ScrollReveal>
+    
+    <ScrollReveal>
       <Reviews />
-     
+    </ScrollReveal>
+    
+    <ScrollReveal>
       <BookCall />
+    </ScrollReveal>
+    
+    <ScrollReveal>
       <FAQ />
+    </ScrollReveal>
     </>
   )}
 
@@ -1201,6 +1220,41 @@ function Badge({ label }: { label: string }) {
         <path d="M20 6L9 17l-5-5" />
       </svg>
       <span className="text-xs font-medium text-red-700">{label}</span>
+    </div>
+  );
+}
+function ScrollReveal({ children }: { children: React.ReactNode }) {
+  const [isVisible, setIsVisible] = React.useState(false);
+  const domRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          // Once it animates in, stop observing so it stays visible
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 }); // Triggers when 10% of the section is visible
+
+    if (domRef.current) {
+      observer.observe(domRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={domRef}
+      className={`transition-all duration-1000 ease-out transform ${
+        isVisible 
+          ? "opacity-100 translate-y-0 filter-none" 
+          : "opacity-0 translate-y-12 blur-sm"
+      }`}
+    >
+      {children}
     </div>
   );
 }
