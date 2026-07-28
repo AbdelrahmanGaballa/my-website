@@ -21,17 +21,28 @@ export default function App() {
   // --- CINEMATIC CURTAIN PRELOADER STATE ---
   const [isCurtainOpen, setIsCurtainOpen] = useState(false);
 
+  // --- EVENT POPUP STATE ---
+  const [showEventPopup, setShowEventPopup] = useState(false);
+
   useEffect(() => {
     // Small timeout buffer for stable initial asset mounts before opening the curtain
     const timer = setTimeout(() => {
       setIsCurtainOpen(true);
     }, 300);
-    return () => clearTimeout(timer);
+
+    // Automatically trigger the event popup 2 seconds after mount
+    const popupTimer = setTimeout(() => {
+      setShowEventPopup(true);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(popupTimer);
+    };
   }, []);
 
   function goTo(section: "home" | "features" | "pricing" | "contact") {
     setActive(section);
-    // Prefer section top if present (for Book a Call etc.)
     const idMap: Record<typeof section, string> = {
       home: "home-top",
       features: "features",
@@ -47,10 +58,7 @@ export default function App() {
   }
 
   function goToBookCall() {
-    // Make sure the Home layout (with BookCall) is shown
     setActive("home");
-
-    // Wait for React to render, then scroll
     setTimeout(() => {
       const el = document.getElementById("book-call");
       if (el) {
@@ -62,25 +70,28 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col relative">
       
+      {/* --- ADD THIS LINE HERE TO RENDER THE POPUP --- */}
+      <EventPopup isOpen={showEventPopup} onClose={() => setShowEventPopup(false)} />
+
       {/* --- MATCHING THEME CINEMATIC CURTAIN REVEAL OVERLAY --- */}
       <div 
         className={`fixed inset-0 z-[9999] bg-gradient-to-br from-red-950 via-red-900 to-zinc-950 flex items-center justify-center pointer-events-none transition-transform duration-[1100ms] cubic-bezier(0.85, 0, 0.15, 1) ${
           isCurtainOpen ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        {/* Subtle radial ambient background light glow */}
         <div className="absolute w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
         
         <div className="text-center relative z-10">
           <span className="text-white font-black uppercase tracking-widest text-4xl block animate-curtain-text drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]">
             DFU-VA
           </span>
-          {/* Elegant active loading accent strip */}
           <div className="mt-4 h-[2px] w-16 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto overflow-hidden relative">
             <div className="w-full h-full bg-white absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite]" />
           </div>
         </div>
       </div>
+
+      {/* Header, Main, Footer continue here... */}
 
       {/* Header */}
 <header
@@ -1622,5 +1633,95 @@ function LogoTicker() {
         </div>
       </div>
     </section>
+  );
+}
+
+function EventPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-[fadeIn_0.3s_ease-out]">
+      {/* Modal Container */}
+      <div className="relative w-full max-w-lg bg-gradient-to-b from-red-950 via-zinc-900 to-black text-white rounded-3xl p-6 sm:p-8 border border-red-800/50 shadow-2xl overflow-hidden group">
+        
+        {/* Glowing Background Glow Effects */}
+        <div className="absolute -top-20 -right-20 w-56 h-56 bg-red-600/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
+        <div className="absolute -bottom-20 -left-20 w-56 h-56 bg-red-800/15 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 h-9 w-9 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:text-white hover:bg-white/20 transition-all z-20 border border-white/10"
+          aria-label="Close Popup"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Header Banner Graphic */}
+        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-red-900 to-red-950 border border-red-500/30 p-5 mb-6 text-center shadow-lg">
+          <div className="flex justify-center mb-2">
+            <img src="/logo1.png" alt="DFU-VA" className="h-10 w-auto object-contain drop-shadow" />
+          </div>
+          <span className="inline-flex items-center gap-1.5 bg-red-500/20 border border-red-400/40 text-red-200 text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-inner">
+            <span className="w-2 h-2 rounded-full bg-red-400 animate-ping" />
+            Upcoming Live Event
+          </span>
+        </div>
+
+        {/* Event Meta Details */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-lg">
+              🔥 Sales End Soon
+            </span>
+            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-lg">
+              FREE
+            </span>
+          </div>
+
+          <h3 className="text-2xl font-black text-white tracking-tight leading-tight">
+            Tampa Real Estate & Business Growth Meetup
+          </h3>
+
+          {/* Location & Time Info */}
+          <div className="space-y-2.5 pt-2 text-sm text-red-100/80">
+            <div className="flex items-center gap-3 bg-white/5 border border-white/10 p-3 rounded-xl">
+              <svg className="w-5 h-5 text-red-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span><strong>Thursday</strong> • 7:30 PM EST</span>
+            </div>
+
+            <div className="flex items-center gap-3 bg-white/5 border border-white/10 p-3 rounded-xl">
+              <svg className="w-5 h-5 text-red-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span><strong>Qamaria Yemeni Coffee Co.</strong></span>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <div className="mt-8">
+          <a
+            href="https://www.eventbrite.com/o/121589589653?contact_organizer=true&event_id=1995479151860&aff=ebdsshcopyurl" // Replace with your actual RSVP / Eventbrite link
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+            className="relative w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-600 via-red-500 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-bold py-4 text-center shadow-lg shadow-red-600/30 transition-all duration-300 hover:scale-[1.02] group/btn overflow-hidden"
+          >
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
+            <span className="relative text-base tracking-wide uppercase font-black">Reserve My Free Spot Now</span>
+            <svg className="w-5 h-5 relative" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
   );
 }
