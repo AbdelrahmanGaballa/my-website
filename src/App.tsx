@@ -1629,7 +1629,7 @@ function LogoTicker() {
 
 
 function PipelineVisualizer() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
   const pipelineStages = [
     {
@@ -1662,88 +1662,89 @@ function PipelineVisualizer() {
     },
   ];
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % pipelineStages.length);
     }, 3500);
     return () => clearInterval(timer);
-  }, []);
+  }, [pipelineStages.length]);
 
   return (
-    <section className="py-20 bg-zinc-950 text-white border-y border-red-900/30 relative overflow-hidden">
+    <section className="py-12 sm:py-20 bg-zinc-950 text-white border-y border-red-900/30 relative overflow-hidden">
       {/* Background Ambient Glows */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12">
-          <span className="text-xs font-bold text-red-400 uppercase tracking-widest bg-red-950/80 border border-red-800/50 px-3.5 py-1.5 rounded-full shadow-inner">
+        <div className="text-center mb-8 sm:mb-12">
+          <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-widest bg-red-950/80 border border-red-800/50 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full shadow-inner">
             Enterprise Architecture
           </span>
-          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-white tracking-tight">
+          <h2 className="mt-3 sm:mt-4 text-2xl sm:text-5xl font-black text-white tracking-tight">
             The DFU-VA Lead Pipeline Engine
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-2 sm:mt-3 text-xs sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
             How your dedicated Virtual Assistants transform raw marketing lists into live contract opportunities.
           </p>
         </div>
 
         {/* Live Simulator Viewport */}
-        <div className="grid lg:grid-cols-12 gap-8 items-center bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch bg-zinc-900/90 border border-zinc-800 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl backdrop-blur-xl">
           
           {/* Stage Selection List */}
-          <div className="lg:col-span-5 space-y-3">
+          <div className="lg:col-span-5 space-y-2.5 sm:space-y-3">
             {pipelineStages.map((s, idx) => {
               const isActive = activeStep === idx;
               return (
                 <button
                   key={s.stage}
+                  type="button"
                   onClick={() => setActiveStep(idx)}
-                  className={`w-full text-left p-4 rounded-2xl transition-all duration-300 border flex items-center justify-between ${
+                  className={`w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl transition-all duration-300 border flex items-center justify-between gap-3 ${
                     isActive
-                      ? "bg-gradient-to-r from-red-950 to-red-900 border-red-600 text-white shadow-lg shadow-red-950/50 translate-x-1"
+                      ? "bg-gradient-to-r from-red-950 to-red-900 border-red-600 text-white shadow-lg shadow-red-950/50"
                       : "bg-zinc-950/50 border-zinc-800/80 text-gray-400 hover:border-zinc-700 hover:text-gray-200"
                   }`}
                 >
-                  <div>
-                    <span className={`text-[10px] font-bold uppercase tracking-widest block ${isActive ? "text-red-400" : "text-gray-500"}`}>
+                  <div className="min-w-0 flex-1">
+                    <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-widest block truncate ${isActive ? "text-red-400" : "text-gray-500"}`}>
                       {s.stage}
                     </span>
-                    <span className="text-sm font-extrabold text-white mt-0.5 block">
+                    <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block truncate">
                       {s.title}
                     </span>
                   </div>
-                  <div className={`h-2.5 w-2.5 rounded-full ${isActive ? "bg-red-500 animate-ping" : "bg-zinc-700"}`} />
+                  <div className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full flex-shrink-0 ${isActive ? "bg-red-500 animate-ping" : "bg-zinc-700"}`} />
                 </button>
               );
             })}
           </div>
 
           {/* Dynamic Interactive Stage Monitor Screen */}
-          <div className="lg:col-span-7 bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 relative min-h-[320px] flex flex-col justify-between shadow-inner">
-            <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4">
-              <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded-full bg-red-500" />
-                <div className="h-3 w-3 rounded-full bg-amber-500" />
-                <div className="h-3 w-3 rounded-full bg-emerald-500" />
-                <span className="text-xs font-mono text-gray-500 ml-2">Pipeline_Status_Monitor.sys</span>
+          <div className="lg:col-span-7 bg-zinc-950 border border-zinc-800 rounded-xl sm:rounded-2xl p-4 sm:p-8 relative flex flex-col justify-between shadow-inner gap-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800/80 pb-3 sm:pb-4">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-red-500" />
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-amber-500" />
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-emerald-500" />
+                <span className="text-[10px] sm:text-xs font-mono text-gray-500 ml-1 sm:ml-2">Pipeline_Monitor.sys</span>
               </div>
-              <span className="text-xs font-bold text-emerald-400 bg-emerald-950/50 border border-emerald-800/40 px-2.5 py-1 rounded-md">
+              <span className="text-[10px] sm:text-xs font-bold text-emerald-400 bg-emerald-950/50 border border-emerald-800/40 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md">
                 ● {pipelineStages[activeStep].status}
               </span>
             </div>
 
-            <div className="py-6 space-y-4">
-              <h3 className="text-2xl font-black text-white tracking-tight">
+            <div className="space-y-2 sm:space-y-3">
+              <h3 className="text-lg sm:text-2xl font-black text-white tracking-tight">
                 {pipelineStages[activeStep].title}
               </h3>
-              <p className="text-sm text-gray-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
                 {pipelineStages[activeStep].desc}
               </p>
             </div>
 
-            <div className="pt-4 border-t border-zinc-800/80 flex items-center justify-between">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Performance Metric</span>
-              <span className="text-sm font-black text-red-400 font-mono">{pipelineStages[activeStep].metric}</span>
+            <div className="pt-3 sm:pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-2">
+              <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider">Performance Metric</span>
+              <span className="text-xs sm:text-sm font-black text-red-400 font-mono">{pipelineStages[activeStep].metric}</span>
             </div>
           </div>
 
