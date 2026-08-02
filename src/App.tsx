@@ -211,6 +211,9 @@ export default function App() {
             <ScrollReveal>
               <PipelineVisualizer />
             </ScrollReveal>
+            <ScrollReveal>
+              <RoiCalculator />
+            </ScrollReveal>
             
             <ScrollReveal>
               <Steps />
@@ -1749,6 +1752,256 @@ function PipelineVisualizer() {
           </div>
 
         </div>
+      </div>
+    </section>
+  );
+}
+
+function RoiCalculator() {
+  // Completely Customizable Input Parameters (No hardcoded values)
+  const [targetDeals, setTargetDeals] = useState<number>(3);
+  const [avgProfitPerDeal, setAvgProfitPerDeal] = useState<number>(15000);
+  const [vaTeamSize, setVaTeamSize] = useState<number>(2);
+  const [costPerVa, setCostPerVa] = useState<number>(1500);
+
+  // Dynamic Live Calculations
+  const HOURS_PER_VA_MONTHLY = 160; // Standard full-time monthly hours
+  const TOTAL_HOURS_SAVED = vaTeamSize * HOURS_PER_VA_MONTHLY;
+  
+  const TOTAL_VA_INVESTMENT = vaTeamSize * costPerVa;
+  const PROJECTED_GROSS_REVENUE = targetDeals * avgProfitPerDeal;
+  const PROJECTED_NET_PROFIT = PROJECTED_GROSS_REVENUE - TOTAL_VA_INVESTMENT;
+  
+  // Calculate ROI Percentage & Multiple dynamically
+  const PROJECTED_ROI_PERCENT = TOTAL_VA_INVESTMENT > 0 
+    ? Math.round((PROJECTED_NET_PROFIT / TOTAL_VA_INVESTMENT) * 100) 
+    : 0;
+  const ROI_MULTIPLE = TOTAL_VA_INVESTMENT > 0 
+    ? (PROJECTED_GROSS_REVENUE / TOTAL_VA_INVESTMENT).toFixed(1) 
+    : "0";
+
+  return (
+    <section className="py-12 sm:py-20 bg-gradient-to-b from-white via-red-50/20 to-zinc-50 border-y border-red-100/60 relative overflow-hidden">
+      {/* Subtle Ambient Background Light Layer */}
+      <div className="absolute top-1/3 right-10 w-72 sm:w-96 h-72 sm:h-96 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center mb-10 sm:mb-14">
+          <span className="text-[10px] sm:text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-sm">
+            Interactive Live Model
+          </span>
+          <h2 className="mt-3 sm:mt-4 text-2xl sm:text-5xl font-black text-gray-900 tracking-tight">
+            Pipeline Yield & ROI Calculator
+          </h2>
+          <p className="mt-2 sm:mt-3 text-xs sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Adjust the operational variables below to project revenue growth, labor hours reclaimed, and net campaign return in real time.
+          </p>
+        </div>
+
+        {/* Main Command Console Card */}
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch bg-white border border-gray-200/80 rounded-2xl sm:rounded-3xl p-5 sm:p-10 shadow-xl">
+          
+          {/* LEFT COLUMN: Interactive Input Controls */}
+          <div className="lg:col-span-6 space-y-6 sm:space-y-7 flex flex-col justify-between">
+            
+            {/* Input 1: Target Deals per Month */}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-xs sm:text-sm">
+                <label className="font-extrabold text-gray-900 uppercase tracking-wide">
+                  1. Target Deals / Month
+                </label>
+                <span className="font-mono font-black text-red-700 bg-red-50 px-3 py-1 rounded-lg border border-red-100 text-sm sm:text-base shadow-sm">
+                  {targetDeals} {targetDeals === 1 ? "Deal" : "Deals"}
+                </span>
+              </div>
+              <input
+                type="range"
+                min={1}
+                max={20}
+                step={1}
+                value={targetDeals}
+                onChange={(e) => setTargetDeals(Number(e.target.value))}
+                className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+              />
+              <div className="flex justify-between text-[10px] text-gray-400 font-mono">
+                <span>1 Deal</span>
+                <span>10 Deals</span>
+                <span>20 Deals</span>
+              </div>
+            </div>
+
+            {/* Input 2: Average Profit per Deal */}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-xs sm:text-sm">
+                <label className="font-extrabold text-gray-900 uppercase tracking-wide">
+                  2. Avg. Profit / Deal Fee
+                </label>
+                <span className="font-mono font-black text-red-700 bg-red-50 px-3 py-1 rounded-lg border border-red-100 text-sm sm:text-base shadow-sm">
+                  ${avgProfitPerDeal.toLocaleString()}
+                </span>
+              </div>
+              <input
+                type="range"
+                min={2500}
+                max={50000}
+                step={2500}
+                value={avgProfitPerDeal}
+                onChange={(e) => setAvgProfitPerDeal(Number(e.target.value))}
+                className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+              />
+              <div className="flex justify-between text-[10px] text-gray-400 font-mono">
+                <span>$2,500</span>
+                <span>$25,000</span>
+                <span>$50,000</span>
+              </div>
+            </div>
+
+            {/* Input 3: Dedicated VA Count */}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-xs sm:text-sm">
+                <label className="font-extrabold text-gray-900 uppercase tracking-wide">
+                  3. Dedicated VAs Deployed
+                </label>
+                <span className="font-mono font-black text-red-700 bg-red-50 px-3 py-1 rounded-lg border border-red-100 text-sm sm:text-base shadow-sm">
+                  {vaTeamSize} {vaTeamSize === 1 ? "VA" : "VAs"}
+                </span>
+              </div>
+              <input
+                type="range"
+                min={1}
+                max={15}
+                step={1}
+                value={vaTeamSize}
+                onChange={(e) => setVaTeamSize(Number(e.target.value))}
+                className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+              />
+              <div className="flex justify-between text-[10px] text-gray-400 font-mono">
+                <span>1 VA</span>
+                <span>8 VAs</span>
+                <span>15 VAs</span>
+              </div>
+            </div>
+
+            {/* Input 4: Investment Rate per VA */}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-xs sm:text-sm">
+                <label className="font-extrabold text-gray-900 uppercase tracking-wide">
+                  4. Monthly Investment / VA
+                </label>
+                <span className="font-mono font-black text-red-700 bg-red-50 px-3 py-1 rounded-lg border border-red-100 text-sm sm:text-base shadow-sm">
+                  ${costPerVa.toLocaleString()}/mo
+                </span>
+              </div>
+              <input
+                type="range"
+                min={500}
+                max={4000}
+                step={100}
+                value={costPerVa}
+                onChange={(e) => setCostPerVa(Number(e.target.value))}
+                className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+              />
+              <div className="flex justify-between text-[10px] text-gray-400 font-mono">
+                <span>$500</span>
+                <span>$2,250</span>
+                <span>$4,000</span>
+              </div>
+            </div>
+
+            {/* Operational Time Reclaimed Metric */}
+            <div className="p-4 bg-zinc-50 border border-gray-200/80 rounded-2xl flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center flex-shrink-0 font-extrabold text-lg">
+                  ⚡
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Prospecting Capacity</h4>
+                  <p className="text-[11px] text-gray-500">Manual phone & outreach hours handled</p>
+                </div>
+              </div>
+              <span className="text-base sm:text-lg font-black text-gray-900 font-mono">
+                {TOTAL_HOURS_SAVED} hrs/mo
+              </span>
+            </div>
+
+          </div>
+
+          {/* RIGHT COLUMN: High-Contrast Presentation Stage Display */}
+          <div className="lg:col-span-6 bg-gradient-to-br from-red-950 via-red-900 to-zinc-950 rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl relative overflow-hidden gap-6">
+            
+            <div className="flex items-center justify-between border-b border-red-800/60 pb-4">
+              <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-red-300">
+                Live Revenue & ROI Yield
+              </span>
+              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2.5 py-1 rounded-md animate-pulse">
+                ● Dynamic Projections
+              </span>
+            </div>
+
+            {/* Big Stat Displays */}
+            <div className="space-y-6">
+              
+              {/* Projected Gross Revenue */}
+              <div>
+                <span className="text-xs text-red-200/80 uppercase tracking-wider font-bold block mb-1">
+                  Projected Gross Revenue
+                </span>
+                <div className="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight">
+                  ${PROJECTED_GROSS_REVENUE.toLocaleString()}
+                </div>
+              </div>
+
+              {/* Sub-Stat Financial Metrics Grid */}
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-red-800/40">
+                
+                {/* Net Profit */}
+                <div>
+                  <span className="text-[11px] text-red-200/70 uppercase tracking-wider block font-medium">
+                    Est. Net Monthly Profit
+                  </span>
+                  <span className={`text-xl sm:text-2xl font-extrabold font-mono ${
+                    PROJECTED_NET_PROFIT >= 0 ? "text-emerald-400" : "text-red-400"
+                  }`}>
+                    ${PROJECTED_NET_PROFIT.toLocaleString()}
+                  </span>
+                </div>
+
+                {/* Return Multiple */}
+                <div>
+                  <span className="text-[11px] text-red-200/70 uppercase tracking-wider block font-medium">
+                    Return Multiple / ROI
+                  </span>
+                  <span className="text-xl sm:text-2xl font-extrabold text-amber-300 font-mono">
+                    {ROI_MULTIPLE}x ({PROJECTED_ROI_PERCENT}%)
+                  </span>
+                </div>
+
+              </div>
+
+              {/* Campaign Cost Summary Strip */}
+              <div className="pt-3 border-t border-red-800/20 flex items-center justify-between text-xs text-red-200/70">
+                <span>Total Monthly VA Investment:</span>
+                <span className="font-mono font-bold text-white">${TOTAL_VA_INVESTMENT.toLocaleString()}</span>
+              </div>
+
+            </div>
+
+            {/* CTA Button Anchor */}
+            <div className="pt-4 border-t border-red-800/60">
+              <a
+                href="#book-call"
+                className="w-full text-center block px-6 py-3.5 rounded-xl bg-white text-red-700 font-extrabold text-xs tracking-wider uppercase hover:bg-red-50 transition-all duration-300 shadow-lg group"
+              >
+                Configure Your Campaign →
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
     </section>
   );
