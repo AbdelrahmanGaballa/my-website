@@ -76,17 +76,16 @@ export default function App() {
         </div>
       </div>
       {/* Header, Main, Footer continue here... */}
-
-      {/* Header */}
-<header
-  className="sticky top-0 z-40 border-b border-red-900/30
-             bg-red-950/90 bg-gradient-to-r from-red-950/20 via-red-800/40 to-red-950/20
-             text-white backdrop-blur-md transition-all duration-300"
->
+{/* Header */}
+      <header className="sticky top-0 z-40 w-full border-b border-red-900/40 bg-gradient-to-r from-red-950 via-red-900 to-red-950 backdrop-blur-xl transition-all duration-300">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Brand */}
-            <div className="flex items-center gap-3">
+            
+            {/* Original Logo */}
+            <div 
+              onClick={() => goTo("home")}
+              className="flex items-center gap-3 cursor-pointer"
+            >
               <img
                 src="/logo1.png"
                 alt="DFU-VA"
@@ -94,8 +93,8 @@ export default function App() {
               />
             </div>
 
-            {/* Desktop nav */}
-            <nav className="hidden md:flex items-center gap-6 text-sm">
+            {/* Nav Pill Container - Subtle Translucent Glass */}
+            <nav className="hidden md:flex items-center gap-1 bg-black/30 border border-white/10 rounded-2xl p-1.5 backdrop-blur-md">
               <NavItem
                 label="Home"
                 isActive={active === "home"}
@@ -111,13 +110,6 @@ export default function App() {
                 isActive={active === "pricing"}
                 onClick={() => goTo("pricing")}
               />
-              <button
-                onClick={goToBookCall}
-                className="rounded-xl bg-white/15 px-3 py-1.5 text-sm font-semibold hover:bg-white/20 transition ring-1 ring-white/20"
-              >
-                Book a Call
-              </button>
-
               <NavItem
                 label="Contact"
                 isActive={active === "contact"}
@@ -125,30 +117,38 @@ export default function App() {
               />
             </nav>
 
-            {/* Mobile toggle */}
+            {/* High-Contrast Crisp White Button (No Neon Red Clash) */}
+            <div className="hidden md:flex items-center">
+              <button
+                type="button"
+                onClick={goToBookCall}
+                className="relative overflow-hidden rounded-xl bg-white px-5 py-2.5 text-xs font-black uppercase tracking-wider text-red-950 shadow-xl hover:bg-red-50 transition-all duration-300 hover:scale-105 group"
+              >
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-red-600/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                Book a Strategy Call
+              </button>
+            </div>
+
+            {/* Mobile Toggle Button */}
             <div className="md:hidden">
               <button
-                className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 p-2"
+                className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 p-2.5 text-white"
                 onClick={() => setMenuOpen((v) => !v)}
                 aria-label="Toggle menu"
               >
-                <svg viewBox="0 0 24 24" className="h-6 w-6">
-                  <path
-                    d="M4 6h16M4 12h16M4 18h16"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
                 </svg>
               </button>
             </div>
+
           </div>
         </div>
 
-        {/* Mobile nav */}
+        {/* Mobile Dropdown */}
         {menuOpen && (
-          <div className="md:hidden border-t border-white/10 bg-white/5">
-            <div className="px-4 py-2 space-y-1">
+          <div className="md:hidden border-t border-red-900/40 bg-red-950/95 backdrop-blur-2xl">
+            <div className="px-4 py-3 space-y-1">
               <MobileLink
                 label="Home"
                 onClick={() => {
@@ -171,20 +171,24 @@ export default function App() {
                 }}
               />
               <MobileLink
-                label="Book a Call"
-                onClick={() => {
-                  goToBookCall();
-                  setMenuOpen(false);
-                }}
-              />
-
-              <MobileLink
                 label="Contact"
                 onClick={() => {
                   goTo("contact");
                   setMenuOpen(false);
                 }}
               />
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    goToBookCall();
+                    setMenuOpen(false);
+                  }}
+                  className="w-full text-center rounded-xl bg-white px-4 py-3 text-xs font-black uppercase tracking-wider text-red-950 shadow-md"
+                >
+                  Book a Strategy Call
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -1466,7 +1470,6 @@ function Contact() {
 }
 
 /* -------------------- UI bits -------------------- */
-
 function NavItem({
   label,
   isActive,
@@ -1478,11 +1481,12 @@ function NavItem({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`px-3 py-1.5 rounded-xl text-sm font-medium transition ${
+      className={`px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all duration-300 ${
         isActive
-          ? "bg-white/15 text-white shadow ring-1 ring-white/20"
-          : "text-white/80 hover:text-white hover:bg-white/10"
+          ? "bg-red-600 text-white shadow-lg shadow-red-600/40"
+          : "text-red-100/70 hover:text-white hover:bg-white/10"
       }`}
     >
       {label}
