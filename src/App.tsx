@@ -20,11 +20,11 @@ export default function App() {
   // --- CINEMATIC CURTAIN PRELOADER STATE ---
   const [isCurtainOpen, setIsCurtainOpen] = useState(false);
 
-  useEffect(() => {
-    // Small timeout buffer for stable initial asset mounts before opening the curtain
+ useEffect(() => {
+    // 800ms buffer so the audience sees the glowing logo emblem before curtains part
     const timer = setTimeout(() => {
       setIsCurtainOpen(true);
-    }, 300);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, []);
@@ -58,20 +58,58 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col relative">
 
-      {/* --- MATCHING THEME CINEMATIC CURTAIN REVEAL OVERLAY --- */}
+     {/* --- CINEMATIC DUAL-SPLIT CURTAIN PRELOADER --- */}
       <div 
-        className={`fixed inset-0 z-[9999] bg-gradient-to-br from-red-950 via-red-900 to-zinc-950 flex items-center justify-center pointer-events-none transition-transform duration-[1100ms] cubic-bezier(0.85, 0, 0.15, 1) ${
-          isCurtainOpen ? "-translate-y-full" : "translate-y-0"
+        className={`fixed inset-0 z-[9999] pointer-events-none flex ${
+          isCurtainOpen ? "invisible delay-1000" : "visible"
         }`}
       >
-        <div className="absolute w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        
-        <div className="text-center relative z-10">
-          <span className="text-white font-black uppercase tracking-widest text-4xl block animate-curtain-text drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]">
-            DFU-VA
-          </span>
-          <div className="mt-4 h-[2px] w-16 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto overflow-hidden relative">
-            <div className="w-full h-full bg-white absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite]" />
+        {/* Left Curtain Panel */}
+        <div 
+          className={`w-1/2 h-full bg-gradient-to-br from-zinc-950 via-red-950 to-zinc-950 border-r border-red-500/20 shadow-2xl transition-transform duration-[1200ms] ease-[cubic-bezier(0.87,0,0.13,1)] ${
+            isCurtainOpen ? "-translate-x-full" : "translate-x-0"
+          }`}
+        />
+
+        {/* Right Curtain Panel */}
+        <div 
+          className={`w-1/2 h-full bg-gradient-to-bl from-zinc-950 via-red-950 to-zinc-950 border-l border-red-500/20 shadow-2xl transition-transform duration-[1200ms] ease-[cubic-bezier(0.87,0,0.13,1)] ${
+            isCurtainOpen ? "translate-x-full" : "translate-x-0"
+          }`}
+        />
+
+        {/* Center Stage Brand Seal (Fades & Scales Out on Reveal) */}
+        <div 
+          className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
+            isCurtainOpen ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100"
+          }`}
+        >
+          {/* Glowing Ambient Core */}
+          <div className="absolute w-80 h-80 bg-red-600/20 rounded-full blur-3xl animate-pulse pointer-events-none" />
+
+          {/* Glassmorphic Emblem Card */}
+          <div className="relative z-10 flex flex-col items-center justify-center p-8 rounded-3xl bg-zinc-950/80 border border-red-500/30 backdrop-blur-2xl shadow-[0_0_50px_rgba(220,38,38,0.25)]">
+            
+            {/* Logo Image */}
+            <img 
+              src="/logo1.png" 
+              alt="DFU-VA Logo" 
+              className="h-16 w-auto mb-4 drop-shadow-[0_0_25px_rgba(220,38,38,0.6)]"
+            />
+
+            {/* Brand Title */}
+            <span className="text-white font-black uppercase tracking-[0.3em] text-3xl block drop-shadow-md">
+              DFU-VA
+            </span>
+
+            {/* Light Beam Shimmer Bar */}
+            <div className="mt-4 h-[2px] w-24 bg-gradient-to-r from-transparent via-red-500 to-transparent overflow-hidden relative rounded-full">
+              <div className="w-full h-full bg-white absolute inset-0 -translate-x-full animate-[shimmer_1.2s_infinite]" />
+            </div>
+
+            <span className="text-[10px] font-mono font-bold tracking-widest text-red-300 uppercase mt-3 opacity-80">
+              Initializing Enterprise Engine...
+            </span>
           </div>
         </div>
       </div>
