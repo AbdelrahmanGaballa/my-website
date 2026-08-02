@@ -409,7 +409,6 @@ export default function App() {
 }
 
 /* -------------------- Sections -------------------- */
-
 function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   const images = [realestate, deal, deal2, outdoor];
   const [currentImage, setCurrentImage] = React.useState(0);
@@ -419,71 +418,80 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]);
 
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-red-950 via-red-900 to-red-800" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-red-950 via-red-900 to-red-950 py-16 sm:py-24 text-white">
+      {/* Background Lighting Accents */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
+      <div className="absolute bottom-0 right-10 w-96 h-96 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          {/* Copy */}
-          <div>
-            <p className="text-xs font-semibold text-red-100 border border-red-400/40 bg-white/5 px-3 py-1 rounded-full inline-flex">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          
+          {/* Left Column: Copy & Actions */}
+          <div className="lg:col-span-7 space-y-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-red-200 border border-red-400/30 bg-white/5 px-3.5 py-1.5 rounded-full inline-block backdrop-blur-sm shadow-sm">
               For Wholesalers, Flippers & Deal Hunters
-            </p>
-            <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
-              Never Run Out of Qualified Seller Leads.
+            </span>
+
+            <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-[1.1] text-white drop-shadow-sm">
+              Never Run Out of <br className="hidden sm:inline" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-red-100 to-red-200">
+                Qualified Seller Leads.
+              </span>
             </h1>
-            <p className="mt-4 text-red-50/95 text-lg max-w-2xl">
-              DFU-VA plugs trained real estate virtual assistants into your
-              pipeline so you talk only to serious sellers ready to move.
+
+            <p className="text-red-100/90 text-base sm:text-lg max-w-xl leading-relaxed">
+              DFU-VA plugs trained real estate virtual assistants into your pipeline so you talk only to serious sellers ready to move.
             </p>
             
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              {/* Turn on My Lead-Flow Button (With Premium Shimmer Effect) */}
+            {/* Clean 2-Button Action Row */}
+            <div className="pt-2 flex flex-wrap items-center gap-4">
               <a
-                href="#contact"
-                className="relative overflow-hidden rounded-xl px-6 py-3 text-sm font-bold bg-white text-red-700 shadow-lg hover:bg-red-50 transition-all duration-300 hover:scale-[1.02] group"
+                href="#book-call"
+                className="relative overflow-hidden rounded-2xl px-7 py-4 text-sm font-extrabold bg-white text-red-800 shadow-xl hover:bg-red-50 transition-all duration-300 hover:scale-[1.02] group"
               >
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-red-600/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                Turn on My Lead-Flow
+                Turn On My Lead-Flow
               </a>
 
               <button
+                type="button"
                 onClick={onGetStarted}
-                className="rounded-xl border border-white/40 bg-white/5 px-5 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
+                className="rounded-2xl border border-white/30 bg-white/5 px-6 py-4 text-sm font-bold text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
               >
-                See how it works →
+                See How It Works →
               </button>
-
-              {/* Book a Call Button (With Premium Shimmer Effect) */}
-              <a
-                href="#book-call"
-                className="relative overflow-hidden rounded-xl border border-white/40 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] group"
-              >
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                Book a Call
-              </a>
             </div>
           </div>
 
-          {/* Visual Container (With Premium Zoom Effect) */}
-          <div className="relative group">
-            <div className="aspect-video w-full rounded-2xl border border-red-300/40 bg-white/5 shadow-xl p-4 backdrop-blur-sm">
-              <div className="h-full w-full rounded-xl overflow-hidden border border-white/40 shadow-lg relative">
+          {/* Right Column: Visual Display Frame */}
+          <div className="lg:col-span-5 relative group">
+            {/* Glowing Accent Ring */}
+            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-red-600 to-amber-500 opacity-20 blur-xl group-hover:opacity-40 transition duration-500" />
+            
+            <div className="relative aspect-video sm:aspect-[4/3] w-full rounded-3xl border border-white/20 bg-black/40 p-3 backdrop-blur-md shadow-2xl overflow-hidden">
+              <div className="h-full w-full rounded-2xl overflow-hidden border border-white/20 shadow-inner relative">
                 <img
                   src={images[currentImage]}
-                  alt="Real estate visual"
-                  // Added cinematic subtle scaling transition classes here
+                  alt="Real Estate Operation"
                   className="w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 group-hover:scale-100"
                 />
               </div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 hidden lg:block">
-              <Badge label="+200 clients" />
+
+              {/* Floating Badge Anchor */}
+              <div className="absolute bottom-6 left-6 z-10">
+                <div className="inline-flex items-center gap-2 rounded-full border border-red-200/50 bg-white/95 px-3.5 py-1.5 shadow-lg backdrop-blur-md">
+                  <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-xs font-black text-gray-900">+200 Active Clients</span>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -674,90 +682,153 @@ function Features() {
     </section>
   );
 }
-
 function Steps() {
+  const [activeStep, setActiveStep] = useState<number | null>(null);
+
   const steps = [
     {
-      label: "Phase One",
+      phase: "Phase One",
+      timeframe: "Day 1",
       title: "Discovery Call",
-      desc: "We understand your market, buy box, systems, and deal volume targets.",
+      desc: "We analyze your market, target buy box, CRM setup, and deal volume goals to establish baseline parameters.",
+      deliverable: "Custom Onboarding Roadmap",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+      )
     },
     {
-      label: "Phase Two",
+      phase: "Phase Two",
+      timeframe: "Days 2–4",
       title: "Custom DFU-VA Setup",
-      desc: "We build scripts, lead criteria, and workflows tailored to your acquisitions process.",
+      desc: "We build custom scripts, lead qualification criteria, and automated workflow triggers tailored specifically to your acquisitions process.",
+      deliverable: "Scripting & Screening Matrix",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <polyline points="16 18 22 12 16 6" />
+          <polyline points="8 6 2 12 8 18" />
+        </svg>
+      )
     },
     {
-      label: "Phase Three",
+      phase: "Phase Three",
+      timeframe: "Day 5",
       title: "Launch & Integration",
-      desc: "Your VA plugs into your CRM, starts outreach, and routes only qualified opportunities.",
+      desc: "Your dedicated VA plugs into your CRM, initiates live phone and SMS outreach, and routes hot seller leads directly to your calendar.",
+      deliverable: "Live Campaign Activation",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+      )
     },
     {
-      label: "Phase Four",
+      phase: "Phase Four",
+      timeframe: "Ongoing",
       title: "Optimize & Scale",
-      desc: "We monitor performance, refine targeting, and scale your VA team as your pipeline grows.",
+      desc: "We audit daily call recordings, track contact-to-lead conversion metrics, refine list targeting, and expand your VA team as deal volume grows.",
+      deliverable: "Weekly KPI & Growth Audit",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+      )
     },
   ];
 
   return (
-    <section id="how-it-works" className="py-24 bg-gradient-to-b from-white via-red-50/30 to-white border-y border-red-100/40 relative overflow-hidden">
-      {/* Background Ambient Glow Layer */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[350px] bg-gradient-to-r from-red-500/[0.03] via-transparent to-red-500/[0.03] blur-3xl pointer-events-none" />
+    <section id="how-it-works" className="py-20 sm:py-28 bg-gradient-to-b from-white via-red-50/20 to-zinc-50 border-y border-red-100/50 relative overflow-hidden">
+      
+      {/* Background Radial Lights */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] sm:w-[1200px] h-[350px] bg-gradient-to-r from-red-500/5 via-red-600/5 to-transparent blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Modernized Section Header */}
-        <div className="text-center mb-20">
-          <span className="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-sm">
-            Onboarding Timeline
+        {/* Section Header */}
+        <div className="text-center mb-16 sm:mb-20">
+          <span className="text-[10px] sm:text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-sm inline-block">
+            Rapid Deployment Timeline
           </span>
-          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
+          <h2 className="mt-3 sm:mt-4 text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
             How DFU-VA Works
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            A clear, done-for-you process that turns cold data into qualified, motivated seller leads.
+          <p className="mt-3 text-xs sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            A seamless 5-day onboarding protocol designed to transition raw marketing data into live, highly qualified seller opportunities.
           </p>
         </div>
 
-        {/* Timeline Grid Track */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative items-stretch">
+        {/* Timeline Grid Container */}
+        <div className="relative">
           
-          {/* Connecting Vector Progress Track (Desktop Viewports Only) */}
-          <div className="hidden lg:block absolute top-[44px] left-[12%] right-[12%] h-[2px] bg-gradient-to-r from-red-200/60 via-red-300 to-red-200/20 z-0 pointer-events-none" />
+          {/* Desktop Connecting Vector Progress Line */}
+          <div className="hidden lg:block absolute top-[48px] left-[10%] right-[10%] h-[3px] bg-gradient-to-r from-red-200 via-red-400 to-red-200 z-0 pointer-events-none rounded-full" />
 
-          {steps.map((step, index) => (
-            <div
-              key={step.label}
-              className="group relative flex flex-col justify-between h-full rounded-3xl bg-zinc-50/40 hover:bg-white border border-gray-200/60 hover:border-red-200/80 px-6 py-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 z-10"
-            >
-              <div>
-                {/* Visual Header Row */}
-                <div className="flex items-center justify-between gap-2 mb-6">
-                  <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-red-900 to-red-700 text-white text-sm font-mono font-black shadow-md shadow-red-900/10 group-hover:scale-110 transition-transform duration-300">
-                    0{index + 1}
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-red-600 bg-red-50/80 border border-red-100 px-2.5 py-1 rounded-md">
-                    {step.label}
-                  </span>
+          {/* 4-Step Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative z-10 items-stretch">
+            {steps.map((step, index) => {
+              const isHovered = activeStep === index;
+
+              return (
+                <div
+                  key={step.phase}
+                  onMouseEnter={() => setActiveStep(index)}
+                  onMouseLeave={() => setActiveStep(null)}
+                  className="h-full flex"
+                >
+                  <GlowTiltCard>
+                    <div className="flex flex-col justify-between h-full min-h-[280px] w-full p-2">
+                      
+                      <div>
+                        {/* Top Step Row: Badge Number + Timeframe Pill */}
+                        <div className="flex items-center justify-between mb-6">
+                          <div className={`h-11 w-11 flex items-center justify-center rounded-2xl font-mono font-black text-sm transition-all duration-300 shadow-md ${
+                            isHovered 
+                              ? "bg-red-600 text-white scale-110 shadow-red-600/30" 
+                              : "bg-gradient-to-br from-red-950 to-red-900 text-white"
+                          }`}>
+                            0{index + 1}
+                          </div>
+
+                          <div className="flex flex-col items-end">
+                            <span className="text-[10px] font-extrabold uppercase tracking-widest text-red-600 bg-red-50 border border-red-100 px-2.5 py-0.5 rounded-md">
+                              {step.phase}
+                            </span>
+                            <span className="text-[10px] font-mono text-gray-400 mt-1">
+                              {step.timeframe}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Title & Description */}
+                        <h3 className="text-lg font-extrabold text-gray-900 tracking-tight mb-2.5 group-hover:text-red-700 transition-colors duration-300">
+                          {step.title}
+                        </h3>
+
+                        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                          {step.desc}
+                        </p>
+                      </div>
+
+                      {/* Footer Deliverable Pill */}
+                      <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Milestone</span>
+                        <span className="text-xs font-bold text-red-700 bg-red-50/80 border border-red-100 px-2.5 py-1 rounded-lg">
+                          {step.deliverable}
+                        </span>
+                      </div>
+
+                    </div>
+                  </GlowTiltCard>
                 </div>
+              );
+            })}
+          </div>
 
-                {/* Typography Block */}
-                <h3 className="text-lg font-extrabold text-gray-900 tracking-tight mb-3 transition-colors duration-300 group-hover:text-red-700">
-                  {step.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-
-              {/* Card Footer Structural Accent Anchor */}
-              <div className="mt-6 pt-4 border-t border-gray-100 flex justify-end">
-                <div className="h-1.5 w-1.5 rounded-full bg-gray-300 group-hover:bg-red-500 transition-colors duration-300" />
-              </div>
-            </div>
-          ))}
         </div>
-        
+
       </div>
     </section>
   );
