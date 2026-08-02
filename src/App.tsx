@@ -538,7 +538,10 @@ function Features() {
   const features = [
     {
       title: "Lead Qualification",
-      desc: "VAs pre-screen every seller lead to ensure motivation, property details, and deal readiness before passing them to you.",
+      tagline: "4-Pillars Screening",
+      desc: "VAs pre-screen every seller lead to verify Motivation, Property Condition, Timeline, and Price before pushing opportunities to your pipeline.",
+      metric: "100% Verified",
+      highlights: ["Motivation Checks", "Property Condition", "Timeline Mapping"],
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
           <circle cx="12" cy="12" r="10" />
@@ -549,20 +552,25 @@ function Features() {
     },
     {
       title: "CRM & Follow-up Management",
-      desc: "We handle your CRM, update statuses, schedule callbacks, and maintain consistent follow-ups.",
+      tagline: "Zero Lead Leakage",
+      desc: "Full CRM pipeline hygiene. We handle contact statuses, execute multi-touch follow-up sequences, and schedule callbacks directly in your tech stack.",
+      metric: "Real-time Sync",
+      highlights: ["Podio / Salesforce", "Callback Automation", "Pipeline Hygiene"],
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
           <polyline points="14 2 14 8 20 8" />
           <line x1="16" y1="13" x2="8" y2="13" />
           <line x1="16" y1="17" x2="8" y2="17" />
-          <polyline points="10 9 9 9 8 9" />
         </svg>
       ),
     },
     {
       title: "Cold Calling & Outreach",
-      desc: "Your dedicated VA uses proven scripts to engage leads via phone, SMS, and email for maximum conversion.",
+      tagline: "High-Volume Conversion",
+      desc: "Dedicated, accent-neutral cold callers using proven script frameworks to engage sellers across Phone, SMS, and email campaigns for maximum response.",
+      metric: "High Contact Rate",
+      highlights: ["Objection Handling", "Proven Scripting", "Omnichannel Reach"],
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -570,8 +578,11 @@ function Features() {
       ),
     },
     {
-      title: "Data & Reporting",
-      desc: "Daily performance reports and lead summaries so you always know what’s working.",
+      title: "Data & KPI Reporting",
+      tagline: "Executive Visibility",
+      desc: "Transparent operational metrics. Receive daily call logs, connection ratios, conversion metrics, and lead summaries directly to your dashboard.",
+      metric: "Daily Dashboards",
+      highlights: ["KPI Tracking", "Quality Audits", "Daily Lead Summaries"],
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
           <line x1="18" y1="20" x2="18" y2="10" />
@@ -583,45 +594,78 @@ function Features() {
   ];
 
   return (
-    <section id="features" className="py-24 bg-gradient-to-b from-zinc-50/80 via-[#FFF5F5]/40 to-white border-t border-red-100/40">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="features" className="py-16 sm:py-24 bg-gradient-to-b from-zinc-950 via-zinc-900 to-black text-white relative overflow-hidden border-y border-red-900/30">
+      
+      {/* Background Ambient Spotlight Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-red-800/10 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Modernized Section Header */}
-        <div className="text-center mb-16">
-          <span className="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-sm">
+        {/* Modern Presentation Header */}
+        <div className="text-center mb-12 sm:mb-20">
+          <span className="text-[10px] sm:text-xs font-extrabold text-red-400 uppercase tracking-widest bg-red-950/80 border border-red-800/60 px-4 py-1.5 rounded-full shadow-inner">
             Core Capabilities
           </span>
-          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
+          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-white tracking-tight">
             Why DFU-VA Works
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Our real estate virtual assistants handle the heavy lifting — from
-            lead generation to follow-ups — so you can focus strictly on closing deals.
+          <p className="mt-3 text-sm sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Our real estate virtual assistants handle the heavy lifting — from lead generation to follow-ups — so you can focus strictly on closing deals.
           </p>
         </div>
 
-        {/* 3D Interactive Tilt & Glow Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {features.map((f) => (
-            <div key={f.title} className="h-full">
-              <GlowTiltCard>
-                <div className="flex flex-col justify-between h-full p-2 min-h-[240px]">
-                  <div>
-                    {/* Premium Animated Icon Container */}
-                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-50 via-white to-red-100/80 flex items-center justify-center text-red-600 border border-red-200/60 shadow-sm mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-red-600 group-hover:text-white group-hover:shadow-red-500/20 group-hover:shadow-lg">
-                      {f.icon}
-                    </div>
-                    
-                    <h3 className="text-lg font-extrabold text-gray-900 mb-2.5 tracking-tight transition-colors duration-300 group-hover:text-red-700">
-                      {f.title}
-                    </h3>
-                    
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                      {f.desc}
-                    </p>
+        {/* 2x2 High-Tech Presentation Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          {features.map((f, idx) => (
+            <div 
+              key={f.title}
+              className="group relative bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-red-600/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-xl flex flex-col justify-between overflow-hidden"
+            >
+              {/* Subtle Card Corner Highlight */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+              <div>
+                {/* Card Header Row */}
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  {/* Glowing Icon Container */}
+                  <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-900/80 to-red-950 text-red-400 border border-red-700/50 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:text-white group-hover:bg-red-600 transition-all duration-300">
+                    {f.icon}
                   </div>
+
+                  {/* Operational Tag */}
+                  <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-3 py-1 rounded-full uppercase tracking-wider">
+                    ● {f.metric}
+                  </span>
                 </div>
-              </GlowTiltCard>
+
+                {/* Title & Tagline */}
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-red-400 block mb-1">
+                  0{idx + 1}. {f.tagline}
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-3 group-hover:text-red-300 transition-colors">
+                  {f.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed mb-6">
+                  {f.desc}
+                </p>
+              </div>
+
+              {/* Deliverable Micro-Pills */}
+              <div className="pt-4 border-t border-zinc-800/80 flex flex-wrap gap-2 items-center">
+                {f.highlights.map((item, hIdx) => (
+                  <span 
+                    key={hIdx}
+                    className="text-[11px] font-medium text-gray-300 bg-zinc-950 border border-zinc-800 px-2.5 py-1 rounded-lg flex items-center gap-1.5"
+                  >
+                    <span className="h-1 w-1 rounded-full bg-red-500" />
+                    {item}
+                  </span>
+                ))}
+              </div>
+
             </div>
           ))}
         </div>
