@@ -1728,72 +1728,145 @@ function GlowTiltCard({ children }: { children: React.ReactNode }) {
 }
 
 
-
 function LogoTicker() {
-  const logos = [
+  const tools = [
     {
-      name: "Podio",
-      icon: (
-        <svg viewBox="0 0 512 120" className="h-6 w-auto text-[#11BF00]">
-          {/* Progress Podio Logo Asset */}
-          <path fill="currentColor" d="M95.52,29.33h0v51a3.93,3.93,0,0,1-1.78,3.08l-1.67,1L79.35,91.76l-8.59,5-1.78,1V42.6L21.23,15,43.91,1.93,46,0.74a3.94,3.94,0,0,1,3.56,0L81,18.9l14.51,8.38v2.05ZM58.36,48.72l-9.79-5.66L25.66,29.83a4,4,0,0,0-3.56,0L1.77,41.57,0,42.6,34.49,62.51v39.83l20.3-11.73,1.79-1a3.94,3.94,0,0,0,1.78-3.08V48.72ZM0,82.43L23.86,96.21V68.63Z" />
-          <path fill="currentColor" d="M148.09,27.28h-26V97.76h11.55V70.1h14.57c15.77,0,24.45-7.7,24.45-21.69,0-6.35-2.4-21.12-24.55-21.12M160.89,48.6c0,7.95-4.12,11.19-14.24,11.19h-13V37.69h14.57c8.56,0,12.71,3.57,12.71,10.91M207,46.41l0.87,0.42-2,10.42-1.35-.42a11.32,11.32,0,0,0-3.34-.51c-10.79,0-11.67,8.59-11.67,19V97.76H178.87V46h10v6.24c2.73-4.2,6-6.37,10.37-6.9A14.55,14.55,0,0,1,207,46.41M233.29,45c-8.42,0-15.16,3.2-19.5,9.27-4.56,6.37-5.23,13.85-5.23,17.74,0,16.36,9.7,26.92,24.73,26.92,18.26,0,24.73-14.71,24.73-27.3,0-7.25-2.15-13.82-6-18.51-4.41-5.31-10.87-8.12-18.7-8.12m0,44.38c-8.37,0-13.57-6.66-13.57-17.37s5.2-17.55,13.57-17.55S247,61.23,247,71.78c0,10.83-5.24,17.56-13.66,17.56M347.89,46.41l0.87,0.42-2,10.42-1.35-.42a11.26,11.26,0,0,0-3.33-.51c-10.78,0-11.66,8.59-11.66,19V97.76H319.76V46h10v6.24c2.73-4.2,6-6.37,10.37-6.9a14.54,14.54,0,0,1,7.73,1.06m38.4,34.76-0.2.57c-2.23,6.36-7.57,7.7-11.65,7.7-8.09,0-13.3-5.37-13.81-14.09h36.59l0.13-1a31.26,31.26,0,0,0,.12-4.12c0-.34,0-0.64,0-0.93C396.93,54.78,387.48,45,374,45c-7.9,0-14.37,3.1-18.73,9a30.85,30.85,0,0,0-5.54,18c0,16,9.95,26.74,24.74,26.74,11.45,0,19.33-5.82,22.2-16.38L397,81.16h-10.7ZM361,66.05c0.9-7.17,5.81-11.73,12.79-11.73,5.33,0,11.64,3.1,12.52,11.73H361Zm-60.7-15.71c-3.45-3.58-8.06-5.39-13.76-5.39-15.69,0-22.83,13.81-22.83,26.63,0,13.16,7.06,26.44,22.83,26.44a18.33,18.33,0,0,0,13.35-5.42c0,2.28-.1,4.45-0.16,5.38-0.58,8.54-4.68,12.51-12.91,12.51-4.47,0-9.61-1.59-10.6-6l-0.22-1H265.46l0.17,1.41c1.1,9.12,9.11,14.79,20.9,14.79,10.34,0,17.7-3.9,21.28-11.26,1.73-3.55,2.6-8.72,2.6-15.37V46H300.28v4.34ZM287.19,88.49c-3.74,0-12.43-1.69-12.43-17.37,0-10.3,4.87-16.7,12.71-16.7,6.06,0,12.52,4.39,12.52,16.7,0,10.87-4.79,17.37-12.81,17.37m159.67-6.31c0,8.23-6.83,16.53-22.09,16.53-13.5,0-21.53-5.85-22.61-16.45L402,81.16h10.52L412.73,82c1.29,6.38,7.37,7.72,12.24,7.72,5.34,0,11-1.72,11-6.54,0-2.44-1.59-4.18-4.73-5.16-1.86-.55-4.15-1.2-6.56-1.87-4.16-1.16-8.47-2.38-11.12-3.29-6.56-2.35-10.33-6.93-10.33-12.56,0-10.43,10.16-15.11,20.22-15.11,13.46,0,20.42,5.07,21.3,15.49l0.09,1.07H434.5l-0.14-.82c-1-6-7-6.9-10.48-6.9-3,0-10,.53-10,5.5,0,2.25,1.93,3.91,5.89,5.06,1.18,0.33,2.94.78,5,1.31,4.22,1.09,9.48,2.46,12.13,3.37,6.59,2.32,9.93,6.67,9.93,13m49.39,0c0,8.23-6.83,16.53-22.09,16.53-13.5,0-21.53-5.85-22.61-16.45l-0.11-1.09H462L462.12,82c1.29,6.38,7.37,7.72,12.24,7.72,5.34,0,11-1.72,11-6.54,0-2.44-1.59-4.18-4.72-5.16-1.86-.55-4.15-1.2-6.57-1.87-4.16-1.16-8.46-2.38-11.11-3.29-6.57-2.35-10.33-6.93-10.33-12.56,0-10.43,10.16-15.11,20.22-15.11,13.46,0,20.42,5.07,21.29,15.49l0.09,1.07H483.9l-0.14-.82c-1-6-7-6.9-10.48-6.9-3,0-9.95.53-9.95,5.5,0,2.25,1.93,3.91,5.89,5.06,1.18,0.33,2.94.78,5,1.31,4.22,1.09,9.48,2.46,12.13,3.37,6.58,2.32,9.93,6.67,9.93,13" />
-        </svg>
-      ),
+      name: "Smarter Contact",
+      render: () => (
+        <div className="flex items-center gap-1 font-sans">
+          <span className="text-gray-700 font-light text-xl tracking-tight">smarter</span>
+          <span className="bg-[#007BFF] text-white px-3 py-1 rounded-full text-lg font-normal tracking-wide">contact</span>
+        </div>
+      )
     },
     {
-      name: "Salesforce",
-      icon: (
-        <svg viewBox="0 0 42.16 29.53" className="h-7 w-auto text-[#00A1E0]">
-          {/* Salesforce Cloud Asset */}
-          <path fill="currentColor" d="M41.05,15.11a5.92,5.92,0,0,0-6.72-5.84,9.33,9.33,0,0,0-17.51-2.9,7.4,7.4,0,0,0-12.07,5A6.33,6.33,0,0,0,5,24.12H36.31a5.83,5.83,0,0,0,4.74-9Z"/>
-        </svg>
-      ),
+      name: "ReadyMode",
+      render: () => (
+        <div className="flex items-center gap-2 font-sans bg-[#021E39] px-4 py-1.5 rounded-xl">
+          <div className="h-5 w-5 rounded-full border-2 border-white flex items-center justify-center">
+            <div className="h-2 w-2 rounded-full border border-white" />
+          </div>
+          <span className="text-white font-extrabold text-lg tracking-tight">readymode</span>
+        </div>
+      )
+    },
+    {
+      name: "CallTools",
+      render: () => (
+        <div className="flex items-center gap-2 font-sans">
+          <div className="border-2 border-[#12344D] p-1 rounded-lg relative">
+            <span className="text-xs">📞</span>
+          </div>
+          <span className="text-[#12344D] font-bold text-xl tracking-tighter">calltools<span className="text-xs font-semibold">.com</span></span>
+        </div>
+      )
+    },
+    {
+      name: "Airtable",
+      render: () => (
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Airtable_Logo.svg" 
+          alt="Airtable" 
+          className="h-6 w-auto object-contain"
+        />
+      )
+    },
+    {
+      name: "Zapier",
+      render: () => (
+        <div className="flex items-center gap-1.5 font-sans">
+          <span className="w-5 h-1.5 bg-[#FF4A00] rounded-xs inline-block" />
+          <span className="text-[#221F1F] font-black text-2xl tracking-tighter">zapier</span>
+        </div>
+      )
+    },
+    {
+      name: "Asana",
+      render: () => (
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Asana_logo.svg" 
+          alt="Asana" 
+          className="h-6 w-auto object-contain"
+        />
+      )
+    },
+    {
+      name: "Progress Podio",
+      render: () => (
+        <div className="flex items-center gap-1.5 font-sans">
+          <span className="text-lime-500 font-black text-xl">❯❯</span>
+          <span className="text-gray-600 font-semibold text-lg">Progress®</span>
+          <span className="text-gray-900 font-bold text-xl">Podio®</span>
+        </div>
+      )
     },
     {
       name: "HubSpot",
-      icon: (
-        <svg viewBox="0 0 1255.82 355.99" className="h-6 w-auto text-[#FF4800]">
-          {/* HubSpot Asset Source */}
-          <g fill="currentColor">
-            <polygon points="136.01 201.48 43.79 201.48 43.79 298.62 0 298.62 0 58.93 43.79 58.93 43.79 159.35 136.01 159.35 136.01 58.93 179.79 58.93 179.79 298.62 136.01 298.62 136.01 201.48"/>
-            <path d="M319.91,221.14c0,19.96-16.26,36.21-36.22,36.21s-36.21-16.24-36.21-36.21v-102.66h-41.47v102.66c0,42.83,34.85,77.67,77.68,77.67s77.67-34.84,77.67-77.67v-102.66h-41.45v102.66Z"/>
-            <path d="M627.6,129.05c0-21.05,13.93-27.72,29.18-27.72,12.28,0,28.53,9.35,39.14,20.71l27.19-32.06c-13.59-18.36-41.12-31.05-63.67-31.05-45.12,0-77.63,26.38-77.63,70.13,0,81.14,99.19,55.42,99.19,100.84,0,14.01-13.6,26.37-29.18,26.37-24.55,0-32.52-12.02-43.79-24.71l-30.19,31.38c19.25,23.71,43.13,35.74,71.66,35.74,42.79,0,77.29-26.71,77.29-68.46,0-90.15-99.18-62.1-99.18-101.16Z"/>
-            <path d="M1241.21,260.33c-24.54,0-31.5-10.61-31.5-26.87v-71.98h38.14v-36.48h-38.14v-48.1l-42.12,18.91v146.62c0,37.49,25.86,56.4,61.34,56.4,5.31,0,12.61-.34,16.6-1.33l10.29-37.81c-4.64.32-9.95.65-14.61.65Z"/>
-            <path d="M477.96,119.68c-20.57,0-34.92,5.97-48.79,19.58V60.36h-41.6v146.23c0,54.73,39.57,92.22,84.04,92.22,49.43,0,92.73-38.15,92.73-89.56s-39.93-89.57-86.38-89.57W477.7,256.95c-26.06,0-47.18-21.12-47.18-47.18s21.12-47.18,47.18-47.18,47.18,21.12,47.18,47.18-21.12,47.18-47.18,47.18Z"/>
-            <path d="M929.59,207.09c0-51.41-43.31-89.56-92.73-89.56-44.46,0-84.04,37.49-84.04,92.22v146.23h41.6v-78.91c13.87,13.61,28.22,19.58,48.79,19.58,46.45,0,86.38-38.81,86.38-89.57W890.13,206.58c0,26.06-21.12,47.18-47.18,47.18s-47.18-21.12-47.18-47.18,21.12-47.18,47.18-47.18,47.18,21.12,47.18,47.18Z"/>
-            <path d="M1064.01,115.52v-41.79c10.91-5.15,18.55-16.19,18.55-28.99v-.97c0-17.67-14.46-32.13-32.13-32.13h-.96c-17.67,0-32.13,14.46-32.13,32.13v.97c0,12.81,7.64,23.84,18.55,28.99v41.79c-16.24,2.51-31.08,9.21-43.32,19.06l-114.73-89.25c.75-2.91,1.28-5.9,1.29-9.04C879.14,16.27,862.94,.03,842.92,0c-20.02-.03-36.26,16.18-36.29,36.2-.02,20.02,16.18,36.26,36.2,36.29,6.52,0,12.56-1.84,17.85-4.85l112.86,87.79c-9.6,14.49-15.22,31.84-15.22,50.52s6.18,37.65,16.62,52.53l-34.32,34.32c-2.71-.81-5.53-1.38-8.51-1.38-16.45,0-29.78,13.33-29.78,29.78s13.34,29.78,29.78,29.78,29.78-13.33,29.78-29.78c0-2.98-.57-5.8-1.38-8.51l33.95-33.95c15.41,11.76,34.6,18.83,55.49,18.83,50.6,0,91.62-41.02,91.62-91.62,0-45.81-33.65-83.65-77.56-90.43W1049.94,252.92c-25.94,0-46.98-21.03-46.98-46.97s21.03-46.97,46.98-46.97,46.97,21.03,46.97,46.97-21.03,46.97-46.97,46.97Z"/>
-          </g>
-        </svg>
-      ),
+      render: () => (
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/3/3f/HubSpot_Logo.svg" 
+          alt="HubSpot" 
+          className="h-7 w-auto object-contain"
+        />
+      )
     },
+    {
+      name: "Salesforce",
+      render: () => (
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" 
+          alt="Salesforce" 
+          className="h-8 w-auto object-contain"
+        />
+      )
+    }
   ];
 
-  const tickerItems = [...logos, ...logos, ...logos, ...logos, ...logos];
+  const tickerItems = [...tools, ...tools, ...tools];
 
   return (
-    <section className="py-10 bg-zinc-50 overflow-hidden relative border-b border-gray-200/40">
-      {/* Edge Blur Overlays */}
-      <div className="absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-zinc-50 via-zinc-50/70 to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-zinc-50 via-zinc-50/70 to-transparent z-10 pointer-events-none" />
+    <section className="py-8 bg-zinc-50/80 border-y border-red-100/50 overflow-hidden relative">
+      <style>{`
+        @keyframes inlineMarquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+        .animate-marquee-track {
+          display: flex;
+          width: max-content;
+          animation: inlineMarquee 30s linear infinite;
+        }
+        .animate-marquee-track:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
 
-      {/* Track */}
-      <div className="flex overflow-hidden width-full hover-pause select-none items-center">
-        <div className="flex gap-20 sm:gap-32 whitespace-nowrap animate-marquee items-center">
-          {tickerItems.map((logo, idx) => (
-            <div 
-              key={idx} 
-              className="h-14 px-8 rounded-xl bg-white flex items-center justify-center border border-gray-200/50 shadow-sm transition-all duration-300 hover:scale-105 hover:border-red-200 hover:shadow-md"
-            >
-              {logo.icon}
+      {/* Side Fade Overlays */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-zinc-50 to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-zinc-50 to-transparent z-10 pointer-events-none" />
+
+      {/* Header Tag */}
+      <div className="max-w-7xl mx-auto px-4 mb-6 text-center">
+        <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-100 px-3.5 py-1.5 rounded-full shadow-2xs">
+          Native CRM, Dialer & Automation Stack
+        </span>
+      </div>
+
+      {/* Marquee Track */}
+      <div className="animate-marquee-track gap-6 sm:gap-8 items-center">
+        {tickerItems.map((item, index) => (
+          <div
+            key={`${item.name}-${index}`}
+            className="flex items-center justify-center bg-white border border-gray-200/80 px-6 py-3 rounded-2xl shadow-xs hover:shadow-md hover:border-red-200 transition-all duration-300 flex-shrink-0 group cursor-default h-14"
+          >
+            <div className="flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              {item.render()}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );
-
-
 }
 
 
