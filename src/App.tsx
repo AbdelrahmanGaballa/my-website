@@ -238,14 +238,30 @@ export default function App() {
           <>
             <div id="home-top" />
             <Hero onGetStarted={() => setActive("features")} />
-            <ScrollReveal>
+     <ScrollReveal>
               <StatsStrip />
             </ScrollReveal>
 
             <ScrollReveal>
-        <LogoTicker />
-      </ScrollReveal>
+              <LogoTicker />
+            </ScrollReveal>
 
+            {/* 1. HOW IT WORKS / STEPS */}
+            <ScrollReveal>
+              <Steps />
+            </ScrollReveal>
+
+            {/* 2. PRICING */}
+            <ScrollReveal>
+              <Pricing />
+            </ScrollReveal>
+
+            {/* 3. PROOF & REVIEWS */}
+            <ScrollReveal>
+              <Reviews />
+            </ScrollReveal>
+
+            {/* 4. NEW HIGH-TECH SECTION (FEATURES, PIPELINE & ROI) */}
             <ScrollReveal>
               <Features />
             </ScrollReveal>
@@ -253,26 +269,17 @@ export default function App() {
             <ScrollReveal>
               <PipelineVisualizer />
             </ScrollReveal>
+
             <ScrollReveal>
               <RoiCalculator />
             </ScrollReveal>
-            
-            <ScrollReveal>
-              <Steps />
-            </ScrollReveal>
-            
-            <ScrollReveal>
-              <Pricing />
-            </ScrollReveal>
-            
-            <ScrollReveal>
-              <Reviews />
-            </ScrollReveal>
-            
+
+            {/* 5. BOOK A CALL */}
             <ScrollReveal>
               <BookCall />
             </ScrollReveal>
-            
+
+            {/* 6. FAQ */}
             <ScrollReveal>
               <FAQ />
             </ScrollReveal>
@@ -587,11 +594,11 @@ function StatsStrip() {
 function Features() {
   const features = [
     {
+      id: "qual",
       title: "Lead Qualification",
-      tagline: "4-Pillars Screening",
-      desc: "VAs pre-screen every seller lead to verify Motivation, Property Condition, Timeline, and Price before pushing opportunities to your pipeline.",
-      metric: "100% Verified",
-      highlights: ["Motivation Checks", "Property Condition", "Timeline Mapping"],
+      badge: "4-Pillar Vetting",
+      desc: "VAs pre-screen every seller lead against Motivation, Timeline, Property Condition, and Price expectations before passing them to your acquisitions team.",
+      highlight: "Filter out 95%+ of unmotivated sellers",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
           <circle cx="12" cy="12" r="10" />
@@ -599,40 +606,65 @@ function Features() {
           <circle cx="12" cy="12" r="2" />
         </svg>
       ),
+      widget: (
+        <div className="mt-4 p-3.5 rounded-xl bg-red-50/80 border border-red-100 text-gray-900 text-xs space-y-1.5 font-mono shadow-inner">
+          <div className="flex items-center justify-between text-[11px] text-gray-700">
+            <span className="font-bold">Motivated Seller Checklist</span>
+            <span className="text-emerald-600 font-extrabold">100% Passed</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-600 text-[11px]">
+            <span className="text-emerald-600 font-bold">✓</span> Property Distressed & Equity Verified
+          </div>
+        </div>
+      )
     },
     {
-      title: "CRM & Follow-up Management",
-      tagline: "Zero Lead Leakage",
-      desc: "Full CRM pipeline hygiene. We handle contact statuses, execute multi-touch follow-up sequences, and schedule callbacks directly in your tech stack.",
-      metric: "Real-time Sync",
-      highlights: ["Podio / Salesforce", "Callback Automation", "Pipeline Hygiene"],
+      id: "crm",
+      title: "CRM & Pipeline Management",
+      badge: "98% Data Accuracy",
+      desc: "We handle your Podio, Salesforce, or HubSpot CRM—updating lead stages, setting callback reminders, and keeping clean audit logs in real time.",
+      highlight: "Zero dropped opportunities",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
           <polyline points="14 2 14 8 20 8" />
           <line x1="16" y1="13" x2="8" y2="13" />
           <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
         </svg>
       ),
+      widget: null
     },
     {
+      id: "call",
       title: "Cold Calling & Outreach",
-      tagline: "High-Volume Conversion",
-      desc: "Dedicated, accent-neutral cold callers using proven script frameworks to engage sellers across Phone, SMS, and email campaigns for maximum response.",
-      metric: "High Contact Rate",
-      highlights: ["Objection Handling", "Proven Scripting", "Omnichannel Reach"],
+      badge: "High-Volume Dialing",
+      desc: "Dedicated VAs execute battle-tested scripts across phone, SMS, and email to consistently convert cold list records into active conversations.",
+      highlight: "Live appointment booking",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
         </svg>
       ),
+      widget: (
+        <div className="mt-4 p-3.5 rounded-xl bg-zinc-50 border border-gray-200 text-gray-900 text-xs flex items-center justify-between shadow-inner">
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
+            </span>
+            <span className="font-mono text-gray-700 text-[11px] font-medium">Active Campaign Dialing</span>
+          </div>
+          <span className="font-mono font-bold text-red-600 text-[11px]">100+ Dials/Day</span>
+        </div>
+      )
     },
     {
-      title: "Data & KPI Reporting",
-      tagline: "Executive Visibility",
-      desc: "Transparent operational metrics. Receive daily call logs, connection ratios, conversion metrics, and lead summaries directly to your dashboard.",
-      metric: "Daily Dashboards",
-      highlights: ["KPI Tracking", "Quality Audits", "Daily Lead Summaries"],
+      id: "data",
+      title: "Daily KPI Reporting",
+      badge: "Total Visibility",
+      desc: "Receive daily performance dashboards breaking down total dials, contact rates, qualified leads, and booked callbacks straight to your inbox.",
+      highlight: "Data-driven campaign scaling",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
           <line x1="18" y1="20" x2="18" y2="10" />
@@ -640,84 +672,80 @@ function Features() {
           <line x1="6" y1="20" x2="6" y2="14" />
         </svg>
       ),
+      widget: null
     },
   ];
 
   return (
-    <section id="features" className="py-16 sm:py-24 bg-gradient-to-b from-zinc-950 via-zinc-900 to-black text-white relative overflow-hidden border-y border-red-900/30">
+    <section id="features" className="py-20 sm:py-28 bg-gradient-to-b from-zinc-50 via-white to-zinc-50 border-t border-red-100/50 relative overflow-hidden">
       
-      {/* Background Ambient Spotlight Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-red-800/10 rounded-full blur-[100px] pointer-events-none" />
+      {/* Background Ambient Spotlight Effects */}
+      <div className="absolute top-1/4 left-10 w-96 h-96 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-red-800/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Modern Presentation Header */}
-        <div className="text-center mb-12 sm:mb-20">
-          <span className="text-[10px] sm:text-xs font-extrabold text-red-400 uppercase tracking-widest bg-red-950/80 border border-red-800/60 px-4 py-1.5 rounded-full shadow-inner">
-            Core Capabilities
+        {/* Section Typography Header */}
+        <div className="text-center mb-12 sm:mb-16">
+          <span className="text-[10px] sm:text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-sm inline-block">
+            Core Operational Capabilities
           </span>
-          <h2 className="mt-4 text-3xl sm:text-5xl font-black text-white tracking-tight">
+          <h2 className="mt-3 sm:mt-4 text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
             Why DFU-VA Works
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Our real estate virtual assistants handle the heavy lifting — from lead generation to follow-ups — so you can focus strictly on closing deals.
+          <p className="mt-3 text-xs sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Our specialized real estate virtual assistants handle the heavy lifting—from initial list prospecting to rigorous screening—so you focus strictly on signing contracts.
           </p>
         </div>
 
-        {/* 2x2 High-Tech Presentation Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
-          {features.map((f, idx) => (
-            <div 
-              key={f.title}
-              className="group relative bg-zinc-900/80 hover:bg-zinc-900 border border-zinc-800 hover:border-red-600/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-xl flex flex-col justify-between overflow-hidden"
-            >
-              {/* Subtle Card Corner Highlight */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        {/* Enhanced Interactive Bento Layout (White & Red Theme) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 items-stretch">
+          {features.map((f, idx) => {
+            const isWide = idx === 0 || idx === 2;
+            const colSpanClass = isWide ? "lg:col-span-7" : "lg:col-span-5";
 
-              <div>
-                {/* Card Header Row */}
-                <div className="flex items-center justify-between gap-4 mb-6">
-                  {/* Glowing Icon Container */}
-                  <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-900/80 to-red-950 text-red-400 border border-red-700/50 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:text-white group-hover:bg-red-600 transition-all duration-300">
-                    {f.icon}
+            return (
+              <div key={f.id} className={`${colSpanClass} flex`}>
+                <GlowTiltCard>
+                  <div className="flex flex-col justify-between h-full w-full min-h-[260px] p-2 bg-white rounded-2xl">
+                    
+                    <div>
+                      {/* Top Bar: Icon + Badge */}
+                      <div className="flex items-center justify-between mb-5">
+                        <div className="h-12 w-12 rounded-2xl bg-red-50 flex items-center justify-center text-red-600 border border-red-100 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white group-hover:shadow-red-500/20 group-hover:shadow-lg">
+                          {f.icon}
+                        </div>
+                        <span className="text-[10px] font-extrabold uppercase tracking-widest text-red-700 bg-red-50/90 border border-red-100 px-3 py-1 rounded-lg shadow-2xs">
+                          {f.badge}
+                        </span>
+                      </div>
+
+                      {/* Content */}
+                      <h3 className="text-xl font-extrabold text-gray-900 mb-2 tracking-tight group-hover:text-red-600 transition-colors duration-300">
+                        {f.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                        {f.desc}
+                      </p>
+
+                      {/* Interactive Live Widget */}
+                      {f.widget}
+                    </div>
+
+                    {/* Footer Metric Highlight */}
+                    <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs">
+                      <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Primary Outcome</span>
+                      <span className="font-bold text-red-700 bg-red-50 px-2.5 py-0.5 rounded-md border border-red-100">
+                        {f.highlight}
+                      </span>
+                    </div>
+
                   </div>
-
-                  {/* Operational Tag */}
-                  <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-3 py-1 rounded-full uppercase tracking-wider">
-                    ● {f.metric}
-                  </span>
-                </div>
-
-                {/* Title & Tagline */}
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-red-400 block mb-1">
-                  0{idx + 1}. {f.tagline}
-                </span>
-                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-3 group-hover:text-red-300 transition-colors">
-                  {f.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed mb-6">
-                  {f.desc}
-                </p>
+                </GlowTiltCard>
               </div>
-
-              {/* Deliverable Micro-Pills */}
-              <div className="pt-4 border-t border-zinc-800/80 flex flex-wrap gap-2 items-center">
-                {f.highlights.map((item, hIdx) => (
-                  <span 
-                    key={hIdx}
-                    className="text-[11px] font-medium text-gray-300 bg-zinc-950 border border-zinc-800 px-2.5 py-1 rounded-lg flex items-center gap-1.5"
-                  >
-                    <span className="h-1 w-1 rounded-full bg-red-500" />
-                    {item}
-                  </span>
-                ))}
-              </div>
-
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>
@@ -1769,7 +1797,6 @@ function LogoTicker() {
 }
 
 
-
 function PipelineVisualizer() {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -1812,27 +1839,29 @@ function PipelineVisualizer() {
   }, [pipelineStages.length]);
 
   return (
-    <section className="py-12 sm:py-20 bg-zinc-950 text-white border-y border-red-900/30 relative overflow-hidden">
-      {/* Background Ambient Glows */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="py-12 sm:py-20 bg-gradient-to-b from-white via-red-50/20 to-zinc-50 border-y border-red-100/60 relative overflow-hidden">
+      {/* Background Ambient Light Glows */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <span className="text-[10px] sm:text-xs font-bold text-red-400 uppercase tracking-widest bg-red-950/80 border border-red-800/50 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full shadow-inner">
+          <span className="text-[10px] sm:text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 border border-red-100 px-3.5 py-1.5 rounded-full shadow-sm">
             Enterprise Architecture
           </span>
-          <h2 className="mt-3 sm:mt-4 text-2xl sm:text-5xl font-black text-white tracking-tight">
+          <h2 className="mt-3 sm:mt-4 text-2xl sm:text-5xl font-black text-gray-900 tracking-tight">
             The DFU-VA Lead Pipeline Engine
           </h2>
-          <p className="mt-2 sm:mt-3 text-xs sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-2 sm:mt-3 text-xs sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
             How your dedicated Virtual Assistants transform raw marketing lists into live contract opportunities.
           </p>
         </div>
 
-        {/* Live Simulator Viewport */}
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch bg-zinc-900/90 border border-zinc-800 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl backdrop-blur-xl">
+        {/* Live Simulator Outer Box (Crisp White Card) */}
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch bg-white border border-gray-200/80 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl">
           
-          {/* Stage Selection List */}
+          {/* Left Column: Stage Selection List */}
           <div className="lg:col-span-5 space-y-2.5 sm:space-y-3">
             {pipelineStages.map((s, idx) => {
               const isActive = activeStep === idx;
@@ -1843,40 +1872,46 @@ function PipelineVisualizer() {
                   onClick={() => setActiveStep(idx)}
                   className={`w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl transition-all duration-300 border flex items-center justify-between gap-3 ${
                     isActive
-                      ? "bg-gradient-to-r from-red-950 to-red-900 border-red-600 text-white shadow-lg shadow-red-950/50"
-                      : "bg-zinc-950/50 border-zinc-800/80 text-gray-400 hover:border-zinc-700 hover:text-gray-200"
+                      ? "bg-gradient-to-r from-red-600 to-red-700 border-red-600 text-white shadow-lg shadow-red-600/30"
+                      : "bg-zinc-50/80 border-gray-200/70 text-gray-600 hover:border-red-200 hover:bg-red-50/50 hover:text-gray-900"
                   }`}
                 >
                   <div className="min-w-0 flex-1">
-                    <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-widest block truncate ${isActive ? "text-red-400" : "text-gray-500"}`}>
+                    <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-widest block truncate ${isActive ? "text-red-100" : "text-red-600"}`}>
                       {s.stage}
                     </span>
-                    <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block truncate">
+                    <span className={`text-xs sm:text-sm font-extrabold mt-0.5 block truncate ${isActive ? "text-white" : "text-gray-900"}`}>
                       {s.title}
                     </span>
                   </div>
-                  <div className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full flex-shrink-0 ${isActive ? "bg-red-500 animate-ping" : "bg-zinc-700"}`} />
+                  <div className={`h-2.5 w-2.5 rounded-full flex-shrink-0 ${isActive ? "bg-white animate-ping" : "bg-gray-300"}`} />
                 </button>
               );
             })}
           </div>
 
-          {/* Dynamic Interactive Stage Monitor Screen */}
-          <div className="lg:col-span-7 bg-zinc-950 border border-zinc-800 rounded-xl sm:rounded-2xl p-4 sm:p-8 relative flex flex-col justify-between shadow-inner gap-6">
+          {/* Right Column: Live Interactive Stage Monitor Screen (Clean Slate Card) */}
+          <div className="lg:col-span-7 bg-gradient-to-br from-zinc-900 via-zinc-950 to-red-950 border border-zinc-800 rounded-xl sm:rounded-2xl p-5 sm:p-8 relative flex flex-col justify-between shadow-2xl text-white gap-6">
+            
+            {/* Window Header Dots */}
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800/80 pb-3 sm:pb-4">
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-red-500" />
                 <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-amber-500" />
                 <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-emerald-500" />
-                <span className="text-[10px] sm:text-xs font-mono text-gray-500 ml-1 sm:ml-2">Pipeline_Monitor.sys</span>
+                <span className="text-[10px] sm:text-xs font-mono text-gray-400 ml-1 sm:ml-2">Pipeline_Monitor.sys</span>
               </div>
-              <span className="text-[10px] sm:text-xs font-bold text-emerald-400 bg-emerald-950/50 border border-emerald-800/40 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md">
+              <span className="text-[10px] sm:text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/40 px-2.5 py-0.5 rounded-md">
                 ● {pipelineStages[activeStep].status}
               </span>
             </div>
 
+            {/* Stage Title & Body */}
             <div className="space-y-2 sm:space-y-3">
-              <h3 className="text-lg sm:text-2xl font-black text-white tracking-tight">
+              <span className="text-[10px] font-mono text-red-400 uppercase tracking-widest font-bold block">
+                {pipelineStages[activeStep].stage}
+              </span>
+              <h3 className="text-xl sm:text-3xl font-black text-white tracking-tight">
                 {pipelineStages[activeStep].title}
               </h3>
               <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
@@ -1884,10 +1919,12 @@ function PipelineVisualizer() {
               </p>
             </div>
 
+            {/* Performance Metric Footer Strip */}
             <div className="pt-3 sm:pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-2">
-              <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider">Performance Metric</span>
+              <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider">Performance Benchmark</span>
               <span className="text-xs sm:text-sm font-black text-red-400 font-mono">{pipelineStages[activeStep].metric}</span>
             </div>
+
           </div>
 
         </div>
