@@ -267,6 +267,10 @@ export default function App() {
             </ScrollReveal>
 
             <ScrollReveal>
+            <BeforeAfterComparison />
+          </ScrollReveal>
+
+            <ScrollReveal>
               <PipelineVisualizer />
             </ScrollReveal>
 
@@ -2206,6 +2210,143 @@ function RoiCalculator() {
 
           </div>
 
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+
+function BeforeAfterComparison() {
+  const [activeTab, setActiveTab] = useState<"before" | "after">("after");
+
+  const comparisonData = [
+    {
+      category: "Cold Calling & Lead Sourcing",
+      before: "Owner or expensive US reps spend hours manually dialing cold lists with low contact rates.",
+      after: "Dedicated, trained VAs execute high-volume dialer outreach using battle-tested real estate scripts."
+    },
+    {
+      category: "Lead Screening & Qualification",
+      before: "Unscreened leads waste acquisitions time with unmotivated sellers and unrealistic price expectations.",
+      after: "Every lead is pre-vetted against the 4-Pillars (Motivation, Timeline, Condition, Price) before transfer."
+    },
+    {
+      category: "CRM & Data Management",
+      before: "Manual data entry leads to missing phone numbers, untracked callbacks, and lost deal opportunities.",
+      after: "Real-time CRM logging across Podio or ReadyMode with automated follow-up reminders."
+    },
+    {
+      category: "Management & Oversight",
+      before: "Hours lost daily creating scripts, auditing calls, monitoring activity, and managing high turnover.",
+      after: "Turnkey operational oversight with daily performance dashboard reports delivered straight to you."
+    },
+    {
+      category: "Scalability & Consistency",
+      before: "Unpredictable pipeline flow that stalls whenever marketing or prospecting takes a backseat.",
+      after: "A predictable, repeatable lead-generation engine running consistently in the background."
+    }
+  ];
+
+  return (
+    <section className="py-16 sm:py-24 bg-zinc-50 border-y border-red-100/60 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Header */}
+        <div className="text-center mb-10 sm:mb-14">
+          <span className="text-[10px] sm:text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-3.5 py-1.5 rounded-full border border-red-100 shadow-xs">
+            Operational Transformation
+          </span>
+          <h2 className="mt-3.5 text-2xl sm:text-5xl font-black text-gray-900 tracking-tight">
+            How DFU-VA Transforms Your Business
+          </h2>
+          <p className="mt-2.5 text-xs sm:text-base text-gray-600 max-w-2xl mx-auto">
+            Compare traditional in-house prospecting headaches with a fully managed virtual assistant deployment.
+          </p>
+        </div>
+
+        {/* Mobile View: Toggle Switch */}
+        <div className="flex sm:hidden justify-center mb-8">
+          <div className="bg-gray-200 p-1 rounded-xl flex gap-1 w-full max-w-xs">
+            <button
+              onClick={() => setActiveTab("before")}
+              className={`flex-1 py-2 text-xs font-extrabold rounded-lg transition-all ${
+                activeTab === "before" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500"
+              }`}
+            >
+              Traditional In-House
+            </button>
+            <button
+              onClick={() => setActiveTab("after")}
+              className={`flex-1 py-2 text-xs font-extrabold rounded-lg transition-all ${
+                activeTab === "after" ? "bg-red-600 text-white shadow-sm" : "text-gray-500"
+              }`}
+            >
+              With DFU-VA
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Cards (Toggled) */}
+        <div className="block sm:hidden space-y-4">
+          {comparisonData.map((item, idx) => (
+            <div key={idx} className="bg-white p-5 rounded-2xl border border-gray-200 shadow-xs">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 block mb-1">
+                {item.category}
+              </span>
+              {activeTab === "before" ? (
+                <div className="flex items-start gap-2.5 text-xs text-gray-700 mt-2">
+                  <span className="text-red-500 font-black text-sm">✕</span>
+                  <p>{item.before}</p>
+                </div>
+              ) : (
+                <div className="flex items-start gap-2.5 text-xs text-gray-900 font-medium mt-2">
+                  <span className="text-emerald-600 font-black text-sm">✓</span>
+                  <p>{item.after}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Clean Side-by-Side Table */}
+        <div className="hidden sm:block bg-white border border-gray-200/90 rounded-3xl shadow-xl overflow-hidden">
+          {/* Table Header */}
+          <div className="grid grid-cols-12 bg-gray-900 text-white font-extrabold text-xs tracking-wider uppercase p-5 border-b border-gray-800">
+            <div className="col-span-3 text-red-400">Operational Area</div>
+            <div className="col-span-4 text-gray-400 flex items-center gap-2">
+              <span className="text-red-500">✕</span> Traditional / In-House
+            </div>
+            <div className="col-span-5 text-emerald-400 flex items-center gap-2">
+              <span className="text-emerald-400">✓</span> With DFU-VA Deployment
+            </div>
+          </div>
+
+          {/* Table Rows */}
+          <div className="divide-y divide-gray-100">
+            {comparisonData.map((item, idx) => (
+              <div
+                key={idx}
+                className="grid grid-cols-12 p-5 items-center hover:bg-red-50/20 transition-colors duration-200 gap-4"
+              >
+                {/* Category Column */}
+                <div className="col-span-3 text-xs font-black text-gray-900 tracking-tight">
+                  {item.category}
+                </div>
+
+                {/* Before Column */}
+                <div className="col-span-4 text-xs text-gray-500 leading-relaxed pr-2">
+                  {item.before}
+                </div>
+
+                {/* After Column */}
+                <div className="col-span-5 text-xs font-medium text-gray-900 bg-red-50/50 p-3.5 rounded-xl border border-red-100/60 leading-relaxed">
+                  {item.after}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>
